@@ -1,0 +1,32 @@
+[
+    {
+        "Name": "Programs",
+        "Items": [
+            {
+                "Name": "Notepad",
+                "Path": "C:/Program Files/Notepad++",
+                "File": "notepad++.exe"
+            },
+            {
+                "Name": "Telegram",
+                "Path": "C:/Users/WinRAR/AppData/Roaming/Telegram Desktop",
+                "File": "Telegram.exe"
+            }
+        ]
+    },
+    {
+        "Name": "Games",
+        "Items": [
+            {
+                "Name": "OSU",
+                "Path": "D:/osu!",
+                "File": "osu!.exe"
+            },
+            {
+                "Name": "Higurashi 3",
+                "Path": "D:/Higurashi When They Cry Hou - Ch.3 Tatarigoroshi",
+                "File": "HigurashiEp03.exe"
+            }
+        ]
+    }
+]

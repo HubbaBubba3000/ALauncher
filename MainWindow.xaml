@@ -1,0 +1,25 @@
+﻿<Window x:Class="ALauncher.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ALauncher"
+        xmlns:al="clr-namespace:ALauncher.Controls"
+        mc:Ignorable="d"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        WindowStartupLocation="CenterScreen"
+        Title="Alauncher" Height="720" Width="1280">
+    <Border CornerRadius="3" Background="{StaticResource b2}" MouseDown="WindowDrag">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.2*"/>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <al:ControlPanel Grid.Column="0"/>
+            
+        </Grid>
+    </Border>
+</Window>
