@@ -1,25 +1,24 @@
-<UserControl x:Class="ALauncher.Controls.ControlPanel"
-         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-         xmlns:local="clr-namespace:ALauncher.Controls"
-         xmlns:vm="clr-namespace:ALauncher.ViewModel"
-         mc:Ignorable="d" 
-         d:DesignWidth="320">
+<UserControl x:Class="ALauncher.Controls.ControlPanel" 
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+            xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+            xmlns:local="clr-namespace:ALauncher.Controls" 
+            xmlns:vm="clr-namespace:ALauncher.ViewModel" 
+            mc:Ignorable="d" d:DesignWidth="320">
     <UserControl.DataContext>
         <vm:ControlPanel/>
     </UserControl.DataContext>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="60"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-
-        <Label Grid.Row="0" Content="ALauncher" Style="{StaticResource LabelStyle}"/>
-
-        <ListBox Height="600" Grid.Row="1" Style="{StaticResource ListBoxStyle}" ItemsSource="{Binding FolderList, UpdateSourceTrigger=PropertyChanged}"
-                ItemContainerStyle="{StaticResource ListBoxItemStyle}" />
-
-    </Grid>
+    <Border Background="{StaticResource cGray}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Content="ALauncher" Style="{StaticResource LabelStyle}"/>
+            <ListBox Grid.Row="1" Style="{StaticResource ListBoxStyle}" 
+                    ItemsSource="{Binding FolderList, UpdateSourceTrigger=PropertyChanged}" 
+                    ItemContainerStyle="{StaticResource ListBoxItemStyle}"/>
+        </Grid>
+    </Border>
 </UserControl>

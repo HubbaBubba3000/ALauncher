@@ -3,10 +3,16 @@
                     xmlns:local="clr-namespace:ALauncher">
     <Color x:Key="c1">#000000</Color>
     <Color x:Key="c2">#3E3636</Color>
+    <Color x:Key="c22">#363636</Color>
+    <Color x:Key="c21">#4E4646</Color>
     <Color x:Key="c3">#D72323</Color>
+    <Color x:Key="c31">#DA2020</Color>
     <Color x:Key="c4">#F5EDED</Color>
-    <SolidColorBrush x:Key="b1" Color="{StaticResource c1}" />
-    <SolidColorBrush x:Key="b2" Color="{StaticResource c2}" />
-    <SolidColorBrush x:Key="b3" Color="{StaticResource c3}" />
-    <SolidColorBrush x:Key="b4" Color="{StaticResource c4}" />
+    <SolidColorBrush x:Key="cBlack" Color="{StaticResource c1}" />
+    <SolidColorBrush x:Key="cGray" Color="{StaticResource c2}" />
+    <SolidColorBrush x:Key="cMonoGray" Color="{StaticResource c22}" />
+    <SolidColorBrush x:Key="cLightGray" Color="{StaticResource c21}" />
+    <SolidColorBrush x:Key="cRed" Color="{StaticResource c3}" />
+    <SolidColorBrush x:Key="cLightRed" Color="{StaticResource c31}" />
+    <SolidColorBrush x:Key="cWhite" Color="{StaticResource c4}" />
 </ResourceDictionary>

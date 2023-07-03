@@ -11,7 +11,7 @@
         Background="Transparent"
         WindowStartupLocation="CenterScreen"
         Title="Alauncher" Height="720" Width="1280">
-    <Border CornerRadius="3" Background="{StaticResource b2}" MouseDown="WindowDrag">
+    <Border CornerRadius="3" Background="{StaticResource cMonoGray}" MouseDown="WindowDrag">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.2*"/>
@@ -19,6 +19,7 @@
             </Grid.ColumnDefinitions>
 
             <al:ControlPanel Grid.Column="0"/>
+            
             
         </Grid>
     </Border>
