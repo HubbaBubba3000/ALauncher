@@ -1,0 +1,22 @@
+<UserControl x:Class="ALauncher.View.ControlPanel"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ALauncher.View"
+        mc:Ignorable="d">
+    <Border CornerRadius="15,0,0,15" Background="{StaticResource b1}" >
+        <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0" HorizontalAlignment="Center" FontSize="32" 
+                Foreground="{StaticResource b4}" Content="ALauncher" />
+
+        <ListBox Grid.Row="1" Foreground="{StaticResource b4}" ItemsSource="{Binding folders}" 
+                ItemTemplate="{StaticResource FolderTemplate}" Style="{StaticResource ListBoxStyle}"/>
+        </Grid>
+    </Border>
+
+</UserControl>
