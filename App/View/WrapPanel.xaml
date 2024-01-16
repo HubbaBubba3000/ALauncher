@@ -13,7 +13,13 @@
                 <Path  Width="15" Height="15" Stretch="Fill" 
                           Fill="{StaticResource b4}" Data="{StaticResource ExitIcon}"/>
             </Button>
-            <WrapPanel ItemSource="{Binding Items}" ItemTemplate="{StaticResource ItemTemplate}" />
+            <ItemsControl ItemsSource="{Binding Items}" ItemTemplate="{StaticResource ItemTemplate}" Margin="0,50,0,0">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel  />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
         </Grid>
     </Border>
 </UserControl>

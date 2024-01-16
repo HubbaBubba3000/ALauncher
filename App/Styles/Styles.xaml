@@ -17,24 +17,31 @@
     <Geometry x:Key="ExitIcon">M 19 15 C 17.977 15 16.951875 15.390875 16.171875 16.171875 C 14.609875 17.733875 14.609875 20.266125 16.171875 21.828125 L 30.34375 36 L 16.171875 50.171875 C 14.609875 51.733875 14.609875 54.266125 16.171875 55.828125 C 16.951875 56.608125 17.977 57 19 57 C 20.023 57 21.048125 56.609125 21.828125 55.828125 L 36 41.65625 L 50.171875 55.828125 C 51.731875 57.390125 54.267125 57.390125 55.828125 55.828125 C 57.391125 54.265125 57.391125 51.734875 55.828125 50.171875 L 41.65625 36 L 55.828125 21.828125 C 57.390125 20.266125 57.390125 17.733875 55.828125 16.171875 C 54.268125 14.610875 51.731875 14.609875 50.171875 16.171875 L 36 30.34375 L 21.828125 16.171875 C 21.048125 15.391875 20.023 15 19 15 z</Geometry>
 
 <!-- Controls -->
+
+
     <Style TargetType="{x:Type view:ItemControl}">
         <Setter Property="Width" Value="70" />
         <Setter Property="Height" Value="85" />
+        <Setter Property="Margin" Value="20" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type view:ItemControl}"> 
+                <Border BorderBrush="{StaticResource b4}" BorderThickness="1">
                     <Grid>
-                        <Image Source="{TemplateBinding Icon}" Width="48" Height="48" Margin="11,4,0,0"  />
-                        <Label Content="{TemplateBinding Name}" Width="60" Height="20" Margin="5,57,0,0" 
+                        <Image Source="{TemplateBinding Icon}" Width="48" Height="48" VerticalAlignment="Top" Margin="0,4,0,0" />
+                        <Label Content="{TemplateBinding AppName}" Margin="0,57,0,0" Foreground="{StaticResource b4}" 
+                            FontFamily="Gruppo"
                             FontSize="16" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
                     </Grid>
+                </Border>
+                    
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
 
     <DataTemplate x:Key="ItemTemplate">
-        <view:ItemControl Icon="{Binding Icon}" Name="{Binding Name}" />
+        <view:ItemControl Icon="{Binding Icon}" AppName="{Binding Text}" />
     </DataTemplate>
 
     <Style x:Key="BtnStyle" TargetType="{x:Type Button}">

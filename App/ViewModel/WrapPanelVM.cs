@@ -6,7 +6,7 @@ namespace ALauncher.ViewModel;
 
 public class WrapPanelVM : BaseVM {
     public Folder CurrentFolder;
-    public List<IItem> Items {
+    public Item[] Items {
         get {
             return CurrentFolder.Items;
         }

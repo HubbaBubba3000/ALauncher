@@ -1,5 +1,6 @@
 ﻿using System.Windows.Controls;
 using ALauncher.ViewModel;
+using ALauncher.Model;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Hosting;
@@ -21,6 +22,7 @@ namespace ALauncher
                     logging.AddEventLog();
                 })
                 .ConfigureServices( service => {
+                    service.AddSingleton<Base>();
                     service.AddSingleton<ControlPanelVM>();
                     service.AddSingleton<WrapPanelVM>();
                     service.AddSingleton<MainVM>();

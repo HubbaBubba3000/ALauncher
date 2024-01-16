@@ -1,0 +1,30 @@
+{
+    "Folders" : [
+        { 
+            "Name" : "Games - casual",
+            "Items" : [
+                {
+                    "Name" : "OSU!",
+                    "Path" : "D:/osu!/osu!.exe"
+                },
+                {
+                    "Name" : "Dead Cells",
+                    "Path" : "D:/Dead Cells v32.4/deadcells.exe"
+                }
+            ]
+        },
+        {
+            "Name" : "Games - complete",
+            "Items" : [
+                {
+                    "Name" : "Quake 3 Arena",
+                    "Path" : "D:/Quake 3 Arena/quake3.exe"
+                },
+                {
+                    "Name" : "Psychonauts",
+                    "Path" : "D:/Psychonauts/Psychonauts.exe"
+                }
+            ]
+        }
+    ]
+}

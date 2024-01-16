@@ -1,19 +1,30 @@
 using System;
 using ALauncher.Data;
+using ALauncher.Model;
 
 namespace ALauncher.ViewModel;
 
 public class ControlPanelVM : BaseVM{
-    public Folder[] folders {get {
-        return new[] {
-            new Folder("folder1"),
-            new Folder("folder2"),
-            new Folder("folder3"),
-            new Folder("folder4"),
-            new Folder("folder5")
-        }; } 
+    private Base BaseModel;
+    private WrapPanelVM wrapPanelVM;
+    public Folder[] folders {
+        get {
+            return BaseModel.folders;
+        }
+        set {
+            OnPropertyChanged("Folders");
+        }
     }
-    public ControlPanelVM(WrapPanelVM wp) {
-        wp.CurrentFolder = folders[1];
+    public Folder CurrentFolder {
+        set {
+            wrapPanelVM.CurrentFolder = value;
+            wrapPanelVM.Items = value.Items;
+            OnPropertyChanged("CurrentFolder");
+        }
+    }
+    public ControlPanelVM(Base b, WrapPanelVM wp) {
+        BaseModel = b;
+        wrapPanelVM = wp;
+        CurrentFolder = folders[0];
     }
 }

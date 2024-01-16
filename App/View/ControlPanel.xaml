@@ -15,6 +15,7 @@
                 Foreground="{StaticResource b4}" Content="ALauncher" />
 
         <ListBox Grid.Row="1" Foreground="{StaticResource b4}" ItemsSource="{Binding folders}" 
+                SelectedItem="{Binding CurrentFolder, UpdateSourceTrigger=PropertyChanged}"
                 ItemTemplate="{StaticResource FolderTemplate}" Style="{StaticResource ListBoxStyle}"/>
         </Grid>
     </Border>
