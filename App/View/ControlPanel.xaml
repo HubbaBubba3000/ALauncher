@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ALauncher.View"
         mc:Ignorable="d">
-    <Border CornerRadius="15,0,0,15" Background="{StaticResource b1}" >
+    <Border CornerRadius="15,0,0,15" Background="{StaticResource b1}" BorderThickness="0,0,3,0">
         <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>

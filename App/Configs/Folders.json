@@ -1,28 +1,75 @@
 {
     "Folders" : [
         { 
-            "Name" : "Games - casual",
+            "Name" : "Casual",
             "Items" : [
                 {
-                    "Name" : "OSU!",
+                    "AppName" : "OSU!",
                     "Path" : "D:/osu!/osu!.exe"
                 },
                 {
-                    "Name" : "Dead Cells",
+                    "AppName" : "Dead Cells",
                     "Path" : "D:/Dead Cells v32.4/deadcells.exe"
+                },
+                {
+                    "AppName" : "A Dance of Fire and Ice",
+                    "Path" : "D:/A.Dance.of.Fire.and.Ice.Build.10429961/A Dance of Fire and Ice.exe"
+                },
+                {
+                    "AppName" : "Terraria",
+                    "Path" : "D:/Terraria/Terraria.exe"
+                }
+
+                
+            ]
+        },
+         { 
+            "Name" : "Uncomlete",
+            "Items" : [
+                {
+                    "AppName" : "Hollow Knight",
+                    "Path" : "D:/Hollow Knight Godmaster/hollow_knight.exe"
+                },
+                {
+                    "AppName" : "HigurashiEp03",
+                    "Path" : "D:/Higurashi When They Cry Hou - Ch.3 Tatarigoroshi/HigurashiEp03.exe"
+                },
+                {
+                    "AppName" : "FalloutNV",
+                    "Path" : "D:/Fallout New Vegas/FalloutNV.exe"
+                },
+                {
+                    "AppName" : "Dishonored",
+                    "Path" : "D:/Dishonored Definitive Edition/Binaries/Win32/Dishonored.exe"
+                },
+                {
+                    "AppName" : "VA-11 Hall-A",
+                    "Path" : "D:/VA-11 Hall-A Cyberpunk Bartender Action v1.3/VA-11 Hall A.exe"
                 }
             ]
         },
         {
-            "Name" : "Games - complete",
+            "Name" : "Complete",
             "Items" : [
                 {
-                    "Name" : "Quake 3 Arena",
+                    "AppName" : "Quake 3 Arena",
                     "Path" : "D:/Quake 3 Arena/quake3.exe"
                 },
                 {
-                    "Name" : "Psychonauts",
+                    "AppName" : "Psychonauts",
                     "Path" : "D:/Psychonauts/Psychonauts.exe"
+                },
+                {
+                    "AppName" : "Call of Duty BO",
+                    "Path" : "D:/Call of Duty Black Ops/BlackOps.exe"
+                },
+                {
+                    "AppName" : "Halo Combat Evolved",
+                    "Path" : "D:/Halo Combat Evolved/halo.exe"
+                },
+                {
+                    "AppName" : "Call of Duty MW",
+                    "Path" : "D:/Call of Duty 4 Modern Warfare/iw3sp.exe"
                 }
             ]
         }

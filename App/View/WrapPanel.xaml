@@ -13,7 +13,8 @@
                 <Path  Width="15" Height="15" Stretch="Fill" 
                           Fill="{StaticResource b4}" Data="{StaticResource ExitIcon}"/>
             </Button>
-            <ItemsControl ItemsSource="{Binding Items}" ItemTemplate="{StaticResource ItemTemplate}" Margin="0,50,0,0">
+            <ItemsControl ItemsSource="{Binding Items, UpdateSourceTrigger=PropertyChanged}"
+                        ItemTemplate="{StaticResource ItemTemplate}" Margin="0,50,0,0">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel  />

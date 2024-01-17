@@ -20,28 +20,31 @@
 
 
     <Style TargetType="{x:Type view:ItemControl}">
-        <Setter Property="Width" Value="70" />
+        <Setter Property="Width" Value="85" />
         <Setter Property="Height" Value="85" />
-        <Setter Property="Margin" Value="20" />
+        <Setter Property="Margin" Value="15" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type view:ItemControl}"> 
-                <Border BorderBrush="{StaticResource b4}" BorderThickness="1">
+                <Border Name="_Border" BorderBrush="{StaticResource b4}" BorderThickness="0">
                     <Grid>
                         <Image Source="{TemplateBinding Icon}" Width="48" Height="48" VerticalAlignment="Top" Margin="0,4,0,0" />
-                        <Label Content="{TemplateBinding AppName}" Margin="0,57,0,0" Foreground="{StaticResource b4}" 
-                            FontFamily="Gruppo"
-                            FontSize="16" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+                        <TextBlock Text="{TemplateBinding AppName}" Margin="0,57,0,0" Foreground="{StaticResource b4}" TextWrapping="WrapWithOverflow"
+                            FontFamily=".\Fonts\Gruppo-Regular.ttf#Gruppo" FontSize="12" TextAlignment="Center" />
                     </Grid>
                 </Border>
-                    
+                <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter TargetName="_Border" Property="BorderThickness" Value="1"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
 
     <DataTemplate x:Key="ItemTemplate">
-        <view:ItemControl Icon="{Binding Icon}" AppName="{Binding Text}" />
+        <view:ItemControl Icon="{Binding Icon}" AppName="{Binding AppName}" Path="{Binding Path}" />
     </DataTemplate>
 
     <Style x:Key="BtnStyle" TargetType="{x:Type Button}">
@@ -72,10 +75,17 @@
     </Style>
 
     <DataTemplate x:Key="FolderTemplate" > 
-            <Border Background="{StaticResource b3}" HorizontalAlignment="Stretch" Name="_Border" >
+            <Border Background="{StaticResource b3}" BorderBrush="{StaticResource b4}" 
+                    HorizontalAlignment="Stretch" Name="_Border" BorderThickness="0" >
                 <Label Content="{Binding Name}" FontSize="24" Foreground="{StaticResource b4}"
-                    VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    VerticalAlignment="Center" HorizontalAlignment="Center" Name="_Label"/>
             </Border>
+            <DataTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter TargetName="_Border" Property="BorderThickness" Value="1"/>
+                    <!-- <Setter TargetName="_Label" Property="BorderThickness" Value="1"/> -->
+                </Trigger>
+            </DataTemplate.Triggers>
     </DataTemplate>
 
     <Style x:Key="ListBoxStyle" TargetType="{x:Type ListBox}">

@@ -2,7 +2,7 @@
 namespace ALauncher.Data;
 
 public interface IItem {
-    public string Text {get; set;} 
+    public string AppName {get; set;} 
 
     public string Path {get; set;}
 

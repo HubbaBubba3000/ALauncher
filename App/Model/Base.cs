@@ -1,8 +1,9 @@
-using System.Collections.Generic;
+
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Drawing;
 using ALauncher.Data;
+using ALauncher.ViewModel;
 using System.Windows;
 
 namespace ALauncher.Model;
