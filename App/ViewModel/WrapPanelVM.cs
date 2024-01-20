@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Windows.Input;
 using ALauncher.Data;
 
 namespace ALauncher.ViewModel;

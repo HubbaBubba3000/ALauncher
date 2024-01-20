@@ -15,7 +15,10 @@
     <SolidColorBrush Color="{StaticResource c4}" x:Key="b4" options:Freeze="True"/>
 <!-- Icons -->
     <Geometry x:Key="ExitIcon">M 19 15 C 17.977 15 16.951875 15.390875 16.171875 16.171875 C 14.609875 17.733875 14.609875 20.266125 16.171875 21.828125 L 30.34375 36 L 16.171875 50.171875 C 14.609875 51.733875 14.609875 54.266125 16.171875 55.828125 C 16.951875 56.608125 17.977 57 19 57 C 20.023 57 21.048125 56.609125 21.828125 55.828125 L 36 41.65625 L 50.171875 55.828125 C 51.731875 57.390125 54.267125 57.390125 55.828125 55.828125 C 57.391125 54.265125 57.391125 51.734875 55.828125 50.171875 L 41.65625 36 L 55.828125 21.828125 C 57.390125 20.266125 57.390125 17.733875 55.828125 16.171875 C 54.268125 14.610875 51.731875 14.609875 50.171875 16.171875 L 36 30.34375 L 21.828125 16.171875 C 21.048125 15.391875 20.023 15 19 15 z</Geometry>
-
+    <Geometry x:Key="AddIcon">M41.267,18.557H26.832V4.134C26.832,1.851,24.99,0,22.707,0c-2.283,0-4.124,1.851-4.124,4.135v14.432H4.141
+		c-2.283,0-4.139,1.851-4.138,4.135c-0.001,1.141,0.46,2.187,1.207,2.934c0.748,0.749,1.78,1.222,2.92,1.222h14.453V41.27
+		c0,1.142,0.453,2.176,1.201,2.922c0.748,0.748,1.777,1.211,2.919,1.211c2.282,0,4.129-1.851,4.129-4.133V26.857h14.435
+		c2.283,0,4.134-1.867,4.133-4.15C45.399,20.425,43.548,18.557,41.267,18.557z</Geometry>
 <!-- Controls -->
 
 
@@ -23,10 +26,11 @@
         <Setter Property="Width" Value="85" />
         <Setter Property="Height" Value="85" />
         <Setter Property="Margin" Value="15" />
+        <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type view:ItemControl}"> 
-                <Border Name="_Border" BorderBrush="{StaticResource b4}" BorderThickness="0">
+                <Border Name="_Border" BorderBrush="{StaticResource b4}" BorderThickness="{TemplateBinding BorderThickness}">
                     <Grid>
                         <Image Source="{TemplateBinding Icon}" Width="48" Height="48" VerticalAlignment="Top" Margin="0,4,0,0" />
                         <TextBlock Text="{TemplateBinding AppName}" Margin="0,57,0,0" Foreground="{StaticResource b4}" TextWrapping="WrapWithOverflow"
@@ -34,10 +38,10 @@
                     </Grid>
                 </Border>
                 <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver" Value="true">
-                            <Setter TargetName="_Border" Property="BorderThickness" Value="1"/>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="BorderThickness" Value="1" />
+                    </Trigger>
+                </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -47,6 +51,31 @@
         <view:ItemControl Icon="{Binding Icon}" AppName="{Binding AppName}" Path="{Binding Path}" />
     </DataTemplate>
 
+    <Style x:Key="TextBoxStyle" TargetType="{x:Type TextBox}">
+        <Setter Property="Foreground" Value="{StaticResource b4}" />
+        <Setter Property="Padding" Value="2,0,0,0" />
+        <Setter Property="FontSize" Value="16" />
+
+        <Setter Property="Template"> 
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TextBox}">
+                    <Grid>
+                    <Border CornerRadius="15" BorderThickness="0"
+                            Background="{StaticResource b3}"
+                            Width="{TemplateBinding Width}"
+                            Height="{TemplateBinding Height}"/>
+                    <ScrollViewer x:Name="PART_ContentHost"
+                        IsTabStop="False"
+                        BorderThickness="0" 
+                        Background="Transparent"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Center" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style x:Key="BtnStyle" TargetType="{x:Type Button}">
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="BorderThickness" Value="0"/>
@@ -54,7 +83,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
-                    <Border CornerRadius="50" Name="_Border"
+                    <Border CornerRadius="15" Name="_Border"
                             BorderBrush="{StaticResource b4}"
                             BorderThickness="0"
                             Background="{StaticResource b3}"
@@ -74,25 +103,35 @@
         </Setter>
     </Style>
 
-    <DataTemplate x:Key="FolderTemplate" > 
-            <Border Background="{StaticResource b3}" BorderBrush="{StaticResource b4}" 
-                    HorizontalAlignment="Stretch" Name="_Border" BorderThickness="0" >
-                <Label Content="{Binding Name}" FontSize="24" Foreground="{StaticResource b4}"
-                    VerticalAlignment="Center" HorizontalAlignment="Center" Name="_Label"/>
-            </Border>
-            <DataTemplate.Triggers>
-                <Trigger Property="IsMouseOver" Value="true">
-                    <Setter TargetName="_Border" Property="BorderThickness" Value="1"/>
-                    <!-- <Setter TargetName="_Label" Property="BorderThickness" Value="1"/> -->
-                </Trigger>
-            </DataTemplate.Triggers>
-    </DataTemplate>
-
     <Style x:Key="ListBoxStyle" TargetType="{x:Type ListBox}">
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+    </Style>
+    <Style x:Key="ItemListStyle" TargetType="{x:Type ListBoxItem}">
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Template" >
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                    <Border Background="{StaticResource b3}" BorderBrush="{StaticResource b4}" 
+                            HorizontalAlignment="Stretch" Name="_Border" BorderThickness="0" >
+                        <Label Content="{Binding Name}" FontSize="24" Foreground="{StaticResource b4}"
+                            VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="_Border" Property="BorderThickness" Value="1" />
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="_Border" Property="BorderThickness" Value="2" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 
 </ResourceDictionary>

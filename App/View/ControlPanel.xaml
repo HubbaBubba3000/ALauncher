@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ALauncher.View"
         mc:Ignorable="d">
-    <Border CornerRadius="15,0,0,15" Background="{StaticResource b1}" BorderThickness="0,0,3,0">
+    <Border CornerRadius="15,0,0,0" Background="{StaticResource b1}">
         <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
@@ -14,9 +14,14 @@
         <Label Grid.Row="0" HorizontalAlignment="Center" FontSize="32" 
                 Foreground="{StaticResource b4}" Content="ALauncher" />
 
-        <ListBox Grid.Row="1" Foreground="{StaticResource b4}" ItemsSource="{Binding folders}" 
+        <ListBox Grid.Row="1" Foreground="{StaticResource b4}" Style="{StaticResource ListBoxStyle}" 
                 SelectedItem="{Binding CurrentFolder, UpdateSourceTrigger=PropertyChanged}"
-                ItemTemplate="{StaticResource FolderTemplate}" Style="{StaticResource ListBoxStyle}"/>
+                ItemsSource="{Binding Folders, UpdateSourceTrigger=PropertyChanged}" ItemContainerStyle="{StaticResource ItemListStyle}"/>
+        <Button Grid.Row="1" Height="30" Width="30" Margin="10" Style="{StaticResource BtnStyle}"
+                HorizontalAlignment="Right" VerticalAlignment="Bottom" Command="{Binding AddFolder}">
+			<Path Width="15" Height="15" Stretch="Fill" 
+                        Fill="{StaticResource b4}" Data="{StaticResource AddIcon}" />
+        </Button>
         </Grid>
     </Border>
 

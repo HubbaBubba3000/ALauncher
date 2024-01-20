@@ -2,6 +2,7 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using ALauncher.ViewModel;
 
 namespace ALauncher.View;
 

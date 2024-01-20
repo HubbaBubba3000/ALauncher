@@ -15,6 +15,10 @@
                     "AppName" : "A Dance of Fire and Ice",
                     "Path" : "D:/A.Dance.of.Fire.and.Ice.Build.10429961/A Dance of Fire and Ice.exe"
                 },
+				{
+                    "AppName" : "Резня нищуганово",
+                    "Path" : "D:/Резня нищуганово/Reznya_Nishuganovo.exe"
+                },
                 {
                     "AppName" : "Terraria",
                     "Path" : "D:/Terraria/Terraria.exe"

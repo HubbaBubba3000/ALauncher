@@ -1,7 +1,6 @@
 using System.Text.Json;
 using System.IO;
 using System;
-using System.Data.Common;
 
 namespace ALauncher.Model {
     public class JsonParser<TConfig> where TConfig : IConfig, IDisposable {

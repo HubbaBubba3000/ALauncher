@@ -1,17 +1,23 @@
-using System;
+using System.ComponentModel;
+using System.Collections.Generic;
+using System.Windows.Input;
 using ALauncher.Data;
 using ALauncher.Model;
+using ALauncher.View;
+using System.Collections.ObjectModel;
 
 namespace ALauncher.ViewModel;
 
 public class ControlPanelVM : BaseVM{
     private Base BaseModel;
     private WrapPanelVM wrapPanelVM;
-    public Folder[] folders {
+    private ObservableCollection<Folder> folders;
+    public ObservableCollection<Folder> Folders {
         get {
-            return BaseModel.folders;
+            return folders;
         }
         set {
+            folders = value;
             OnPropertyChanged("Folders");
         }
     }
@@ -22,9 +28,19 @@ public class ControlPanelVM : BaseVM{
             OnPropertyChanged("CurrentFolder");
         }
     }
+    public ICommand AddFolder {
+        get {
+            return new RelayCommand((obj) => {
+                AddictionWindow af = new AddictionWindow();
+                af.Closing += new CancelEventHandler((obj, e) => {Folders.Add(af.GetFolder);});
+                af.Show();
+            });
+        }
+    }
     public ControlPanelVM(Base b, WrapPanelVM wp) {
         BaseModel = b;
         wrapPanelVM = wp;
-        CurrentFolder = folders[0];
+        Folders = new(BaseModel.folders);
+        CurrentFolder = Folders[0];
     }
 }

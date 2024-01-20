@@ -22,10 +22,14 @@ namespace ALauncher
                     logging.AddEventLog();
                 })
                 .ConfigureServices( service => {
+                    //Models
                     service.AddSingleton<Base>();
+                    //ViewModels
                     service.AddSingleton<ControlPanelVM>();
                     service.AddSingleton<WrapPanelVM>();
+                    service.AddSingleton<BottomPanelVM>();
                     service.AddSingleton<MainVM>();
+                    //View
                     service.AddSingleton<MainWindow>();
                 }) ;
         }  
