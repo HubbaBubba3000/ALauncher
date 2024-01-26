@@ -19,5 +19,6 @@ namespace ALauncher
         private void OnLoaded(object sender, RoutedEventArgs e) {
             AdornerLayer.GetAdornerLayer(dockpanel).Add(new ResizeAdorner(leftpanel));
         }
+
     }
 }

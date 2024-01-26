@@ -1,5 +1,6 @@
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace ALauncher.View;
 
@@ -8,7 +9,11 @@ public partial class WrapPanel : UserControl {
         InitializeComponent();
     }
     public void ButtonExit(object? sender, RoutedEventArgs e) {
-            Window.GetWindow(this).Close();
-        }
+        Window.GetWindow(this).Close();
+    }
+    public void MoveWindow(object sender, MouseEventArgs e) {
+        if (Mouse.LeftButton == MouseButtonState.Pressed)
+            Window.GetWindow(this).DragMove();
+    }
 
 }

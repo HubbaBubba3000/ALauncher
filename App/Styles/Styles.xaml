@@ -48,7 +48,9 @@
     </Style>
 
     <DataTemplate x:Key="ItemTemplate">
-        <view:ItemControl Icon="{Binding Icon}" AppName="{Binding AppName}" Path="{Binding Path}" />
+        <view:ItemControl Icon="{Binding Icon}" AppName="{Binding AppName}" Path="{Binding Path}" 
+            Command="{Binding Tag,RelativeSource={RelativeSource FindAncestor, AncestorType=ItemsControl}}"
+            CommandParameter="{Binding Path}" />
     </DataTemplate>
 
     <Style x:Key="TextBoxStyle" TargetType="{x:Type TextBox}">

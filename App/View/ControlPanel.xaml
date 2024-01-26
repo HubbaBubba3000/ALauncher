@@ -19,8 +19,8 @@
                 ItemsSource="{Binding Folders, UpdateSourceTrigger=PropertyChanged}" ItemContainerStyle="{StaticResource ItemListStyle}"/>
         <Button Grid.Row="1" Height="30" Width="30" Margin="10" Style="{StaticResource BtnStyle}"
                 HorizontalAlignment="Right" VerticalAlignment="Bottom" Command="{Binding AddFolder}">
-			<Path Width="15" Height="15" Stretch="Fill" 
-                        Fill="{StaticResource b4}" Data="{StaticResource AddIcon}" />
+                    <Path Width="15" Height="15" Stretch="Fill" 
+                    Fill="{StaticResource b4}" Data="{StaticResource AddIcon}" />
         </Button>
         </Grid>
     </Border>

@@ -8,8 +8,9 @@
 
     <Border CornerRadius="0,15,0,0" Background="{StaticResource b2}" >
         <Grid>
-            <Button Width="30" Height="30" Style="{StaticResource BtnStyle}" 
-               HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10" >
+        <Border MouseDown="MoveWindow" Background="Transparent" Height="50" VerticalAlignment="Top" HorizontalAlignment="Stretch" />
+            <Button Width="30" Height="30" Style="{StaticResource BtnStyle}" Command='{Binding AddItem}'
+               HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10,10,50,10" >
                 <Path  Width="15" Height="15" Stretch="Fill" 
                         Fill="{StaticResource b4}" Data="{StaticResource AddIcon}"/>
             </Button>
@@ -18,7 +19,7 @@
                 <Path  Width="15" Height="15" Stretch="Fill" 
                         Fill="{StaticResource b4}" Data="{StaticResource ExitIcon}"/>
             </Button>
-            <ItemsControl ItemsSource="{Binding Items, UpdateSourceTrigger=PropertyChanged}"
+            <ItemsControl ItemsSource="{Binding Items, UpdateSourceTrigger=PropertyChanged}" Tag="{Binding Run}"
                         ItemTemplate="{StaticResource ItemTemplate}" Margin="0,50,0,0">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>

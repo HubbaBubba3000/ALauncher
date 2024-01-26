@@ -11,11 +11,15 @@
         WindowStyle="None"
         Title="ALauncher" 
         Height="720" Width="1280">
-    <DockPanel LastChildFill="True" x:Name="dockpanel">
-        <view:BottomPanel DockPanel.Dock="Bottom" Height="25" DataContext="{Binding bottomPanelVM}"/>
-        <view:ControlPanel x:Name="leftpanel" DataContext="{Binding controlPanelVM}" Width="200" DockPanel.Dock="Left"/>
-        <view:WrapPanel DataContext="{Binding wrapPanelVM}" />
-    </DockPanel>
+    <Grid>
+        <DockPanel LastChildFill="True" x:Name="dockpanel">
+            <view:BottomPanel DockPanel.Dock="Bottom" Height="25" DataContext="{Binding bottomPanelVM}"/>
+            <view:ControlPanel x:Name="leftpanel" DataContext="{Binding controlPanelVM}" Width="200" DockPanel.Dock="Left"/>
+            <view:WrapPanel DataContext="{Binding wrapPanelVM}" />
+        </DockPanel>
+        
+    </Grid>
+    
 </Window>
 
 

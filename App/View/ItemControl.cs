@@ -2,6 +2,7 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.IO;
 using ALauncher.ViewModel;
 
 namespace ALauncher.View;
@@ -15,9 +16,6 @@ public class ItemControl : Button {
         PathProperty = DependencyProperty.Register("Path", typeof(string), typeof(ItemControl));
         AppNameProperty = DependencyProperty.Register("AppName", typeof(string), typeof(ItemControl));
         
-    }
-    protected override void OnClick() {
-        Process.Start(Path);
     }
     public ImageSource Icon {
         get { return (ImageSource)base.GetValue(IconProperty); } 
