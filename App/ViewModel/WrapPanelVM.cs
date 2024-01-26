@@ -13,12 +13,13 @@ namespace ALauncher.ViewModel;
 
 public class WrapPanelVM : BaseVM {
     public Item SelectedItem { get;set; }
+    private Folder _current;
     public Folder CurrentFolder {
         get {
-            return controlPanelVM.CurrentFolder;
+            return _current;
         } 
         set {
-            controlPanelVM.CurrentFolder = value;
+            _current = value;
             
         }
     }
@@ -58,9 +59,8 @@ public class WrapPanelVM : BaseVM {
         }
     }
 
-    public WrapPanelVM(Base b, ControlPanelVM cp) {
+    public WrapPanelVM(Base b) {
         BaseModel = b;
-        controlPanelVM = cp;
         _items = new(CurrentFolder.Items);
     }
 }
