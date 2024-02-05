@@ -19,8 +19,9 @@ public class WrapPanelVM : BaseVM {
             return _current;
         } 
         set {
+            if (value == null) return;
             _current = value;
-            
+            Items = new(_current.Items);
         }
     }
 
@@ -32,7 +33,6 @@ public class WrapPanelVM : BaseVM {
         }
         set {
             _items = value;
-            CurrentFolder.Items = _items.ToList();
             OnPropertyChanged("Items");
         }
     }
@@ -44,13 +44,24 @@ public class WrapPanelVM : BaseVM {
                     ai.Closing += new CancelEventHandler((obj, e) => {
                     if (!ai.IsAdd) return;
                     Items.Add(ai.GetItem);
-                    BaseModel.UpdateFolers();
+                    BaseModel.folders.Single(f => f == CurrentFolder).Items = Items.ToList();
+                    BaseModel.UpdateFolers(null,null);
                     });
                     ai.Show();
                 }
             });
         } 
     }
+     public ICommand DeleteItem {
+        get {
+            return new RelayCommand((obj) => {
+                    var item = Items.Single(i => i.AppName == (string)obj);
+                    Items.Remove(item);
+                    BaseModel.folders.Single(f => f == CurrentFolder).Items = Items.ToList();
+                    BaseModel.UpdateFolers(null,null);
+            });
+        }
+    } 
     public ICommand Run {
         get {
             return new RelayCommand((obj) => {
@@ -61,6 +72,6 @@ public class WrapPanelVM : BaseVM {
 
     public WrapPanelVM(Base b) {
         BaseModel = b;
-        _items = new(CurrentFolder.Items);
+        _items = new();
     }
 }

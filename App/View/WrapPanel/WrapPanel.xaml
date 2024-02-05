@@ -4,7 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ALauncher.View"
-        mc:Ignorable="d">
+        mc:Ignorable="d" Name="This">
+    <UserControl.Resources>
+         <DataTemplate x:Key="ItemTemplate">
+            <local:ItemControl Icon="{Binding Icon}" AppName="{Binding AppName}" Path="{Binding Path}" 
+                Command="{Binding ElementName=This, Path=DataContext.Run}" DeleteCommand="{Binding ElementName=This, Path=DataContext.DeleteItem}"
+                CommandParameter="{Binding Path}" />
+        </DataTemplate>
+    </UserControl.Resources>
 
     <Border CornerRadius="0,15,0,0" Background="{StaticResource b2}" >
         <Grid>
@@ -19,7 +26,7 @@
                 <Path  Width="15" Height="15" Stretch="Fill" 
                         Fill="{StaticResource b4}" Data="{StaticResource ExitIcon}"/>
             </Button>
-            <ItemsControl ItemsSource="{Binding Items, UpdateSourceTrigger=PropertyChanged}" Tag="{Binding Run}"
+            <ItemsControl ItemsSource="{Binding Items, UpdateSourceTrigger=PropertyChanged}"
                         ItemTemplate="{StaticResource ItemTemplate}" Margin="0,50,0,0">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>

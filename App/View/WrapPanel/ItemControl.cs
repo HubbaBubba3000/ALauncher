@@ -11,10 +11,12 @@ public class ItemControl : Button {
     public static DependencyProperty IconProperty;
     public static DependencyProperty PathProperty;
     public static DependencyProperty AppNameProperty;
+    public static DependencyProperty DeleteCommandProperty;
     static ItemControl() {
         IconProperty = DependencyProperty.Register("Icon", typeof(ImageSource), typeof(ItemControl));
         PathProperty = DependencyProperty.Register("Path", typeof(string), typeof(ItemControl));
         AppNameProperty = DependencyProperty.Register("AppName", typeof(string), typeof(ItemControl));
+        AppNameProperty = DependencyProperty.Register("DeleteCommand", typeof(RelayCommand), typeof(ItemControl));
         
     }
     public ImageSource Icon {
@@ -28,5 +30,9 @@ public class ItemControl : Button {
     public string Path {
         get { return (string)base.GetValue(PathProperty); } 
         set { base.SetValue(PathProperty, value); }
+    }
+    public RelayCommand DeleteCommand {
+        get { return (RelayCommand)base.GetValue(DeleteCommandProperty); } 
+        set { base.SetValue(DeleteCommandProperty, value); }
     }
 }

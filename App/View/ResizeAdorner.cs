@@ -9,14 +9,11 @@ namespace ALauncher.View;
 public class ResizeAdorner : Adorner {
     VisualCollection AdornerVisual;
     Thumb thumb;
-    public ResizeAdorner(UIElement adornedElement) : base(adornedElement) {
+    public ResizeAdorner(UIElement adornedElement, Thumb t) : base(adornedElement) {
         AdornerVisual = new VisualCollection(this);
 
-        thumb = new Thumb() {
-            
-            Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#ECB365")),
-            Width=5, Height=20
-        };
+        thumb = t;
+        
         thumb.DragDelta += OnDragDelta;
 
         AdornerVisual.Add(thumb);

@@ -2,6 +2,7 @@ using System.Text.Json;
 using System.IO;
 using System;
 using System.Text.Json.Serialization;
+using System.Threading.Tasks;
 
 namespace ALauncher.Model {
     public class JsonParser<TConfig> where TConfig : IConfig, IDisposable {
@@ -12,6 +13,9 @@ namespace ALauncher.Model {
         }
         public static TConfig? Parse(string conf) {
             return JsonSerializer.Deserialize<TConfig>(jsonread(conf));
+        }
+        public static async Task<TConfig> ParseAsync(string file) {
+            return await JsonSerializer.DeserializeAsync<TConfig>(new StreamReader(file).BaseStream);
         }
         public static void Save(TConfig config ,string path) {
             using (var filestream = new StreamWriter(path, false) ) 

@@ -5,7 +5,7 @@ public class BottomPanelVM : BaseVM {
     private string _status;
     public string Version {
         get {
-            string ver ="v0.0.5 - ";
+            string ver ="v0.0.7 - ";
             #if DEBUG
                 ver += "DEBUG";
             #else 
@@ -22,6 +22,6 @@ public class BottomPanelVM : BaseVM {
         }
     }
     public BottomPanelVM() {
-        _status = string.Empty;
+        _status = "status : ok";
     }
 }

@@ -14,10 +14,10 @@ public class ControlPanelVM : BaseVM{
     private WrapPanelVM wrapPanelVM;
     public ObservableCollection<Folder> Folders {
         get {
-            return new(BaseModel.folders);
+            return BaseModel.folders;
         }
         set {
-            BaseModel.folders = value.ToList();
+            BaseModel.folders = value;
             OnPropertyChanged("Folders");
         }
     }
@@ -27,7 +27,6 @@ public class ControlPanelVM : BaseVM{
         }
         set {
             wrapPanelVM.CurrentFolder = value;
-            wrapPanelVM.Items = new(value.Items);
             OnPropertyChanged("CurrentFolder");
         }
     }
@@ -44,9 +43,19 @@ public class ControlPanelVM : BaseVM{
             });
         }
     }
+    public ICommand DeleteFolder {
+        get {
+            return new RelayCommand((obj) => {
+                if ((string)obj != CurrentFolder.Name) return;
+                int i = Folders.IndexOf(CurrentFolder);
+                Folders.Remove(CurrentFolder);
+                CurrentFolder = Folders[i-1];
+            });
+        }
+    }
     public ControlPanelVM(Base b, WrapPanelVM wp) {
         BaseModel = b;
         wrapPanelVM = wp;
-
+        CurrentFolder = Folders[0];
     }
 }

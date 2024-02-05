@@ -1,0 +1,64 @@
+<UserControl x:Class="ALauncher.View.ControlPanel"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ALauncher.View"
+        mc:Ignorable="d" Name="This">
+    <UserControl.Resources>
+        <Style x:Key="ItemListStyle" TargetType="{x:Type ListBoxItem}">
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Template" >
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                        <Border Background="{StaticResource b3}" BorderBrush="{StaticResource b4}" 
+                                HorizontalAlignment="Stretch" Name="_Border" BorderThickness="0" >
+                            <Grid>
+                                <Label Content="{Binding Name}" FontSize="24" Foreground="{StaticResource b4}"
+                                    VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                <Button Visibility="Hidden" Name="_button" Width="20" Height="20" Margin="3" 
+                                        Command="{Binding ElementName=This, Path=DataContext.DeleteFolder}" CommandParameter="{Binding Name}"
+                                    Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Right">
+                                    <Path Width="15" Height="15" Stretch="Fill" 
+                                        Fill="{StaticResource b4}" Data="{StaticResource DeleteIcon}" />
+                                </Button>
+                            </Grid>
+                            
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="_Border" Property="BorderThickness" Value="1" />
+                                <Setter TargetName="_button" Property="Visibility" Value="Visible" />
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="_Border" Property="BorderThickness" Value="2" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    <Border CornerRadius="15,0,0,0" Background="{StaticResource b1}">
+        <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0" HorizontalAlignment="Center" FontSize="32" 
+                Foreground="{StaticResource b4}" Content="ALauncher" />
+
+        <ListBox Grid.Row="1" Foreground="{StaticResource b4}" Style="{StaticResource ListBoxStyle}" 
+                SelectedItem="{Binding CurrentFolder, UpdateSourceTrigger=PropertyChanged}"
+                ItemsSource="{Binding Folders, UpdateSourceTrigger=PropertyChanged}" ItemContainerStyle="{StaticResource ItemListStyle}" />
+        <Button Grid.Row="1" Height="30" Width="30" Margin="10" Style="{StaticResource BtnStyle}"
+                HorizontalAlignment="Right" VerticalAlignment="Bottom" Command="{Binding AddFolder}">
+            <Path Width="15" Height="15" Stretch="Fill" 
+                Fill="{StaticResource b4}" Data="{StaticResource AddIcon}" />
+        </Button>
+        </Grid>
+    </Border>
+
+</UserControl>
