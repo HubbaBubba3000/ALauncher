@@ -1,20 +1,30 @@
 
+using System;
+
 namespace ALauncher.Model;
 
-public class SettingsConfig : IConfig {
+public class SettingsConfig : IConfig, IDisposable {
 
-    int WindowWidth {get; set;}
-    int WindowHeigth {get; set;}
-
-    string Lang {get; set;}
+    public double WindowWidth {get; set;}
+    public double WindowHeigth {get; set;}
+    /// <summary>
+    /// Change Language (NOT IMPLEMENTED)
+    /// </summary>
+    public string Lang {get; set;}
     /// <summary>
     /// on/off network module
     /// </summary>
-    bool Net {get;set;}
+    public bool Net {get;set;}
     /// <summary>
     /// auto Updating app, if net is false it doesnt work 
     /// </summary>
-    bool AutoUpdate {get;set;}
-    bool Anomation {get; set;}
+    public bool AutoUpdate {get;set;}
+    /// <summary>
+    /// On/Off animations (NOT IMPLEMENTED)
+    /// </summary>
+    public bool Animations {get; set;}
 
+    public void Dispose()
+    {
+    }
 }

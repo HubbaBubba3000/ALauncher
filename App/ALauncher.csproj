@@ -10,8 +10,6 @@
   <ItemGroup>
     <PackageReference Include="System.Drawing.Common" Version="8.0.1" />
     <ProjectReference Include="../Data/Data.csproj" />
-
-    <None Include="Configs/Folders.json" CopyToOutputDirectory="Always"/>
     
     <Content Include=".\Fonts\Gruppo-Regular.ttf">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
