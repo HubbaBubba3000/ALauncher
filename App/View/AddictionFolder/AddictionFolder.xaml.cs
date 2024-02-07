@@ -18,13 +18,12 @@ public partial class AddictionFolder : Window, IDisposable {
         this.Close();
     }
      public void Close(object sender, RoutedEventArgs e) {
-        GetFolder = null;
         this.Close();
     }
 
     public void Dispose()
     {
-        //
+        GetFolder = null;
     }
 
     public void MoveWindow(object sender, MouseEventArgs e) {

@@ -7,12 +7,10 @@ using ALauncher.View;
 using ALauncher.Model;
 using System.ComponentModel;
 using System.Linq;
-using System.Collections.Specialized;
 
 namespace ALauncher.ViewModel;
 
 public class WrapPanelVM : BaseVM {
-    public Item SelectedItem { get;set; }
     private Folder _current;
     public Folder CurrentFolder {
         get {
@@ -25,7 +23,7 @@ public class WrapPanelVM : BaseVM {
         }
     }
 
-    private Base BaseModel;
+    private FolderManager folderManager;
     private ObservableCollection<Item> _items;
     public ObservableCollection<Item> Items {
         get {
@@ -44,8 +42,8 @@ public class WrapPanelVM : BaseVM {
                     ai.Closing += new CancelEventHandler((obj, e) => {
                     if (!ai.IsAdd) return;
                     Items.Add(ai.GetItem);
-                    BaseModel.folders.Single(f => f == CurrentFolder).Items = Items.ToList();
-                    BaseModel.UpdateFolers(null,null);
+                    folderManager.folders.Single(f => f == CurrentFolder).Items = Items.ToList();
+                    folderManager.UpdateFolders();
                     });
                     ai.Show();
                 }
@@ -57,21 +55,21 @@ public class WrapPanelVM : BaseVM {
             return new RelayCommand((obj) => {
                     var item = Items.Single(i => i.AppName == (string)obj);
                     Items.Remove(item);
-                    BaseModel.folders.Single(f => f == CurrentFolder).Items = Items.ToList();
-                    BaseModel.UpdateFolers(null,null);
+                    folderManager.folders.Single(f => f == CurrentFolder).Items = Items.ToList();
+                    folderManager.UpdateFolders();
             });
         }
     } 
     public ICommand Run {
         get {
             return new RelayCommand((obj) => {
-                BaseModel.RunItem((string)obj);
+                folderManager.RunItem((string)obj);
             });
         }
     }
 
-    public WrapPanelVM(Base b) {
-        BaseModel = b;
+    public WrapPanelVM(FolderManager b) {
+        folderManager = b;
         _items = new();
     }
 }

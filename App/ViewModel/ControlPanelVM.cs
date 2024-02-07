@@ -10,14 +10,14 @@ using System.Linq;
 namespace ALauncher.ViewModel;
 
 public class ControlPanelVM : BaseVM{
-    private Base BaseModel;
+    private FolderManager folderManager;
     private WrapPanelVM wrapPanelVM;
     public ObservableCollection<Folder> Folders {
         get {
-            return BaseModel.folders;
+            return folderManager.folders;
         }
         set {
-            BaseModel.folders = value;
+            folderManager.folders = value;
             OnPropertyChanged("Folders");
         }
     }
@@ -35,7 +35,8 @@ public class ControlPanelVM : BaseVM{
             return new RelayCommand((obj) => {
                 using (AddictionFolder af = new AddictionFolder()) {
                     af.Closing += new CancelEventHandler((obj, e) => {
-                    Folders.Add(af.GetFolder);
+                        if (!af.IsAdd) return;
+                        Folders.Add(af.GetFolder);
                     });
                     af.Show();
                 }
@@ -46,15 +47,15 @@ public class ControlPanelVM : BaseVM{
     public ICommand DeleteFolder {
         get {
             return new RelayCommand((obj) => {
-                if ((string)obj != CurrentFolder.Name) return;
-                int i = Folders.IndexOf(CurrentFolder);
-                Folders.Remove(CurrentFolder);
-                CurrentFolder = Folders[i-1];
+                var folder = Folders.Single(i => i.Name == (string)obj);
+                if (CurrentFolder == folder) 
+                    CurrentFolder = Folders.ElementAt(Folders.IndexOf(folder)-1);
+                Folders.Remove(folder);
             });
         }
     }
-    public ControlPanelVM(Base b, WrapPanelVM wp) {
-        BaseModel = b;
+    public ControlPanelVM(FolderManager b, WrapPanelVM wp) {
+        folderManager = b;
         wrapPanelVM = wp;
         CurrentFolder = Folders[0];
     }

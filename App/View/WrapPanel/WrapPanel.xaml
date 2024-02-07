@@ -27,7 +27,7 @@
                         Fill="{StaticResource b4}" Data="{StaticResource ExitIcon}"/>
             </Button>
             <ItemsControl ItemsSource="{Binding Items, UpdateSourceTrigger=PropertyChanged}"
-                        ItemTemplate="{StaticResource ItemTemplate}" Margin="0,50,0,0">
+                        ItemTemplate="{StaticResource ItemTemplate}" Margin="0,50,0,0" >
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel  />

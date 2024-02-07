@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Hosting;
 using System.Windows;
+using ALauncher.View;
 
 namespace ALauncher
 {
@@ -23,7 +24,8 @@ namespace ALauncher
                 })
                 .ConfigureServices( service => {
                     //Models
-                    service.AddSingleton<Base>();
+                    service.AddSingleton<FolderManager>();
+                    service.AddSingleton<SettingsManager>();
                     //ViewModels
                     service.AddSingleton<ControlPanelVM>();
                     service.AddSingleton<WrapPanelVM>();

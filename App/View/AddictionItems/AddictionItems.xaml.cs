@@ -2,7 +2,7 @@ using ALauncher.Data;
 using ALauncher.Model;
 using System;
 using System.Windows;
-using System.Windows.Automation;
+using System.IO;
 using System.Windows.Controls;
 using System.Windows.Input;
 namespace ALauncher.View;
@@ -15,6 +15,10 @@ public partial class AddictionItems : Window, IDisposable {
     }
     public void AddItem(object sender, RoutedEventArgs e) {
         IsAdd = true;
+        if (!Path.IsPathRooted(PathBox.Text)) {
+            MessageBox.Show("Path is not valid");
+            return;
+        }
         GetItem = new Item() { 
             AppName = NameBox.Text, 
             Path = PathBox.Text, 
@@ -23,14 +27,12 @@ public partial class AddictionItems : Window, IDisposable {
         this.Close();
     }
      public void Close(object sender, RoutedEventArgs e) {
-        if (!IsAdd)
-            GetItem = null;
         this.Close();
     }
 
     public void Dispose()
     {
-        //
+        GetItem = null;
     }
 
     public void MoveWindow(object sender, MouseEventArgs e) {
