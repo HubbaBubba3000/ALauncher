@@ -30,11 +30,24 @@ public class FolderManager {
         UpdateFolders();
     }
     public FolderManager() {
-       using (var config = JsonParser<FolderConfig>.Parse($"{WorkFolder}/Folders.json"))
-            folders = new ((Folder[])config.Folders.Clone());
+        
+        string path = $"{WorkFolder}/Folders.json";
+
+        if (!File.Exists(path)) {
+            folders = new();
+            UpdateFolders();
+            MessageBox.Show($"Folders config was created in {path}");
+            return;
+        }
+        else {
+            using (var config = JsonParser<FolderConfig>.Parse(path))
+                folders = new ((Folder[])config.Folders.Clone());
+
+            foreach (Folder folder in folders) 
+                foreach (Item item in folder.Items) 
+                    item.Icon = IconExtractor.GetIcon(item.Path);
+        }
+
         folders.CollectionChanged += UpdateFolders;
-        foreach (Folder folder in folders) 
-            foreach (Item item in folder.Items) 
-                item.Icon = IconExtractor.GetIcon(item.Path);
     }
 }

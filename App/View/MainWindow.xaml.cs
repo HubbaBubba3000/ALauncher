@@ -12,7 +12,10 @@ namespace ALauncher
     {
         public MainWindow(MainVM m)
         {
-            this.DataContext = m;
+            DataContext = m;
+            m.LoadSettings(this);
+            Closing += m.OnClosing;
+
             InitializeComponent();
             Loaded += OnLoaded;
         }

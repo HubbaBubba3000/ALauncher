@@ -5,7 +5,7 @@ public class BottomPanelVM : BaseVM {
     private string _status;
     public string Version {
         get {
-            string ver ="v0.0.7 - ";
+            string ver ="v0.0.8 - ";
             #if DEBUG
                 ver += "DEBUG";
             #else 

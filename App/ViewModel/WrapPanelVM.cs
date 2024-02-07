@@ -19,7 +19,8 @@ public class WrapPanelVM : BaseVM {
         set {
             if (value == null) return;
             _current = value;
-            Items = new(_current.Items);
+            if (_current.Items != null)
+                Items = new(_current.Items);
         }
     }
 

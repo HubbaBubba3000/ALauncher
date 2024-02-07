@@ -57,6 +57,6 @@ public class ControlPanelVM : BaseVM{
     public ControlPanelVM(FolderManager b, WrapPanelVM wp) {
         folderManager = b;
         wrapPanelVM = wp;
-        CurrentFolder = Folders[0];
+        CurrentFolder = Folders.Count == 0 ? new Folder() : Folders[0];
     }
 }

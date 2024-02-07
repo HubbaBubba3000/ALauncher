@@ -10,8 +10,7 @@
         Background="Transparent"
         WindowStyle="None"
         Title="ALauncher" 
-        ResizeMode="CanResizeWithGrip"
-        Height="720" Width="1280">
+        ResizeMode="CanResizeWithGrip">
     <Grid>
         <DockPanel LastChildFill="True" x:Name="dockpanel">
             <view:BottomPanel DockPanel.Dock="Bottom" Height="25" DataContext="{Binding bottomPanelVM}"/>
