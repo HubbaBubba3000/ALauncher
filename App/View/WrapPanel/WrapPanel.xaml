@@ -12,17 +12,16 @@
                 CommandParameter="{Binding Path}" />
         </DataTemplate>
     </UserControl.Resources>
-
     <Border CornerRadius="0,15,0,0" Background="{StaticResource b2}" >
         <Grid>
         <Border MouseDown="MoveWindow" Background="Transparent" Height="50" VerticalAlignment="Top" HorizontalAlignment="Stretch" />
-            <Button Width="30" Height="30" Style="{StaticResource BtnStyle}" Command='{Binding AddItem}'
+            <Button Width="30" Height="30" Style="{StaticResource BtnStyle}" Command='{Binding AddItem}' ToolTip="Add Item"
                HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10,10,50,10" >
                 <Path  Width="15" Height="15" Stretch="Fill" 
                         Fill="{StaticResource b4}" Data="{StaticResource AddIcon}"/>
             </Button>
             <Button Width="30" Height="30" Style="{StaticResource BtnStyle}" Click="ButtonExit" 
-               HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10" >
+               HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10">
                 <Path  Width="15" Height="15" Stretch="Fill" 
                         Fill="{StaticResource b4}" Data="{StaticResource ExitIcon}"/>
             </Button>

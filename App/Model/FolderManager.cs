@@ -11,8 +11,7 @@ using System;
 
 namespace ALauncher.Model;
 
-public class FolderManager {
-    private string WorkFolder = $"C:/Users/{Environment.UserName}/Documents/ALauncher";
+public class FolderManager : Manager {
     public ObservableCollection<Folder> folders;
     public void RunItem(string path) {
         ProcessStartInfo processInfo = new ProcessStartInfo(path) {
@@ -43,9 +42,13 @@ public class FolderManager {
             using (var config = JsonParser<FolderConfig>.Parse(path))
                 folders = new ((Folder[])config.Folders.Clone());
 
-            foreach (Folder folder in folders) 
-                foreach (Item item in folder.Items) 
+            foreach (Folder folder in folders) {
+                if (folder == null) continue;
+                foreach (Item item in folder.Items) {
+                    if (item == null) continue;
                     item.Icon = IconExtractor.GetIcon(item.Path);
+                }
+            }
         }
 
         folders.CollectionChanged += UpdateFolders;

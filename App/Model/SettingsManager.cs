@@ -10,14 +10,15 @@ public class SettingsManager {
     SettingsConfig Settings;
     string Config;
 
-    private string WorkFolder = $"C:/Users/{Environment.UserName}/Documents/ALauncher";
+    private string WorkFolder = $"configs/";
 
     public SettingsManager() {
         Config = WorkFolder+"/Settings.json";
+        
         if (!File.Exists(Config)) {
             Settings = new SettingsConfig() {
                 WindowWidth = 1280,
-                WindowHeigth = 720,
+                WindowHeight = 720,
                 Lang = "EN",
                 Net = false,
                 AutoUpdate = false,
@@ -30,7 +31,7 @@ public class SettingsManager {
 
         Settings = JsonParser<SettingsConfig>.Parse(Config);
     }
-    
+    public SettingsConfig GetSettings() => Settings;
 
     public void SaveSettings(SettingsConfig settings) {
         Settings = settings;
@@ -42,11 +43,11 @@ public class SettingsManager {
 
     public void SetWindowDefaultSize(Window window) {
         window.Width = Settings.WindowWidth;
-        window.Height = Settings.WindowHeigth;
+        window.Height = Settings.WindowHeight;
     }
     public void SaveWindowSize(Window window) {
-        Settings.WindowWidth = window.Width;
-        Settings.WindowHeigth = window.Height;
+        Settings.WindowWidth = (int)window.Width;
+        Settings.WindowHeight = (int)window.Height;
         SaveSettings();
     }
 }

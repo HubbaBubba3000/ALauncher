@@ -28,11 +28,13 @@ namespace ALauncher
                     service.AddSingleton<SettingsManager>();
                     //ViewModels
                     service.AddSingleton<ControlPanelVM>();
+                    service.AddSingleton<SettingsVM>();
                     service.AddSingleton<WrapPanelVM>();
                     service.AddSingleton<BottomPanelVM>();
                     service.AddSingleton<MainVM>();
                     //View
                     service.AddSingleton<MainWindow>();
+                    service.AddScoped<SettingsWindow>();
                 }) ;
         }  
         private void OnStartup(object? sender, StartupEventArgs e) {

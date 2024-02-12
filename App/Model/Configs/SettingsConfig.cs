@@ -5,8 +5,8 @@ namespace ALauncher.Model;
 
 public class SettingsConfig : IConfig, IDisposable {
 
-    public double WindowWidth {get; set;}
-    public double WindowHeigth {get; set;}
+    public int WindowWidth {get; set;}
+    public int WindowHeight {get; set;}
     /// <summary>
     /// Change Language (NOT IMPLEMENTED)
     /// </summary>

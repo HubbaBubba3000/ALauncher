@@ -26,7 +26,7 @@ public partial class AddictionItems : Window, IDisposable {
         };
         this.Close();
     }
-     public void Close(object sender, RoutedEventArgs e) {
+    public void Close(object sender, RoutedEventArgs e) {
         this.Close();
     }
 

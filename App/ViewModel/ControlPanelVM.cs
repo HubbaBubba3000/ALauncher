@@ -12,6 +12,7 @@ namespace ALauncher.ViewModel;
 public class ControlPanelVM : BaseVM{
     private FolderManager folderManager;
     private WrapPanelVM wrapPanelVM;
+    private SettingsWindow settingsWindow;
     public ObservableCollection<Folder> Folders {
         get {
             return folderManager.folders;
@@ -44,6 +45,13 @@ public class ControlPanelVM : BaseVM{
             });
         }
     }
+    public ICommand OpenSettings {
+        get {
+            return new RelayCommand((obj) => {
+                settingsWindow.Show();
+            });
+        }
+    }
     public ICommand DeleteFolder {
         get {
             return new RelayCommand((obj) => {
@@ -54,9 +62,10 @@ public class ControlPanelVM : BaseVM{
             });
         }
     }
-    public ControlPanelVM(FolderManager b, WrapPanelVM wp) {
+    public ControlPanelVM(FolderManager b, WrapPanelVM wp, SettingsWindow sw) {
         folderManager = b;
         wrapPanelVM = wp;
+        settingsWindow = sw;
         CurrentFolder = Folders.Count == 0 ? new Folder() : Folders[0];
     }
 }
