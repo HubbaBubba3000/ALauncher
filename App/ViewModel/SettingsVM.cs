@@ -25,19 +25,29 @@ public class SettingsVM : BaseVM {
             OnPropertyChanged("WindowHeight");
         }
     }
-    public bool Network {
+    public Localisation Lang {
         get {
-            return config.Net;
+            return config.Lang;
         }
         set {
-            config.Net = value;
-            OnPropertyChanged("Network");
+            config.Lang = value;
+            OnPropertyChanged("Lang");
+        }
+    }
+    public bool AutoUpdate {
+        get {
+            return config.AutoUpdate;
+        }
+        set {
+            config.AutoUpdate = value;
+            OnPropertyChanged("AutoUpdate");
         }
     }
     public ICommand Save {
         get {
             return new RelayCommand((obj) => {
                 settings.SaveSettings(config);
+                settings.SetWindowDefaultSize();
             });
         }
     }

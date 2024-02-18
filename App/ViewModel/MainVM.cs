@@ -16,10 +16,11 @@ public class MainVM : BaseVM {
         settings = sm;
     }
     public void LoadSettings(Window window) {
-        settings.SetWindowDefaultSize(window);
+        settings.SetMainWindow(window);
+        settings.SetWindowDefaultSize();
     }
 
     public void OnClosing(object sender, CancelEventArgs e) {
-        settings.SaveWindowSize((Window)sender);
+        settings.SaveWindowSize();
     }
 }

@@ -8,8 +8,7 @@ using System.ComponentModel;
 namespace ALauncher.View;
 
 public partial class SettingsWindow : Window, IDisposable {
-    public SettingsWindow(SettingsVM settingsVM) {
-        this.DataContext = settingsVM;
+    public SettingsWindow() {
         InitializeComponent();
     }
     public void Close(object sender, RoutedEventArgs e) {

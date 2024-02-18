@@ -63,7 +63,7 @@
                 <Viewbox Width="25" Height="25">
                     <Grid>
                         <Path Stretch="Fill" Fill="{StaticResource b4}" Data="{StaticResource SettingIcon1}" />
-                        <Path Width="25" Height="25" Stretch="Fill" StrokeThickness="10" Stroke="{StaticResource b4}" Data="{StaticResource SettingIcon2}" />
+                        <Path HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" Fill="{StaticResource b4}" Data="{StaticResource SettingIcon2}" />
                     </Grid>
                 </Viewbox>
             </Button>

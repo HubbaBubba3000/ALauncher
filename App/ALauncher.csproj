@@ -11,6 +11,7 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="ParallelExtensionsExtras" Version="1.2.0" />
     <PackageReference Include="System.Drawing.Common" Version="8.0.1" />
     <ProjectReference Include="../Data/Data.csproj" />
     

@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Hosting;
 using System.Windows;
 using ALauncher.View;
+using System;
 
 namespace ALauncher
 {
@@ -26,15 +27,16 @@ namespace ALauncher
                     //Models
                     service.AddSingleton<FolderManager>();
                     service.AddSingleton<SettingsManager>();
+                    service.AddSingleton<Func<SettingsVM>>(provider => provider.GetService<SettingsVM>);
+                    service.AddSingleton<SettingsService>();
                     //ViewModels
                     service.AddSingleton<ControlPanelVM>();
-                    service.AddSingleton<SettingsVM>();
+                    service.AddScoped<SettingsVM>();
                     service.AddSingleton<WrapPanelVM>();
                     service.AddSingleton<BottomPanelVM>();
                     service.AddSingleton<MainVM>();
                     //View
                     service.AddSingleton<MainWindow>();
-                    service.AddScoped<SettingsWindow>();
                 }) ;
         }  
         private void OnStartup(object? sender, StartupEventArgs e) {

@@ -1,16 +1,13 @@
 
-using System;
 using System.IO;
 using System.Windows;
-using System.Xaml;
 
 namespace ALauncher.Model;
 
-public class SettingsManager {
+public class SettingsManager : Manager {
     SettingsConfig Settings;
+    Window mainWindow;
     string Config;
-
-    private string WorkFolder = $"configs/";
 
     public SettingsManager() {
         Config = WorkFolder+"/Settings.json";
@@ -19,8 +16,7 @@ public class SettingsManager {
             Settings = new SettingsConfig() {
                 WindowWidth = 1280,
                 WindowHeight = 720,
-                Lang = "EN",
-                Net = false,
+                Lang = Localisation.EN,
                 AutoUpdate = false,
                 Animations = false
             };
@@ -30,6 +26,9 @@ public class SettingsManager {
         }
 
         Settings = JsonParser<SettingsConfig>.Parse(Config);
+    }
+    public void SetMainWindow(Window mw){
+        mainWindow = mw;
     }
     public SettingsConfig GetSettings() => Settings;
 
@@ -41,13 +40,13 @@ public class SettingsManager {
         JsonParser<SettingsConfig>.Save(Settings,Config);
     }
 
-    public void SetWindowDefaultSize(Window window) {
-        window.Width = Settings.WindowWidth;
-        window.Height = Settings.WindowHeight;
+    public void SetWindowDefaultSize() {
+        mainWindow.Width = Settings.WindowWidth;
+        mainWindow.Height = Settings.WindowHeight;
     }
-    public void SaveWindowSize(Window window) {
-        Settings.WindowWidth = (int)window.Width;
-        Settings.WindowHeight = (int)window.Height;
+    public void SaveWindowSize() {
+        Settings.WindowWidth = (int)mainWindow.Width;
+        Settings.WindowHeight = (int)mainWindow.Height;
         SaveSettings();
     }
 }

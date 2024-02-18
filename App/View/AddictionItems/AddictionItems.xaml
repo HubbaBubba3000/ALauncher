@@ -26,13 +26,22 @@
             <Label Content="Name: " Foreground="{StaticResource b4}" FontSize="16" 
                     HorizontalAlignment="left" HorizontalContentAlignment="Center"
                     VerticalContentAlignment="Center" Margin="0,60,0,0" />
-            <TextBox x:Name="NameBox" Width="300" Height="30" Text="New Item" 
-                    Margin="90,55,0,0" Style="{StaticResource TextBoxStyle}"/>
+            <TextBox x:Name="NameBox" Width="200" Height="30" Text="New Item" HorizontalAlignment="Left"
+                    Margin="70,55,0,0" Style="{StaticResource TextBoxStyle}"/>
             <Label Content="Path: " Foreground="{StaticResource b4}" FontSize="16" 
                 HorizontalAlignment="left" HorizontalContentAlignment="Center"
                 VerticalContentAlignment="Center" Margin="0,145,0,0" />
-            <TextBox x:Name="PathBox" Width="300" Height="30" Text="New Item" 
-                    Margin="90,140,0,0" Style="{StaticResource TextBoxStyle}"/>
+            <TextBox x:Name="PathBox" Width="290" Height="30" Text="New Item" HorizontalAlignment="Left"
+                    Margin="70,140,0,0" Style="{StaticResource TextBoxStyle}"/>
+            <Button Width="30" Height="30"  Click="Browse"
+                    Margin="380,140,0,0" Style="{StaticResource BtnStyle}">
+                <Viewbox Width="25" Height="25">
+                    <Grid>
+                        <Path HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" Fill="{StaticResource b4}" Data="{StaticResource BrowseIcon2}" />
+                        <Path Stretch="Fill" Fill="{StaticResource b4}" Data="{StaticResource BrowseIcon1}" />
+                    </Grid>
+                </Viewbox>
+            </Button>
             <Button Content="Add" HorizontalAlignment="Right" VerticalAlignment="Bottom"
                     Width="60" Height="30" Click="AddItem" Style="{StaticResource BtnStyle}" />
         </Grid> 

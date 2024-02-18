@@ -1,10 +1,9 @@
 using System.ComponentModel;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows.Input;
 using ALauncher.Data;
 using ALauncher.Model;
 using ALauncher.View;
-using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace ALauncher.ViewModel;
@@ -12,7 +11,7 @@ namespace ALauncher.ViewModel;
 public class ControlPanelVM : BaseVM{
     private FolderManager folderManager;
     private WrapPanelVM wrapPanelVM;
-    private SettingsWindow settingsWindow;
+    private SettingsService settingsService;
     public ObservableCollection<Folder> Folders {
         get {
             return folderManager.folders;
@@ -48,7 +47,7 @@ public class ControlPanelVM : BaseVM{
     public ICommand OpenSettings {
         get {
             return new RelayCommand((obj) => {
-                settingsWindow.Show();
+                settingsService.Show();
             });
         }
     }
@@ -62,10 +61,10 @@ public class ControlPanelVM : BaseVM{
             });
         }
     }
-    public ControlPanelVM(FolderManager b, WrapPanelVM wp, SettingsWindow sw) {
+    public ControlPanelVM(FolderManager b, WrapPanelVM wp, SettingsService ss) {
         folderManager = b;
         wrapPanelVM = wp;
-        settingsWindow = sw;
-        CurrentFolder = Folders.Count == 0 ? new Folder() : Folders[0];
+        settingsService = ss;
+        CurrentFolder = Folders.Count() == 0 ? new Folder() : Folders[0];
     }
 }

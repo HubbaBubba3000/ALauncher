@@ -1,7 +1,21 @@
 
 using System;
+using System.Runtime.Serialization;
+using System.Text.Json.Serialization;
 
 namespace ALauncher.Model;
+ [JsonConverter(typeof(JsonStringEnumConverter))]
+public enum Localisation {
+    [EnumMember(Value = "EN")]
+    EN,
+    [EnumMember(Value = "ES")]
+    ES,
+    [EnumMember(Value = "DE")]
+    DE,
+    [EnumMember(Value = "RU")]
+    RU
+
+}
 
 public class SettingsConfig : IConfig, IDisposable {
 
@@ -10,13 +24,9 @@ public class SettingsConfig : IConfig, IDisposable {
     /// <summary>
     /// Change Language (NOT IMPLEMENTED)
     /// </summary>
-    public string Lang {get; set;}
+    public Localisation Lang {get; set;}
     /// <summary>
-    /// on/off network module
-    /// </summary>
-    public bool Net {get;set;}
-    /// <summary>
-    /// auto Updating app, if net is false it doesnt work 
+    /// auto Updating app
     /// </summary>
     public bool AutoUpdate {get;set;}
     /// <summary>

@@ -1,13 +1,10 @@
-using System.Collections.Generic;
 using ALauncher.Data;
-using ALauncher.ViewModel;
 using System.Windows;
 using System.Diagnostics;
 using System.IO;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Collections.Specialized;
-using System;
+using System.Collections.ObjectModel;
 
 namespace ALauncher.Model;
 
@@ -28,6 +25,14 @@ public class FolderManager : Manager {
     public void UpdateFolders(object? sender, NotifyCollectionChangedEventArgs e) {
         UpdateFolders();
     }
+    public void initFolder(string path) {
+         using (var config = JsonParser<FolderConfig>.Parse(path))
+            folders = new((Folder[])config.Folders.Clone()) ;
+
+        foreach (Folder folder in folders ) 
+            foreach (Item item in folder.Items) 
+                IconExtractor.SetIcon(item);
+    }
     public FolderManager() {
         
         string path = $"{WorkFolder}/Folders.json";
@@ -39,16 +44,7 @@ public class FolderManager : Manager {
             return;
         }
         else {
-            using (var config = JsonParser<FolderConfig>.Parse(path))
-                folders = new ((Folder[])config.Folders.Clone());
-
-            foreach (Folder folder in folders) {
-                if (folder == null) continue;
-                foreach (Item item in folder.Items) {
-                    if (item == null) continue;
-                    item.Icon = IconExtractor.GetIcon(item.Path);
-                }
-            }
+            initFolder(path);
         }
 
         folders.CollectionChanged += UpdateFolders;

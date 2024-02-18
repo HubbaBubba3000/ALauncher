@@ -3,41 +3,65 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ALauncher"
-        xmlns:view="clr-namespace:ALauncher.View"
+        xmlns:local="clr-namespace:ALauncher.View"
+        xmlns:model="clr-namespace:ALauncher.Model"
+        xmlns:System="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         AllowsTransparency="True"
         Background="Transparent"
         WindowStyle="None"
         Title="Settings" 
         Height="480" Width="640">
+    <Window.Resources>
+        <ObjectDataProvider x:Key="dataFromEnum" MethodName="GetValues"
+                            ObjectType="{x:Type System:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="model:Localisation"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+    </Window.Resources>
     <Border Background="{StaticResource b2}" BorderThickness="1" Padding="15" CornerRadius="15" 
             BorderBrush="{StaticResource b4}" MouseDown="MoveWindow">
         <Grid>
-            <Label Content="Settings" Foreground="{StaticResource b4}" FontSize="24" 
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition />
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Content="Settings" Foreground="{StaticResource b4}" FontSize="24" 
                     HorizontalAlignment="left" VerticalAlignment="Top" />
-            <Button Width="30" Height="30" Style="{StaticResource BtnStyle}" Click="Close" 
+            <Button Grid.Row="0" Width="30" Height="30" Style="{StaticResource BtnStyle}" Click="Close" 
                     HorizontalAlignment="Right" VerticalAlignment="Top" >
-                <Path Width="15" Height="15" Stretch="Fill" 
-                        Fill="{StaticResource b4}" Data="{StaticResource ExitIcon}"/>
+                    <Path Width="15" Height="15" Stretch="Fill" 
+                            Fill="{StaticResource b4}" Data="{StaticResource ExitIcon}"/>
             </Button>
+            <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Disabled" Background="Transparent">
+                <StackPanel Orientation="Vertical">
+                    <Label Content="Window Width: " Foreground="{StaticResource b4}" FontSize="16" 
+                        HorizontalAlignment="left" Margin="0,15,0,0"  />
+                    <TextBox Width="60" Height="30" Text="{Binding WindowWidth}" HorizontalAlignment="left" 
+                            Margin="0,10,0,0" Style="{StaticResource TextBoxStyle}" />
 
-            <Label Content="Window Width: " Foreground="{StaticResource b4}" FontSize="16" 
-                    HorizontalAlignment="left" HorizontalContentAlignment="Center"
-                    Margin="0,5,0,0"  />
-            <TextBox Width="60" Height="30" Text="{Binding WindowWidth}" HorizontalContentAlignment="Center"
-                    Margin="90,0,0,0" Style="{StaticResource TextBoxStyle}"/>
-            <Label Content="Window Height: " Foreground="{StaticResource b4}" FontSize="16" 
-                    HorizontalAlignment="left" HorizontalContentAlignment="Center"
-                    Margin="0,120,0,0"  />
-            <TextBox Width="60" Height="30" Text="{Binding WindowHeight}" HorizontalContentAlignment="Center"
-                    Margin="90,115,0,0" Style="{StaticResource TextBoxStyle}"/>
-            <Label Content="Network: " Foreground="{StaticResource b4}" FontSize="16" 
-                    HorizontalAlignment="left" HorizontalContentAlignment="Center"
-                    Margin="0,200,0,0"  />
-            <CheckBox Width="30" Height="30" Margin="90,195,0,0" Style="{StaticResource CheckBoxStyle}" IsChecked="{Binding Network}" />
+                    <Label Content="Window Height: " Foreground="{StaticResource b4}" FontSize="16" 
+                            HorizontalAlignment="left" Margin="0,15,0,0"  />
+                    <TextBox Width="60" Height="30" Text="{Binding WindowHeight}" HorizontalAlignment="left" 
+                            Margin="0,10,0,0" Style="{StaticResource TextBoxStyle}"/>
 
-            <Button Content="Save" HorizontalAlignment="Right" VerticalAlignment="Bottom"  
+                    <Label Content="Auto update: " Foreground="{StaticResource b4}" FontSize="16" 
+                            HorizontalAlignment="left" Margin="0,15,0,0"  />
+                    <CheckBox Width="30" Height="30" IsChecked="{Binding AutoUpdate}" HorizontalAlignment="left" 
+                            Margin="0,10,0,0" Style="{StaticResource CheckBoxStyle}"/>
+
+                    <Label Content="Language: " Foreground="{StaticResource b4}" FontSize="16" 
+                            HorizontalAlignment="left" Margin="0,15,0,0"  />
+                    <ComboBox Width="90" Height="30" ItemsSource="{Binding Source={StaticResource dataFromEnum}}" SelectedItem="{Binding Lang}" 
+                            HorizontalAlignment="left" Margin="0,10,0,0" MaxDropDownHeight="60" Style="{StaticResource ComboBoxStyle}"/>
+                   
+                </StackPanel>
+                
+            </ScrollViewer>
+            
+            <Button Grid.Row="2" Content="Save" HorizontalAlignment="Right" VerticalAlignment="Bottom"  
                     Width="60" Height="30" Command="{Binding Save}" Style="{StaticResource BtnStyle}" />
 
         </Grid>
