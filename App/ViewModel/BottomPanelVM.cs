@@ -3,9 +3,11 @@ namespace ALauncher.ViewModel;
 
 public class BottomPanelVM : BaseVM {
     private string _status;
+    public delegate void StatusChangedHandler(string status);
+    public event StatusChangedHandler StatusChanged;
     public string Version {
         get {
-            string ver ="v0.0.8 - ";
+            string ver ="v0.0.9 - ";
             #if DEBUG
                 ver += "DEBUG";
             #else 
@@ -18,6 +20,8 @@ public class BottomPanelVM : BaseVM {
         get {return _status;} 
         set {
             _status = value;
+            if(StatusChanged != null)
+                StatusChanged.Invoke(_status);
             OnPropertyChanged("Status");
         }
     }

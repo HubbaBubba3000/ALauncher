@@ -10,8 +10,9 @@
         Background="Transparent"
         WindowStyle="None"
         Title="ALauncher" 
+        WindowState = "{Binding wrapPanelVM.windowState}"
         ResizeMode="CanResizeWithGrip">
-    <Grid>
+    <Grid >
         <DockPanel LastChildFill="True" x:Name="dockpanel">
             <view:BottomPanel DockPanel.Dock="Bottom" Height="25" DataContext="{Binding bottomPanelVM}"/>
             <view:ControlPanel x:Name="leftpanel" DataContext="{Binding controlPanelVM}" Width="200" DockPanel.Dock="Left"/>

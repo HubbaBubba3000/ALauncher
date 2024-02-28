@@ -1,28 +1,30 @@
 using ALauncher.Data;
+using ALauncher.ViewModel;
 using System;
 using System.Windows;
-using System.Windows.Automation;
-using System.Windows.Controls;
 using System.Windows.Input;
 namespace ALauncher.View;
 
 public partial class AddictionFolder : Window, IDisposable {
-    public bool IsAdd = false;
-    public Folder GetFolder;
-    public AddictionFolder() {
+    public AddictionFolder(Folder? folder = null) {
+        DataContext = new AddFolderVM(folder);
         InitializeComponent();
     }
+    public Folder? GetFolder {get; private set;}
     public void AddFolder(object sender, RoutedEventArgs e) {
-        IsAdd = true;
-        GetFolder = new Folder() { Name = NameBox.Text, Items = new(1) };
+        GetFolder = ((AddFolderVM)DataContext).GetFolder;
+        CloseDialog(true);
+    }
+
+    private void CloseDialog(bool result) {
+        this.DialogResult = result;
         this.Close();
     }
      public void Close(object sender, RoutedEventArgs e) {
-        this.Close();
+        CloseDialog(false);
     }
 
-    public void Dispose()
-    {
+    public void Dispose()  { 
         GetFolder = null;
     }
 

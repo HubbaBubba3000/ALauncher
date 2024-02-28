@@ -9,6 +9,7 @@
         AllowsTransparency="True"
         Background="Transparent"
         WindowStyle="None"
+        Name="addWindow"
         Height="360" Width="480">
     <Window.Resources>
         <ResourceDictionary Source="../../Styles/Styles.xaml" />
@@ -26,7 +27,7 @@
             <Label Content="Name: " Foreground="{StaticResource b4}" FontSize="16" 
                     HorizontalAlignment="left" HorizontalContentAlignment="Center"
                     VerticalContentAlignment="Center" Margin="0,80,0,0" />
-            <TextBox x:Name="NameBox" Width="300" Height="30" Text="New Folder" 
+            <TextBox x:Name="NameBox" Width="300" Height="30" Text="{Binding FolderName}"
                     Margin="90,75,0,0" Style="{StaticResource TextBoxStyle}"/>
             
             <Button Content="Add" HorizontalAlignment="Right" VerticalAlignment="Bottom"

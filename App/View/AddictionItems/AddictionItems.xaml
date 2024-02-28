@@ -9,6 +9,7 @@
         AllowsTransparency="True"
         Background="Transparent"
         WindowStyle="None"
+        x:Name="addWindow"
         Height="360" Width="480">
     <Window.Resources>
         <ResourceDictionary Source="../../Styles/Styles.xaml" />
@@ -26,14 +27,14 @@
             <Label Content="Name: " Foreground="{StaticResource b4}" FontSize="16" 
                     HorizontalAlignment="left" HorizontalContentAlignment="Center"
                     VerticalContentAlignment="Center" Margin="0,60,0,0" />
-            <TextBox x:Name="NameBox" Width="200" Height="30" Text="New Item" HorizontalAlignment="Left"
+            <TextBox x:Name="NameBox" Width="200" Height="30" Text="{Binding AppName, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left"
                     Margin="70,55,0,0" Style="{StaticResource TextBoxStyle}"/>
             <Label Content="Path: " Foreground="{StaticResource b4}" FontSize="16" 
                 HorizontalAlignment="left" HorizontalContentAlignment="Center"
                 VerticalContentAlignment="Center" Margin="0,145,0,0" />
-            <TextBox x:Name="PathBox" Width="290" Height="30" Text="New Item" HorizontalAlignment="Left"
+            <TextBox x:Name="PathBox" Width="290" Height="30" Text="{Binding ItemPath, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left"
                     Margin="70,140,0,0" Style="{StaticResource TextBoxStyle}"/>
-            <Button Width="30" Height="30"  Click="Browse"
+            <Button Width="30" Height="30"  Command="{Binding Browse}"
                     Margin="380,140,0,0" Style="{StaticResource BtnStyle}">
                 <Viewbox Width="25" Height="25">
                     <Grid>
@@ -42,8 +43,8 @@
                     </Grid>
                 </Viewbox>
             </Button>
-            <Button Content="Add" HorizontalAlignment="Right" VerticalAlignment="Bottom"
-                    Width="60" Height="30" Click="AddItem" Style="{StaticResource BtnStyle}" />
+            <Button Content="Add" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="60" Height="30" 
+                   Click="AddItem" Style="{StaticResource BtnStyle}" />
         </Grid> 
     </Border>
 </Window>

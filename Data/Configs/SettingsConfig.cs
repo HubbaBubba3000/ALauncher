@@ -3,7 +3,7 @@ using System;
 using System.Runtime.Serialization;
 using System.Text.Json.Serialization;
 
-namespace ALauncher.Model;
+namespace ALauncher.Data;
  [JsonConverter(typeof(JsonStringEnumConverter))]
 public enum Localisation {
     [EnumMember(Value = "EN")]

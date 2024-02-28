@@ -1,2 +1,2 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿// dont delete (error CS5001 about entry point)
+Console.WriteLine("alauncher - init data");

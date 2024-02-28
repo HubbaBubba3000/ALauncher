@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
-using ALauncher.Data;
-namespace ALauncher.Model;
+namespace ALauncher.Data;
 
 public class FolderConfig : IConfig, IDisposable {
     public Folder[] Folders {get;set;}

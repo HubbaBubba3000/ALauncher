@@ -1,25 +1,24 @@
 using ALauncher.ViewModel;
 using ALauncher.View;
 using System;
+using ALauncher.Data;
 
 namespace ALauncher.Model;
 
 public class SettingsService : IService
 {
-    bool IsActivity;
     Func<SettingsVM> SettingsFactory;
+    SettingsWindow settingsWindow;
     public SettingsService(Func<SettingsVM> settingsFactory) {
         SettingsFactory = settingsFactory;
-        IsActivity = false;
     }
-    public void Show()
+
+    public bool Show()
     {
-        IsActivity = true;
-        SettingsVM settings = SettingsFactory.Invoke();
-        SettingsWindow sw = new SettingsWindow() {
-            DataContext = settings
-            
+        settingsWindow = new SettingsWindow() {
+            DataContext = SettingsFactory.Invoke()
         };
-        sw.Show();
+        settingsWindow.Show();
+        return true;
     }
 }

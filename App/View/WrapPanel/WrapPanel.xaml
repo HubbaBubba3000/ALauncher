@@ -6,11 +6,20 @@
         xmlns:local="clr-namespace:ALauncher.View"
         mc:Ignorable="d" Name="This">
     <UserControl.Resources>
-         <DataTemplate x:Key="ItemTemplate">
-            <local:ItemControl Icon="{Binding Icon}" AppName="{Binding AppName}" Path="{Binding Path}" 
-                Command="{Binding ElementName=This, Path=DataContext.Run}" DeleteCommand="{Binding ElementName=This, Path=DataContext.DeleteItem}"
-                CommandParameter="{Binding Path}" />
-        </DataTemplate>
+        <Style x:Key="ItemListStyle" TargetType="{x:Type ListBoxItem}">
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Template">
+                <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                    <local:ItemControl Icon="{Binding Icon}" AppName="{Binding AppName}" Path="{Binding Path}" 
+                        Command="{Binding ElementName=This, Path=DataContext.Run}" CommandParameter="{Binding Path}" />
+                </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+         
     </UserControl.Resources>
     <Border CornerRadius="0,15,0,0" Background="{StaticResource b2}" >
         <Grid>
@@ -25,14 +34,21 @@
                 <Path  Width="15" Height="15" Stretch="Fill" 
                         Fill="{StaticResource b4}" Data="{StaticResource ExitIcon}"/>
             </Button>
-            <ItemsControl ItemsSource="{Binding Items, UpdateSourceTrigger=PropertyChanged}"
-                        ItemTemplate="{StaticResource ItemTemplate}" Margin="0,50,0,0" >
-                <ItemsControl.ItemsPanel>
+            <ListBox ItemsSource="{Binding Items, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding CurrentItem}" Style="{StaticResource ListBoxStyle}"
+                    ItemContainerStyle="{StaticResource ItemListStyle}" Margin="0,50,0,0" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <WrapPanel  />
+                        <WrapPanel>
+                            <WrapPanel.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="Delete" Command="{Binding DeleteItem}" />
+                                    <MenuItem Header="Edit" Command="{Binding EditItem}"/>
+                                </ContextMenu>
+                            </WrapPanel.ContextMenu>
+                        </WrapPanel>
                     </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-            </ItemsControl>
+                </ListBox.ItemsPanel>
+            </ListBox>
         </Grid>
     </Border>
 </UserControl>

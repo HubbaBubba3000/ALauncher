@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ALauncher.View"
+        xmlns:m="clr-namespace:ALauncher.Model"
         mc:Ignorable="d" Name="This">
     <UserControl.Resources>
         <Style x:Key="ItemListStyle" TargetType="{x:Type ListBoxItem}">
@@ -15,22 +16,14 @@
                     <ControlTemplate TargetType="{x:Type ListBoxItem}">
                         <Border Background="{StaticResource b3}" BorderBrush="{StaticResource b4}" 
                                 HorizontalAlignment="Stretch" Name="_Border" BorderThickness="0" >
-                            <Grid>
-                                <Label Content="{Binding Name}" FontSize="24" Foreground="{StaticResource b4}"
-                                    VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                                <Button Visibility="Hidden" Name="_button" Width="20" Height="20" Margin="3" 
-                                        Command="{Binding ElementName=This, Path=DataContext.DeleteFolder}" CommandParameter="{Binding Name}"
-                                    Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Right">
-                                    <Path Width="15" Height="15" Stretch="Fill" 
-                                        Fill="{StaticResource b4}" Data="{StaticResource DeleteIcon}" />
-                                </Button>
-                            </Grid>
-                            
+                            <TextBlock  Text="{Binding Name}"   FontSize="24" Foreground="{StaticResource b4}" 
+                                VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            <!-- <TextBox Name="textbox" Text="{Binding Name}" FontSize="24" Foreground="{StaticResource b4}" 
+                                VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed" /> -->
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter TargetName="_Border" Property="BorderThickness" Value="1" />
-                                <Setter TargetName="_button" Property="Visibility" Value="Visible" />
                             </Trigger>
                             <Trigger Property="IsSelected" Value="True">
                                 <Setter TargetName="_Border" Property="BorderThickness" Value="2" />
@@ -50,8 +43,15 @@
         <Label Grid.Row="0" HorizontalAlignment="Center" FontSize="32" 
                 Foreground="{StaticResource b4}" Content="ALauncher" />
         <ListBox Grid.Row="1" Foreground="{StaticResource b4}" Style="{StaticResource ListBoxStyle}" 
-                SelectedItem="{Binding CurrentFolder, UpdateSourceTrigger=PropertyChanged}"
-                ItemsSource="{Binding Folders, UpdateSourceTrigger=PropertyChanged}" ItemContainerStyle="{StaticResource ItemListStyle}" />
+                SelectedItem="{Binding CurrentFolder, UpdateSourceTrigger=PropertyChanged}" VirtualizingStackPanel.IsVirtualizing="True"
+                ItemsSource="{Binding Folders, UpdateSourceTrigger=PropertyChanged}" ItemContainerStyle="{StaticResource ItemListStyle}" >
+            <ListBox.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Delete" Command="{Binding DeleteFolder}"/>
+                    <MenuItem Header="Edit" Command="{Binding EditFolder}" />
+                </ContextMenu>
+            </ListBox.ContextMenu>
+        </ListBox>
         <StackPanel Grid.Row="1" Orientation="Horizontal">
             <Button Height="30" Width="30" Margin="10" Style="{StaticResource BtnStyle}" ToolTip="Add Folder"
                     HorizontalAlignment="Right" VerticalAlignment="Bottom" Command="{Binding AddFolder}">

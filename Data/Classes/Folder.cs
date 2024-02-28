@@ -1,11 +1,10 @@
-using System.Text.Json;
+using System.Collections.ObjectModel;
 
 namespace ALauncher.Data;
 
 public class Folder : IFolder
 {
     public string Name { get ; set; }
-    //[JsonProperty("Items")]
-    public List<Item> Items { get; set;}
+    public ObservableCollection<Item> Items { get; set;}
 
 }

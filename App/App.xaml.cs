@@ -1,8 +1,7 @@
-﻿using System.Windows.Controls;
+﻿
 using ALauncher.ViewModel;
 using ALauncher.Model;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Hosting;
 using System.Windows;
 using ALauncher.View;
@@ -20,21 +19,21 @@ namespace ALauncher
         public static IHostBuilder CreateHostBuilder()
         {
             return Host.CreateDefaultBuilder()
-                .ConfigureLogging (logging => {
-                    logging.AddEventLog();
-                })
                 .ConfigureServices( service => {
                     //Models
                     service.AddSingleton<FolderManager>();
                     service.AddSingleton<SettingsManager>();
                     service.AddSingleton<Func<SettingsVM>>(provider => provider.GetService<SettingsVM>);
                     service.AddSingleton<SettingsService>();
+                    service.AddSingleton<AddItemService>();
+                    service.AddSingleton<AddFolderService>();
                     //ViewModels
-                    service.AddSingleton<ControlPanelVM>();
-                    service.AddScoped<SettingsVM>();
-                    service.AddSingleton<WrapPanelVM>();
                     service.AddSingleton<BottomPanelVM>();
+                    service.AddSingleton<ControlPanelVM>();
+                    service.AddSingleton<WrapPanelVM>();
                     service.AddSingleton<MainVM>();
+                    //child windows viewmodels 
+                    service.AddScoped<SettingsVM>();
                     //View
                     service.AddSingleton<MainWindow>();
                 }) ;

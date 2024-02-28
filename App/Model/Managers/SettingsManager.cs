@@ -1,7 +1,7 @@
 
 using System.IO;
 using System.Windows;
-
+using ALauncher.Data;
 namespace ALauncher.Model;
 
 public class SettingsManager : Manager {

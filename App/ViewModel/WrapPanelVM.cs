@@ -1,52 +1,91 @@
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+
 using System.Windows.Input;
 using System.Windows;
 using ALauncher.Data;
-using ALauncher.View;
 using ALauncher.Model;
-using System.ComponentModel;
 using System.Linq;
+using System;
+using System.Collections.ObjectModel;
 
 namespace ALauncher.ViewModel;
 
 public class WrapPanelVM : BaseVM {
-    private Folder _current;
-    public Folder CurrentFolder {
+    private ProcessWorker process;
+    private bool IsAddWindowOpen;
+    private Item _item;
+    public Item CurrentItem {
         get {
-            return _current;
+            return _item;
         } 
         set {
             if (value == null) return;
-            _current = value;
-            if (_current.Items != null)
-                Items = new(_current.Items);
+            _item = value;
         }
     }
-
-    private FolderManager folderManager;
-    private ObservableCollection<Item> _items;
-    public ObservableCollection<Item> Items {
+    private Folder folder;
+    public Folder CurrentFolder {
         get {
-            return _items ;
+            return folder;
         }
         set {
-            _items = value;
+            folder = value;
+            Items = folder.Items;
+            OnPropertyChanged("CurrentFolder");
+        }
+    }
+    WindowState _windowState;
+    /// <summary>
+    /// MainWindow State
+    /// <summary>
+    public WindowState windowState {
+        get { return _windowState; }
+        set { 
+            _windowState = value; 
+            OnPropertyChanged("windowState");
+        }
+    } 
+
+    private FolderManager folderManager;
+    //ObservableCollection<Item> items;
+    public ObservableCollection<Item> Items {
+        get {
+            try {
+                Folder folder = folderManager.folders.Single(f => f == CurrentFolder);
+                return folder.Items;
+            }
+            catch (Exception e) {
+                return new();
+            }
+        }
+        set {
+            folderManager.folders.Single(f => f == CurrentFolder).Items = value;
             OnPropertyChanged("Items");
         }
     }
-
     public ICommand AddItem {
         get {
             return new RelayCommand((_obj) => {
-                using (AddictionItems ai = new AddictionItems()) {
-                    ai.Closing += new CancelEventHandler((obj, e) => {
-                    if (!ai.IsAdd) return;
-                    Items.Add(ai.GetItem);
-                    folderManager.folders.Single(f => f == CurrentFolder).Items = Items.ToList();
+                if (IsAddWindowOpen) return;
+                IsAddWindowOpen = true;
+                if (addItemService.Show() == true) {
+                    Items.Add(addItemService.Result);
                     folderManager.UpdateFolders();
-                    });
-                    ai.Show();
+                    IsAddWindowOpen = false;
+                }
+            });
+        } 
+    }
+    public ICommand EditItem {
+        get {
+            return new RelayCommand((_obj) => {
+                if (IsAddWindowOpen) return;
+                IsAddWindowOpen = true;
+                if (addItemService.Show(CurrentItem) == true) {
+                    int i = Items.IndexOf(CurrentItem);
+                    Items.RemoveAt(i);
+                    Items.Insert(i,addItemService.Result);
+                    folderManager.UpdateFolders();
+                    IsAddWindowOpen = false;
                 }
             });
         } 
@@ -54,9 +93,8 @@ public class WrapPanelVM : BaseVM {
      public ICommand DeleteItem {
         get {
             return new RelayCommand((obj) => {
-                    var item = Items.Single(i => i.AppName == (string)obj);
-                    Items.Remove(item);
-                    folderManager.folders.Single(f => f == CurrentFolder).Items = Items.ToList();
+                    var buf = CurrentItem;
+                    Items.Remove(buf);
                     folderManager.UpdateFolders();
             });
         }
@@ -64,13 +102,21 @@ public class WrapPanelVM : BaseVM {
     public ICommand Run {
         get {
             return new RelayCommand((obj) => {
-                folderManager.RunItem((string)obj);
+                var item = Items.Single(item => item.Path == (string)obj);
+                process = new(item);
+                windowState = WindowState.Minimized;
+                GC.Collect();
+                process.RunProcess();
+                process.SetExitEvent((_obj, e) => {
+                    windowState = WindowState.Normal;
+
+                });
             });
         }
     }
-
-    public WrapPanelVM(FolderManager b) {
+    private AddItemService addItemService;
+    public WrapPanelVM(FolderManager b, AddItemService ais) {
         folderManager = b;
-        _items = new();
+        addItemService = ais;
     }
 }
