@@ -8,8 +8,7 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
     <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-
-    <!-- <ConcurrentGarbageCollection>true</ConcurrentGarbageCollection> -->
+    <ConcurrentGarbageCollection>true</ConcurrentGarbageCollection>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Utf8Json" Version="1.3.7" />
@@ -22,7 +21,6 @@
 
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.1" />
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="7.0.0" />
     
     <PackageReference Include="System.Text.Json" Version="7.0.3" />
   </ItemGroup>

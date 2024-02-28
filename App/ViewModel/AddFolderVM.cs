@@ -15,6 +15,6 @@ namespace ALauncher.ViewModel;
             }
         }
         public AddFolderVM(Folder? folder) {
-            this.GetFolder = folder ?? new Folder() {Name = "New Folder"};
+            this.GetFolder = folder ?? new Folder() {Name = "New Folder", Items = new()};
         }
 }

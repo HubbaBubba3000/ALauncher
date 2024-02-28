@@ -13,9 +13,10 @@ namespace ALauncher.ViewModel
                 PropertyChanged(this, new PropertyChangedEventArgs(prop));
         }
     }
-    public class RelayCommand : ICommand {
-        private Action<object?> execute;
-        private Func<object?, bool> canExecute;
+    public sealed class RelayCommand : ICommand {
+        public string Name {get; private set;}
+        public Action<object?> execute {get; private set;}
+        public Func<object?, bool> canExecute {get; private set;}
  
         public event EventHandler? CanExecuteChanged
         {

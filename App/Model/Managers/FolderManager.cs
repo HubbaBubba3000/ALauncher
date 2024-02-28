@@ -22,7 +22,7 @@ public class FolderManager : Manager {
         UpdateFolders();
     }
     public void CheckAndSetIcons(Folder folder) {
-        if (folder.Items == null) return;
+        if (folder == null || folder.Items == null) return;
         foreach (Item item in folder.Items) 
             if (item.Icon == null)
                 item.Icon = IconExtractor.GetIcon(item.Path);
@@ -36,6 +36,8 @@ public class FolderManager : Manager {
     private BottomPanelVM logger;
     public FolderManager(BottomPanelVM bp) {
         logger = bp;
+        if (!Directory.Exists(WorkFolder))
+            Directory.CreateDirectory(WorkFolder);
         string path = $"{WorkFolder}/Folders.json";
         folders = new();
 

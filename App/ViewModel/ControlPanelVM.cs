@@ -10,6 +10,7 @@ public class ControlPanelVM : BaseVM{
     private FolderManager folderManager;
     private BottomPanelVM Logger; 
     private WrapPanelVM wrapPanel;
+    public CommandWrapper commandWrapper;
     private AddFolderService addFolderService;
     private bool IsAddWindowOpen;
     private SettingsService settingsService;
@@ -36,43 +37,41 @@ public class ControlPanelVM : BaseVM{
 
     public ICommand AddFolder {
         get {
-            return new RelayCommand((obj) => {
+            return commandWrapper.GetCommand("AddFolder",(obj) => {
                 if (IsAddWindowOpen) return;
                 IsAddWindowOpen = true;
                 if (addFolderService.Show() == true) {
                     Folders.Add(addFolderService.Result);
-                    IsAddWindowOpen = false;
                 }
-                
+                IsAddWindowOpen = false;
             });
         }
     }
     public ICommand OpenSettings {
         get {
-            return new RelayCommand((obj) => {
+            return commandWrapper.GetCommand("OpemSettings",(obj) => {
                 settingsService.Show();
             });
         }
     }
     public ICommand EditFolder {
         get {
-            return new RelayCommand((obj) => {
+            return commandWrapper.GetCommand("EditFolder",(obj) => {
                 if (IsAddWindowOpen) return;
                 IsAddWindowOpen = true;
                 if (addFolderService.Show(CurrentFolder) == true) {
                     int i = Folders.IndexOf(CurrentFolder);
                     Folders.RemoveAt(i);
                     Folders.Insert(i,addFolderService.Result);
-
-                    IsAddWindowOpen = false;
+                    CurrentFolder = Folders.ElementAt(i);
                 }
-                
+                IsAddWindowOpen = false;
             });
         }
     } 
     public ICommand DeleteFolder {
         get {
-            return new RelayCommand((obj) => {
+            return commandWrapper.GetCommand("DeleteFolder",(obj) => {
                 var buf = CurrentFolder;
                 CurrentFolder = Folders.First();
                 Folders.Remove(buf);
@@ -86,10 +85,11 @@ public class ControlPanelVM : BaseVM{
             CurrentFolder = Folders[0]; 
         }
     }
-    public ControlPanelVM(BottomPanelVM bp,WrapPanelVM wp, FolderManager b, SettingsService ss, AddFolderService afs) {
+    public ControlPanelVM(BottomPanelVM bp,WrapPanelVM wp, FolderManager b, SettingsService ss, AddFolderService afs, CommandWrapper cw) {
         Logger = bp;
         IsAddWindowOpen = false;
         wrapPanel = wp;
+        commandWrapper = cw;
         Logger.StatusChanged += UpdateByStatus;
         folderManager = b; 
         settingsService = ss;

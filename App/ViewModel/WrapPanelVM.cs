@@ -29,7 +29,8 @@ public class WrapPanelVM : BaseVM {
         }
         set {
             folder = value;
-            Items = folder.Items;
+            if (folder != null)
+                Items = folder.Items;
             OnPropertyChanged("CurrentFolder");
         }
     }
@@ -64,35 +65,36 @@ public class WrapPanelVM : BaseVM {
     }
     public ICommand AddItem {
         get {
-            return new RelayCommand((_obj) => {
+            return commandWrapper.GetCommand("AddItem",(_obj) => {
                 if (IsAddWindowOpen) return;
                 IsAddWindowOpen = true;
                 if (addItemService.Show() == true) {
                     Items.Add(addItemService.Result);
                     folderManager.UpdateFolders();
-                    IsAddWindowOpen = false;
                 }
+                IsAddWindowOpen = false;
             });
         } 
     }
     public ICommand EditItem {
         get {
-            return new RelayCommand((_obj) => {
+            return commandWrapper.GetCommand("EditItem",(_obj) => {
                 if (IsAddWindowOpen) return;
                 IsAddWindowOpen = true;
                 if (addItemService.Show(CurrentItem) == true) {
                     int i = Items.IndexOf(CurrentItem);
                     Items.RemoveAt(i);
                     Items.Insert(i,addItemService.Result);
+                    CurrentItem = Items.ElementAt(i);
                     folderManager.UpdateFolders();
-                    IsAddWindowOpen = false;
                 }
+                IsAddWindowOpen = false;
             });
         } 
     }
      public ICommand DeleteItem {
         get {
-            return new RelayCommand((obj) => {
+            return commandWrapper.GetCommand("DeleteItem",(obj) => {
                     var buf = CurrentItem;
                     Items.Remove(buf);
                     folderManager.UpdateFolders();
@@ -101,7 +103,7 @@ public class WrapPanelVM : BaseVM {
     } 
     public ICommand Run {
         get {
-            return new RelayCommand((obj) => {
+            return commandWrapper.GetCommand("Run",(obj) => {
                 var item = Items.Single(item => item.Path == (string)obj);
                 process = new(item);
                 windowState = WindowState.Minimized;
@@ -115,8 +117,10 @@ public class WrapPanelVM : BaseVM {
         }
     }
     private AddItemService addItemService;
-    public WrapPanelVM(FolderManager b, AddItemService ais) {
+    private CommandWrapper commandWrapper;
+    public WrapPanelVM(FolderManager b, AddItemService ais, CommandWrapper cw) {
         folderManager = b;
+        commandWrapper = cw;
         addItemService = ais;
     }
 }

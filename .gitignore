@@ -3,4 +3,3 @@
 .vscode/*
 nprofiler-logs/*
 configs/*
-Test/BenchmarkDotNet.Artifacts/**

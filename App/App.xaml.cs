@@ -32,6 +32,7 @@ namespace ALauncher
                     service.AddSingleton<ControlPanelVM>();
                     service.AddSingleton<WrapPanelVM>();
                     service.AddSingleton<MainVM>();
+                    service.AddSingleton<CommandWrapper>();
                     //child windows viewmodels 
                     service.AddScoped<SettingsVM>();
                     //View

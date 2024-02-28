@@ -28,17 +28,21 @@ public class AddItemVM : BaseVM {
             OnPropertyChanged("ItemPath");
         }
     }
-    
+    private ICommand _browse;
     public ICommand Browse {
-        get => new RelayCommand((obj) => {
-            OpenFileDialog ofd = new() {
-                Filter = "executable (.exe) file |*.exe",
-                Multiselect = false
-            };
-            if (ofd.ShowDialog() == true) {
-                ItemPath = ofd.FileName;
-                AppName = Path.GetFileNameWithoutExtension(ofd.FileName.AsSpan()).ToString();
-            }
-        });
+        get {
+            if(_browse == null) 
+                _browse = new RelayCommand((obj) => {
+                    OpenFileDialog ofd = new() {
+                        Filter = "executable (.exe) file |*.exe",
+                        Multiselect = false
+                    };
+                    if (ofd.ShowDialog() == true) {
+                        ItemPath = ofd.FileName;
+                        AppName = Path.GetFileNameWithoutExtension(ofd.FileName.AsSpan()).ToString();
+                    }
+                });
+            return _browse;
+        } 
     }
 }

@@ -7,6 +7,7 @@ namespace ALauncher.ViewModel;
 
 public class SettingsVM : BaseVM {
     private SettingsManager settings;
+    private CommandWrapper commandWrapper;
     private SettingsConfig config;
     public int WindowWidth {
         get {
@@ -46,15 +47,16 @@ public class SettingsVM : BaseVM {
     }
     public ICommand Save {
         get {
-            return new RelayCommand((obj) => {
+            return commandWrapper.GetCommand("Save",(obj) => {
                 settings.SaveSettings(config);
                 settings.SetWindowDefaultSize();
             });
         }
     }
 
-    public SettingsVM(SettingsManager sm) {
+    public SettingsVM(SettingsManager sm, CommandWrapper cw) {
         settings = sm;
+        commandWrapper = cw;
         config = settings.GetSettings();
     }   
 }
