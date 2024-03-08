@@ -10,7 +10,7 @@ using ALauncher.ViewModel;
 
 namespace ALauncher.Model;
 
-public class FolderManager : Manager {
+public sealed class FolderManager : Manager {
     public ObservableCollection<Folder> folders;
     public void UpdateFolders() {
         var config = new FolderConfig() {
@@ -30,11 +30,11 @@ public class FolderManager : Manager {
     private async Task initFolder(string path) {
         var config = await JsonParser<FolderConfig>.Utf8ParseAsync(path);
         folders = new((Folder[])config.Folders.Clone());
-        logger.Status = "Async parsing complete";
+        logger.SetStatusLog(201, "Async parsing complete");
         
     }
-    private BottomPanelVM logger;
-    public FolderManager(BottomPanelVM bp) {
+    private Logger logger;
+    public FolderManager(Logger bp) {
         logger = bp;
         if (!Directory.Exists(WorkFolder))
             Directory.CreateDirectory(WorkFolder);

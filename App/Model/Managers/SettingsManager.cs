@@ -4,7 +4,7 @@ using System.Windows;
 using ALauncher.Data;
 namespace ALauncher.Model;
 
-public class SettingsManager : Manager {
+public sealed class SettingsManager : Manager {
     SettingsConfig Settings;
     Window mainWindow;
     string Config;

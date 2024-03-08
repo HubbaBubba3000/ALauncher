@@ -6,7 +6,8 @@
     <Application.Resources>
         <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
             <ResourceDictionary.MergedDictionaries> 
-                <ResourceDictionary Source="Styles/Styles.xaml" />
+                <local:SharedResourceDictionary Source="Styles/Styles.xaml" />
+                <local:SharedResourceDictionary Source="Styles/TrayResources.xaml" />
                 <ResourceDictionary>
                     <FontFamily x:Key="Gruppo">.\Fonts\#Gruppo</FontFamily>
                 </ResourceDictionary>

@@ -10,6 +10,7 @@ public partial class WrapPanel : UserControl {
     }
     public void ButtonExit(object? sender, RoutedEventArgs e) {
         Window.GetWindow(this).Close();
+        Application.Current.Shutdown();
     }
     public void MoveWindow(object sender, MouseEventArgs e) {
         if (Mouse.LeftButton == MouseButtonState.Pressed)

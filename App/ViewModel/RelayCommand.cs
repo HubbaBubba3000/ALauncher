@@ -14,7 +14,6 @@ namespace ALauncher.ViewModel
         }
     }
     public sealed class RelayCommand : ICommand {
-        public string Name {get; private set;}
         public Action<object?> execute {get; private set;}
         public Func<object?, bool> canExecute {get; private set;}
  

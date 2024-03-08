@@ -10,7 +10,7 @@ namespace ALauncher.Model;
     /// <summary>
     ///  class for extract icons from exe/dll and open icon selector 
     /// </summary>
-public class IconExtractor {
+public sealed class IconExtractor {
     public static ImageSource? GetIcon(string path) {
         if (!Path.IsPathRooted(path)) return null;
         Icon? icon = Icon.ExtractAssociatedIcon(path);

@@ -8,7 +8,7 @@ using Utf8Json;
 using ALauncher.Data;
 
 namespace ALauncher.Model {
-    public class JsonParser<TConfig> where TConfig : IConfig, IDisposable {
+    public sealed class JsonParser<TConfig> where TConfig : IConfig, IDisposable {
 #region system.text.json
         public static TConfig? Parse(string conf) {
             using (var filestream = new StreamReader(conf) ) 

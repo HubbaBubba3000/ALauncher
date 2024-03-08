@@ -6,9 +6,9 @@ using System.Linq;
 
 namespace ALauncher.ViewModel;
 
-public class ControlPanelVM : BaseVM{
+public sealed class ControlPanelVM : BaseVM{
     private FolderManager folderManager;
-    private BottomPanelVM Logger; 
+    private Logger logger; 
     private WrapPanelVM wrapPanel;
     public CommandWrapper commandWrapper;
     private AddFolderService addFolderService;
@@ -29,15 +29,21 @@ public class ControlPanelVM : BaseVM{
             return wrapPanel.CurrentFolder;
         }
         set {
-            folderManager.CheckAndSetIcons(value);
+            //folderManager.CheckAndSetIcons(value);
+            GetIcons(value);
             wrapPanel.CurrentFolder = value;
             OnPropertyChanged("CurrentFolder");
         }
     }
+    public void GetIcons(Folder folder) {
+        packManager.DeserializeIconsAsync().ConfigureAwait(false);
+        foreach(Item item in folder.Items)
+            item.Icon = packManager.GetIcon(item);
+    }
 
     public ICommand AddFolder {
         get {
-            return commandWrapper.GetCommand("AddFolder",(obj) => {
+            return commandWrapper.GetCommand((obj) => {
                 if (IsAddWindowOpen) return;
                 IsAddWindowOpen = true;
                 if (addFolderService.Show() == true) {
@@ -49,14 +55,15 @@ public class ControlPanelVM : BaseVM{
     }
     public ICommand OpenSettings {
         get {
-            return commandWrapper.GetCommand("OpemSettings",(obj) => {
+            return commandWrapper.GetCommand((obj) => {
+                packManager.SerializeIcons(Folders.ToArray());
                 settingsService.Show();
             });
         }
     }
     public ICommand EditFolder {
         get {
-            return commandWrapper.GetCommand("EditFolder",(obj) => {
+            return commandWrapper.GetCommand((obj) => {
                 if (IsAddWindowOpen) return;
                 IsAddWindowOpen = true;
                 if (addFolderService.Show(CurrentFolder) == true) {
@@ -71,7 +78,7 @@ public class ControlPanelVM : BaseVM{
     } 
     public ICommand DeleteFolder {
         get {
-            return commandWrapper.GetCommand("DeleteFolder",(obj) => {
+            return commandWrapper.GetCommand((obj) => {
                 var buf = CurrentFolder;
                 CurrentFolder = Folders.First();
                 Folders.Remove(buf);
@@ -79,18 +86,20 @@ public class ControlPanelVM : BaseVM{
             });
         }
     }
-    private void UpdateByStatus(string status) {
-        if (status == "Async parsing complete") {
+    private void UpdateByStatus(LoggerCode code) {
+        if (code == LoggerCode.FolderAsyncParseComplete) {
             Folders = null; // updating list
             CurrentFolder = Folders[0]; 
         }
     }
-    public ControlPanelVM(BottomPanelVM bp,WrapPanelVM wp, FolderManager b, SettingsService ss, AddFolderService afs, CommandWrapper cw) {
-        Logger = bp;
+    private IconPackManager packManager;
+    public ControlPanelVM(Logger bp,WrapPanelVM wp,IconPackManager ipm, FolderManager b, SettingsService ss, AddFolderService afs, CommandWrapper cw) {
+        logger = bp;
         IsAddWindowOpen = false;
+        packManager = ipm;
         wrapPanel = wp;
         commandWrapper = cw;
-        Logger.StatusChanged += UpdateByStatus;
+        logger.StatusChanged += UpdateByStatus;
         folderManager = b; 
         settingsService = ss;
         addFolderService = afs;

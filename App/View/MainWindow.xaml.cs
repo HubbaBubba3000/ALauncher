@@ -8,14 +8,14 @@ using ALauncher.View;
 
 namespace ALauncher
 {
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, IDisposable
     {
         public MainWindow(MainVM m)
         {
             DataContext = m;
             m.LoadSettings(this);
             Closing += m.OnClosing;
-
+            Closing += (obj, e) => {Dispose();};
             InitializeComponent();
             Loaded += OnLoaded;
         }
@@ -26,5 +26,11 @@ namespace ALauncher
             AdornerLayer.GetAdornerLayer(dockpanel).Add(new ResizeAdorner(leftpanel, LeftPanelThumb));
         }
 
+        public void Dispose()
+        {
+            Application.Current.MainWindow = null;
+            LeftPanelThumb = null;
+            GC.Collect();
+        }
     }
 }

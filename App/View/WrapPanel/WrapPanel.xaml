@@ -34,7 +34,8 @@
                 <Path  Width="15" Height="15" Stretch="Fill" 
                         Fill="{StaticResource b4}" Data="{StaticResource ExitIcon}"/>
             </Button>
-            <ListBox ItemsSource="{Binding Items, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding CurrentItem}" Style="{StaticResource ListBoxStyle}"
+            <ListBox ItemsSource="{Binding Items, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding CurrentItem}" 
+                    Style="{StaticResource ListBoxStyle}" VirtualizingStackPanel.IsVirtualizing="True"
                     ItemContainerStyle="{StaticResource ItemListStyle}" Margin="0,50,0,0" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>

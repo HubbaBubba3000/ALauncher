@@ -5,9 +5,12 @@ using System.Windows;
 using ALauncher.Data;
 namespace ALauncher.Model;
 
-public class ProcessWorker {
+public sealed class ProcessWorker {
     ProcessStartInfo processInfo;
     EventHandler ExitEvent;
+    public string ProcessName {
+        get => processInfo.FileName;
+    }
     public void RunProcess() {
         try {
             var p = Process.Start(processInfo);

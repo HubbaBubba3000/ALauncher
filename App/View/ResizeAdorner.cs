@@ -21,7 +21,8 @@ public class ResizeAdorner : Adorner {
     }
     private void OnDragDelta(object sender, DragDeltaEventArgs e) {
         var Element = (FrameworkElement)AdornedElement;
-        Element.Width = Element.Width + e.HorizontalChange < 0 ? 0 : Element.Width + e.HorizontalChange;
+        if (Element.Width + e.HorizontalChange < Application.Current.MainWindow.Width)
+            Element.Width = Element.Width + e.HorizontalChange < 0 ? 0 : Element.Width + e.HorizontalChange;
     }
 
     protected override Visual GetVisualChild(int index)
@@ -32,7 +33,7 @@ public class ResizeAdorner : Adorner {
 
     protected override Size ArrangeOverride(Size finalSize)
     {
-        thumb.Arrange(new(AdornedElement.DesiredSize.Width,AdornedElement.DesiredSize.Height/2 ,5,20));
+        thumb.Arrange(new(AdornedElement.DesiredSize.Width,AdornedElement.DesiredSize.Height/2 ,5,AdornedElement.DesiredSize.Height/2));
         return base.ArrangeOverride(finalSize);
     }
 }

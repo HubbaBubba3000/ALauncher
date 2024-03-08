@@ -5,7 +5,7 @@ using ALauncher.Model;
 
 namespace ALauncher.ViewModel;
 
-public class SettingsVM : BaseVM {
+public sealed class SettingsVM : BaseVM {
     private SettingsManager settings;
     private CommandWrapper commandWrapper;
     private SettingsConfig config;
@@ -47,7 +47,7 @@ public class SettingsVM : BaseVM {
     }
     public ICommand Save {
         get {
-            return commandWrapper.GetCommand("Save",(obj) => {
+            return commandWrapper.GetCommand((obj) => {
                 settings.SaveSettings(config);
                 settings.SetWindowDefaultSize();
             });

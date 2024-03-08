@@ -9,7 +9,7 @@ using System.Collections.ObjectModel;
 
 namespace ALauncher.ViewModel;
 
-public class WrapPanelVM : BaseVM {
+public sealed class WrapPanelVM : BaseVM {
     private ProcessWorker process;
     private bool IsAddWindowOpen;
     private Item _item;
@@ -65,7 +65,7 @@ public class WrapPanelVM : BaseVM {
     }
     public ICommand AddItem {
         get {
-            return commandWrapper.GetCommand("AddItem",(_obj) => {
+            return commandWrapper.GetCommand((_obj) => {
                 if (IsAddWindowOpen) return;
                 IsAddWindowOpen = true;
                 if (addItemService.Show() == true) {
@@ -78,7 +78,7 @@ public class WrapPanelVM : BaseVM {
     }
     public ICommand EditItem {
         get {
-            return commandWrapper.GetCommand("EditItem",(_obj) => {
+            return commandWrapper.GetCommand((_obj) => {
                 if (IsAddWindowOpen) return;
                 IsAddWindowOpen = true;
                 if (addItemService.Show(CurrentItem) == true) {
@@ -94,7 +94,7 @@ public class WrapPanelVM : BaseVM {
     }
      public ICommand DeleteItem {
         get {
-            return commandWrapper.GetCommand("DeleteItem",(obj) => {
+            return commandWrapper.GetCommand((obj) => {
                     var buf = CurrentItem;
                     Items.Remove(buf);
                     folderManager.UpdateFolders();
@@ -103,23 +103,23 @@ public class WrapPanelVM : BaseVM {
     } 
     public ICommand Run {
         get {
-            return commandWrapper.GetCommand("Run",(obj) => {
+            return commandWrapper.GetCommand((obj) => {
                 var item = Items.Single(item => item.Path == (string)obj);
                 process = new(item);
-                windowState = WindowState.Minimized;
-                GC.Collect();
+                logger.SetStatusLog(LoggerCode.ProcessStarted, $"process {process.ProcessName} Started");
                 process.RunProcess();
                 process.SetExitEvent((_obj, e) => {
-                    windowState = WindowState.Normal;
-
+                    logger.SetStatusLog(LoggerCode.ProcessClosed, $"process {process.ProcessName} Closed ");
                 });
             });
         }
     }
     private AddItemService addItemService;
     private CommandWrapper commandWrapper;
-    public WrapPanelVM(FolderManager b, AddItemService ais, CommandWrapper cw) {
+    private Logger logger;
+    public WrapPanelVM(FolderManager b, AddItemService ais, CommandWrapper cw, Logger bp) {
         folderManager = b;
+        logger = bp;
         commandWrapper = cw;
         addItemService = ais;
     }

@@ -8,7 +8,7 @@ using Microsoft.Win32;
 
 namespace ALauncher.ViewModel;
 
-public class AddItemVM : BaseVM {
+public sealed class AddItemVM : BaseVM {
     public Item GetItem {get; private set;}
     public AddItemVM(Item item) {
         GetItem = item;
@@ -23,8 +23,9 @@ public class AddItemVM : BaseVM {
     public string ItemPath {
         get => GetItem.Path ?? "";
         set {
-
             GetItem.Path = value;
+            if (Path.IsPathRooted(value))
+                GetItem.Icon = IconExtractor.GetIcon(value);
             OnPropertyChanged("ItemPath");
         }
     }

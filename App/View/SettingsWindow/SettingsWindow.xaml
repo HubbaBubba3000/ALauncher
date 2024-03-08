@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ALauncher.View"
-        xmlns:model="clr-namespace:ALauncher.Model"
+        xmlns:data="clr-namespace:ALauncher.Data;assembly=Data"
         xmlns:System="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         AllowsTransparency="True"
@@ -16,7 +16,7 @@
         <ObjectDataProvider x:Key="dataFromEnum" MethodName="GetValues"
                             ObjectType="{x:Type System:Enum}">
             <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="model:Localisation"/>
+                <x:Type TypeName="data:Localisation"/>
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
     </Window.Resources>
@@ -49,8 +49,9 @@
 
                     <Label Content="Language: " Foreground="{StaticResource b4}" FontSize="16" 
                             HorizontalAlignment="left" Margin="0,15,0,0"  />
-                    <ComboBox Width="90" Height="30" ItemsSource="{Binding locals}" SelectedItem="{Binding Lang}" 
-                            HorizontalAlignment="left" Margin="0,10,0,0" MaxDropDownHeight="60" Style="{StaticResource ComboBoxStyle}"/>
+                    <ComboBox Width="90" Height="30" ItemsSource="{Binding Source={StaticResource dataFromEnum}}" SelectedItem="{Binding Lang}"
+                            ItemContainerStyle="{StaticResource ComboBoxItemStyle}" 
+                            HorizontalAlignment="left" Margin="0,10,0,0" Style="{StaticResource ComboBoxStyle}"/>
                    
                     <Label Content="Auto update: " Foreground="{StaticResource b4}" FontSize="16" 
                             HorizontalAlignment="left" Margin="0,15,0,0"  />

@@ -3,7 +3,7 @@ using ALauncher.Data;
 
 namespace ALauncher.Model;
 
-public class AddItemService : IService
+public sealed class AddItemService : IService
 {
     public Item? Result {get; private set;}
     public bool Show()

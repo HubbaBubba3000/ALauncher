@@ -5,7 +5,7 @@ using ALauncher.Data;
 
 namespace ALauncher.Model;
 
-public class SettingsService : IService
+public sealed class SettingsService : IService
 {
     Func<SettingsVM> SettingsFactory;
     SettingsWindow settingsWindow;

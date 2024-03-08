@@ -4,15 +4,18 @@ using ALauncher.Model;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Windows;
-using ALauncher.View;
+using Hardcodet.Wpf.TaskbarNotification;
 using System;
+using System.Windows.Media;
 
 namespace ALauncher
 {
-     public partial class App : Application
+    public partial class App : Application
     {
-        IHost host;
+        private TaskbarIcon Tray;
+        public IHost host;
         public App() {
+            ShutdownMode=ShutdownMode.OnExplicitShutdown;
             host = CreateHostBuilder().Build();
         }
 
@@ -21,6 +24,7 @@ namespace ALauncher
             return Host.CreateDefaultBuilder()
                 .ConfigureServices( service => {
                     //Models
+                    service.AddSingleton<IconPackManager>();
                     service.AddSingleton<FolderManager>();
                     service.AddSingleton<SettingsManager>();
                     service.AddSingleton<Func<SettingsVM>>(provider => provider.GetService<SettingsVM>);
@@ -33,18 +37,21 @@ namespace ALauncher
                     service.AddSingleton<WrapPanelVM>();
                     service.AddSingleton<MainVM>();
                     service.AddSingleton<CommandWrapper>();
-                    //child windows viewmodels 
                     service.AddScoped<SettingsVM>();
+                    service.AddSingleton<Logger>();
+                    service.AddSingleton<TrayVM>();
                     //View
-                    service.AddSingleton<MainWindow>();
+                    service.AddTransient<MainWindow>();
                 }) ;
         }  
         private void OnStartup(object? sender, StartupEventArgs e) {
             
             host.Start();
-            Window? window = host.Services.GetService<MainWindow>();
-            window.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            window.Show();
+            Tray = (TaskbarIcon) FindResource("NotifyIcon");
+            Tray.DataContext = host.Services.GetService<TrayVM>();
+            MainWindow = host.Services.GetService<MainWindow>();
+            MainWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            MainWindow.Show();
         }
 
         protected override void OnExit(ExitEventArgs e)

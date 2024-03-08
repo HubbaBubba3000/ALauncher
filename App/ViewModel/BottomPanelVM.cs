@@ -1,13 +1,12 @@
+using ALauncher.Model;
 
 namespace ALauncher.ViewModel;
 
-public class BottomPanelVM : BaseVM {
-    private string _status;
-    public delegate void StatusChangedHandler(string status);
-    public event StatusChangedHandler StatusChanged;
+public sealed class BottomPanelVM : BaseVM {
+   private Logger logger;
     public string Version {
         get {
-            string ver ="v0.1.1 - ";
+            string ver ="v0.1.2 - ";
             #if DEBUG
                 ver += "DEBUG";
             #else 
@@ -17,15 +16,10 @@ public class BottomPanelVM : BaseVM {
         }
     }
     public string Status {
-        get {return _status;} 
-        set {
-            _status = value;
-            if(StatusChanged != null)
-                StatusChanged.Invoke(_status);
-            OnPropertyChanged("Status");
-        }
+        get => logger.Status;
     }
-    public BottomPanelVM() {
-        _status = "status : ok";
+   
+    public BottomPanelVM(Logger logger) {
+        this.logger = logger;
     }
 }

@@ -17,7 +17,7 @@ public enum Localisation {
 
 }
 
-public class SettingsConfig : IConfig, IDisposable {
+public sealed class SettingsConfig : IConfig, IDisposable {
 
     public int WindowWidth {get; set;}
     public int WindowHeight {get; set;}

@@ -7,7 +7,7 @@ using ALauncher.ViewModel;
 
 namespace ALauncher.View;
 
-public class ItemControl : Button {
+public sealed class ItemControl : Button {
     public static DependencyProperty IconProperty;
     public static DependencyProperty PathProperty;
     public static DependencyProperty AppNameProperty;
