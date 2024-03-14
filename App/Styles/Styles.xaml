@@ -26,7 +26,7 @@
     <StreamGeometry options:Freeze="True" x:Key="SettingIcon2">M96 120c13.255 0 24-10.745 24-24s-10.745-24-24-24-24 10.745-24 24 10.745 24 24 24Z</StreamGeometry>
     <StreamGeometry options:Freeze="True" x:Key="BrowseIcon1">M923.421 501.927c-31.19-83.254-86.289-154.373-159.107-205.71-74.638-52.55-162.384-80.464-254.013-80.464s-179.374 27.792-254.013 80.464c-72.94 51.458-127.917 122.576-159.107 205.71l-3.884 10.194 3.884 10.194c31.19 83.254 86.289 154.373 159.107 205.71 74.638 52.55 162.384 80.464 254.013 80.464s179.374-27.792 254.013-80.464c72.94-51.458 127.917-122.576 159.107-205.71l3.884-10.194-3.884-10.194z m-413.12 248.429c-155.102 0-296.126-95.269-354.623-238.114 58.375-142.965 199.521-238.114 354.623-238.114s296.126 95.269 354.623 238.114c-58.497 142.845-199.643 238.114-354.623 238.114z</StreamGeometry>
     <StreamGeometry options:Freeze="True" x:Key="BrowseIcon2">M510.301 357.99c-84.955 0-154.131 69.177-154.131 154.131s69.177 154.131 154.131 154.131 154.131-69.177 154.131-154.131S595.255 357.99 510.301 357.99z m0 250.008c-52.914 0-95.877-42.962-95.877-95.877s42.962-95.877 95.877-95.877 95.877 42.962 95.877 95.877-43.084 95.877-95.877 95.877z</StreamGeometry>
-
+    <StreamGeometry options:Freeze="True" x:Key="MinimizeIcon">M7 19h10c.55 0 1 .45 1 1s-.45 1-1 1H7c-.55 0-1-.45-1-1s.45-1 1-1z</StreamGeometry>
 <!-- Controls -->
 
 <Style TargetType="{x:Type ResizeGrip}">
@@ -47,6 +47,7 @@
     </Setter>
     <Setter Property="Visibility" Value="Hidden"/>
 </Style>
+
 
 <Style x:Key="LeftPanelThumbStyle" TargetType="{x:Type Thumb}">
     <Setter Property="Template">
@@ -163,10 +164,9 @@
     <Setter Property="SnapsToDevicePixels" Value="True" />
     <Setter Property="Background" Value="Transparent" />
     <Setter Property="BorderThickness" Value="0" />
-    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
 </Style>
 
-<ControlTemplate x:Key="ComboBoxToggleButton" TargetType="{x:Type ToggleButton}">
+    <ControlTemplate x:Key="ComboBoxToggleButton" TargetType="{x:Type ToggleButton}">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
@@ -303,6 +303,73 @@
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="false">
                             <Setter Property="Foreground" Value="{StaticResource b1}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <Style x:Key="ScrollThumbs" TargetType="{x:Type Thumb}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Border x:Name="Rectangle1" CornerRadius="5" HorizontalAlignment="Stretch" 
+                            VerticalAlignment="Stretch" Width="Auto" Height="Auto" 
+                            Background="{TemplateBinding Background}"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="RepeatStyle" TargetType="RepeatButton">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Border x:Name="Rectangle1" HorizontalAlignment="Stretch" 
+                            VerticalAlignment="Stretch" Width="2" Height="Auto" 
+                            Background="{StaticResource b1}"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <!--SCROLLBARS-->
+    <Style TargetType="{x:Type ScrollBar}">
+        <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+        <Setter Property="Orientation" Value="Vertical" />
+        <Setter Property="Foreground" Value="{StaticResource b4}"/>
+        <Setter Property="Background" Value="{StaticResource b3}"/>
+        <Setter Property="Width" Value="10"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ScrollBar}">
+                    <Grid x:Name="GridRoot" Width="5" Background="{x:Null}">
+                        <Track x:Name="PART_Track" Grid.Row="0" IsDirectionReversed="true" Focusable="False">
+                            <Track.Thumb>
+                                <Thumb x:Name="Thumb" Background="{TemplateBinding Foreground}" 
+                                        Style="{StaticResource ScrollThumbs}"/>
+                            </Track.Thumb>
+                            <Track.IncreaseRepeatButton>
+                                <RepeatButton Style="{StaticResource RepeatStyle}" Command="ScrollBar.PageDownCommand" Focusable="False"/>
+                            </Track.IncreaseRepeatButton>
+                            <Track.DecreaseRepeatButton>
+                                <RepeatButton Style="{StaticResource RepeatStyle}" Command="ScrollBar.PageUpCommand" Focusable="False"/>
+                            </Track.DecreaseRepeatButton>
+                        </Track>
+                    </Grid>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger SourceName="Thumb" Property="IsMouseOver" Value="true">
+                            <Setter Value="{StaticResource b3}" 
+                                    TargetName="Thumb" Property="Background"/>
+                        </Trigger>
+                        <Trigger SourceName="Thumb" Property="IsDragging" Value="true">
+                            <Setter Value="{StaticResource b2}" TargetName="Thumb" Property="Background"/>
+                        </Trigger>
+
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter TargetName="Thumb" Property="Visibility" Value="Collapsed"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

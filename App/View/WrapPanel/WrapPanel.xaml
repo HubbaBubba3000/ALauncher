@@ -6,10 +6,16 @@
         xmlns:local="clr-namespace:ALauncher.View"
         mc:Ignorable="d" Name="This">
     <UserControl.Resources>
+        <ContextMenu x:Key="FolderContext">
+            <MenuItem Header="{DynamicResource Delete}" Command="{Binding Source={x:Reference Name=This}, Path=DataContext.DeleteItem}" />
+            <MenuItem Header="{DynamicResource Edit}" Command="{Binding Source={x:Reference Name=This}, Path=DataContext.EditItem}"/>
+        </ContextMenu>
+        <CollectionViewSource x:Key="WrapPanelCollection" Source="{Binding Items, UpdateSourceTrigger=PropertyChanged}"/>
         <Style x:Key="ItemListStyle" TargetType="{x:Type ListBoxItem}">
             <Setter Property="BorderThickness" Value="0" />
             <Setter Property="Padding" Value="0" />
             <Setter Property="Background" Value="Transparent" />
+            <Setter Property="ContextMenu" Value="{StaticResource FolderContext}" />
             <Setter Property="Template">
                 <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ListBoxItem}">
@@ -19,36 +25,48 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Style x:Key="AddItemStyle" TargetType="{x:Type ListBoxItem}">
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Template">
+                <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                    <local:ItemControl Icon="{Binding ElementName=This, Path=DataContext.AddImage}" AppName="Add Item" Path="" 
+                        Command="{Binding ElementName=This, Path=DataContext.AddItem}" />
+                </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
          
     </UserControl.Resources>
-    <Border CornerRadius="0,15,0,0" Background="{StaticResource b2}" >
+    <Border CornerRadius="0,15,0,0" Background="{Binding Background, UpdateSourceTrigger=PropertyChanged}" >
         <Grid>
         <Border MouseDown="MoveWindow" Background="Transparent" Height="50" VerticalAlignment="Top" HorizontalAlignment="Stretch" />
-            <Button Width="30" Height="30" Style="{StaticResource BtnStyle}" Command='{Binding AddItem}' ToolTip="Add Item"
+            <Button Width="30" Height="30" Style="{StaticResource BtnStyle}" Command='{Binding CloseWindow}' ToolTip="Add Item"
                HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10,10,50,10" >
-                <Path  Width="15" Height="15" Stretch="Fill" 
-                        Fill="{StaticResource b4}" Data="{StaticResource AddIcon}"/>
+                <Path  Width="15" Height="3" Stretch="Fill" VerticalAlignment="Bottom"
+                        Fill="{StaticResource b4}" Data="{StaticResource MinimizeIcon}"/>
             </Button>
             <Button Width="30" Height="30" Style="{StaticResource BtnStyle}" Click="ButtonExit" 
                HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10">
                 <Path  Width="15" Height="15" Stretch="Fill" 
                         Fill="{StaticResource b4}" Data="{StaticResource ExitIcon}"/>
             </Button>
-            <ListBox ItemsSource="{Binding Items, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding CurrentItem}" 
+            <ListBox SelectedItem="{Binding CurrentItem}" 
                     Style="{StaticResource ListBoxStyle}" VirtualizingStackPanel.IsVirtualizing="True"
                     ItemContainerStyle="{StaticResource ItemListStyle}" Margin="0,50,0,0" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <WrapPanel>
-                            <WrapPanel.ContextMenu>
-                                <ContextMenu>
-                                    <MenuItem Header="Delete" Command="{Binding DeleteItem}" />
-                                    <MenuItem Header="Edit" Command="{Binding EditItem}"/>
-                                </ContextMenu>
-                            </WrapPanel.ContextMenu>
-                        </WrapPanel>
+                        <WrapPanel  IsItemsHost="True"/>
                     </ItemsPanelTemplate>
                 </ListBox.ItemsPanel>
+                <ListBox.ItemsSource>
+                    <CompositeCollection>
+                        <CollectionContainer Collection="{Binding Source={StaticResource WrapPanelCollection}}" />
+                        <ListBoxItem Style="{StaticResource AddItemStyle}" />
+                    </CompositeCollection>
+                </ListBox.ItemsSource>
             </ListBox>
         </Grid>
     </Border>

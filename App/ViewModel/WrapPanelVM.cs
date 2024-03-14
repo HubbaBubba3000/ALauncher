@@ -6,6 +6,9 @@ using ALauncher.Model;
 using System.Linq;
 using System;
 using System.Collections.ObjectModel;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.IO;
 
 namespace ALauncher.ViewModel;
 
@@ -34,17 +37,23 @@ public sealed class WrapPanelVM : BaseVM {
             OnPropertyChanged("CurrentFolder");
         }
     }
-    WindowState _windowState;
-    /// <summary>
-    /// MainWindow State
-    /// <summary>
-    public WindowState windowState {
-        get { return _windowState; }
-        set { 
-            _windowState = value; 
-            OnPropertyChanged("windowState");
+    public ImageSource AddImage {
+        get => new BitmapImage(
+            new Uri("pack://application:,,,/ALauncher;component/Resources/add.png"));
+    }
+    public Brush Background {
+        get {
+            var bg = settings.GetSettings().BackgroundPath;
+
+            if (string.IsNullOrEmpty(bg))
+                return new SolidColorBrush(Color.FromRgb(4,41,58)); //04293A
+
+            return new ImageBrush(new BitmapImage(new Uri(bg)));
         }
-    } 
+        set {
+            OnPropertyChanged("Background");
+        }
+    }
 
     private FolderManager folderManager;
     //ObservableCollection<Item> items;
@@ -114,11 +123,22 @@ public sealed class WrapPanelVM : BaseVM {
             });
         }
     }
+    public ICommand CloseWindow {
+        get => commandWrapper.GetCommand((obj) => {
+            logger.SetStatusLog(LoggerCode.ProcessStarted, "Window Closed");
+        });
+    }
+    private void OnSettingsChanged(object sender, EventArgs e) {
+        Background = null;
+    }
     private AddItemService addItemService;
     private CommandWrapper commandWrapper;
+    private SettingsManager settings;
     private Logger logger;
-    public WrapPanelVM(FolderManager b, AddItemService ais, CommandWrapper cw, Logger bp) {
+    public WrapPanelVM(FolderManager b,SettingsManager sm, AddItemService ais, CommandWrapper cw, Logger bp) {
         folderManager = b;
+        settings = sm;
+        settings.SettingsChanged += OnSettingsChanged;
         logger = bp;
         commandWrapper = cw;
         addItemService = ais;

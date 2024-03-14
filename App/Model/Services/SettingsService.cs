@@ -7,16 +7,16 @@ namespace ALauncher.Model;
 
 public sealed class SettingsService : IService
 {
-    Func<SettingsVM> SettingsFactory;
+    SettingsVM SettingsFactory;
     SettingsWindow settingsWindow;
-    public SettingsService(Func<SettingsVM> settingsFactory) {
+    public SettingsService(SettingsVM settingsFactory) {
         SettingsFactory = settingsFactory;
     }
 
     public bool Show()
     {
         settingsWindow = new SettingsWindow() {
-            DataContext = SettingsFactory.Invoke()
+            DataContext = SettingsFactory
         };
         settingsWindow.Show();
         return true;

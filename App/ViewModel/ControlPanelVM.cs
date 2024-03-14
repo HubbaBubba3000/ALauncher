@@ -29,14 +29,15 @@ public sealed class ControlPanelVM : BaseVM{
             return wrapPanel.CurrentFolder;
         }
         set {
+            logger.TimerStart(value.Name);
             //folderManager.CheckAndSetIcons(value);
             GetIcons(value);
             wrapPanel.CurrentFolder = value;
+            logger.TimerStop();
             OnPropertyChanged("CurrentFolder");
         }
     }
     public void GetIcons(Folder folder) {
-        packManager.DeserializeIconsAsync().ConfigureAwait(false);
         foreach(Item item in folder.Items)
             item.Icon = packManager.GetIcon(item);
     }
@@ -89,6 +90,7 @@ public sealed class ControlPanelVM : BaseVM{
     private void UpdateByStatus(LoggerCode code) {
         if (code == LoggerCode.FolderAsyncParseComplete) {
             Folders = null; // updating list
+            packManager.DeserializeIconsAsync().ConfigureAwait(false);
             CurrentFolder = Folders[0]; 
         }
     }
@@ -97,6 +99,7 @@ public sealed class ControlPanelVM : BaseVM{
         logger = bp;
         IsAddWindowOpen = false;
         packManager = ipm;
+
         wrapPanel = wp;
         commandWrapper = cw;
         logger.StatusChanged += UpdateByStatus;

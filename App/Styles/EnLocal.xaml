@@ -1,0 +1,25 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:s="clr-namespace:System;assembly=mscorlib">
+
+    <s:String x:Key="Settings">Settings</s:String>
+    <s:String x:Key="Localisation">Localisation: </s:String>
+    <s:String x:Key="AutoUpdate">Auto Update: </s:String>
+    <s:String x:Key="Background">Background Path: </s:String>
+    <s:String x:Key="WindowWidth">Window Width: </s:String>
+    <s:String x:Key="WindowHeigth">Window Height: </s:String>
+    <s:String x:Key="Save">Save</s:String>
+
+    <s:String x:Key="AddFolder">Add Folder</s:String>
+    <s:String x:Key="Name">Name: </s:String>
+    <s:String x:Key="Add">Add</s:String>
+
+    <s:String x:Key="AddItem">Add Item</s:String>
+    <s:String x:Key="Path">Path: </s:String>
+
+    <s:String x:Key="Delete">Delete</s:String>
+    <s:String x:Key="Edit">Edit</s:String>
+
+    
+
+</ResourceDictionary>

@@ -13,8 +13,11 @@ public sealed class ProcessWorker {
     }
     public void RunProcess() {
         try {
-            var p = Process.Start(processInfo);
-            p.Exited += ExitEvent;
+            using (var p = new Process()) {
+                p.StartInfo = processInfo;
+                p.Exited += ExitEvent;
+                p.Start();
+            }
         }
         catch (Exception e){
             MessageBox.Show($"error : {e.Message}");

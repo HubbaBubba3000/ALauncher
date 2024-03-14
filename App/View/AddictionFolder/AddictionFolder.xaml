@@ -16,21 +16,20 @@
     </Window.Resources>
     <Border CornerRadius="15" Padding="30" Background="{StaticResource b2}" MouseDown="MoveWindow"
                 BorderThickness="1" BorderBrush="{StaticResource b4}">
-        <Grid>
-            <Button Width="30" Height="30" Style="{StaticResource BtnStyle}" Click="Close" 
-               HorizontalAlignment="Right" VerticalAlignment="Top" >
-                <Path  Width="15" Height="15" Stretch="Fill" 
-                        Fill="{StaticResource b4}" Data="{StaticResource ExitIcon}"/>
-            </Button>
-            <Label Content="Add Folder" Foreground="{StaticResource b4}" FontSize="24" 
-                    HorizontalAlignment="left" VerticalAlignment="Top" />
-            <Label Content="Name: " Foreground="{StaticResource b4}" FontSize="16" 
-                    HorizontalAlignment="left" HorizontalContentAlignment="Center"
-                    VerticalContentAlignment="Center" Margin="0,80,0,0" />
-            <TextBox x:Name="NameBox" Width="300" Height="30" Text="{Binding FolderName}"
-                    Margin="90,75,0,0" Style="{StaticResource TextBoxStyle}"/>
+        <Grid >
+                <Button Width="30" Height="30" Style="{StaticResource BtnStyle}" Click="Close" 
+                HorizontalAlignment="Right" VerticalAlignment="Top" >
+                    <Path  Width="15" Height="15" Stretch="Fill" 
+                            Fill="{StaticResource b4}" Data="{StaticResource ExitIcon}"/>
+                </Button>
+                <TextBlock Text="{DynamicResource AddFolder}" Foreground="{StaticResource b4}" FontSize="24" 
+                        HorizontalAlignment="left" VerticalAlignment="Top" />
+                <TextBlock Text="{DynamicResource Name}" Foreground="{StaticResource b4}" FontSize="16" 
+                        HorizontalAlignment="left" VerticalAlignment="Center"  />
+                <TextBox x:Name="NameBox" Width="300" Height="30" Text="{Binding FolderName}"
+                        Margin="90,5,0,0" Style="{StaticResource TextBoxStyle}"/>
             
-            <Button Content="Add" HorizontalAlignment="Right" VerticalAlignment="Bottom"
+            <Button Content="{DynamicResource Add}" HorizontalAlignment="Right" VerticalAlignment="Bottom"
                     Width="60" Height="30" Click="AddFolder" Style="{StaticResource BtnStyle}" />
         </Grid> 
     </Border>

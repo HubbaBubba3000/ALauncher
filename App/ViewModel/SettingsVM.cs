@@ -1,7 +1,10 @@
 
+using System.IO;
+using System.Windows;
 using System.Windows.Input;
 using ALauncher.Data;
 using ALauncher.Model;
+using Microsoft.Win32;
 
 namespace ALauncher.ViewModel;
 
@@ -45,13 +48,39 @@ public sealed class SettingsVM : BaseVM {
             OnPropertyChanged("AutoUpdate");
         }
     }
+    public string Background {
+        get {
+            return config.BackgroundPath;
+        }
+        set {
+            config.BackgroundPath = value;
+            OnPropertyChanged("Background");
+        }
+    }
     public ICommand Save {
         get {
             return commandWrapper.GetCommand((obj) => {
+                if (!string.IsNullOrEmpty(Background) && !Path.IsPathRooted(Background)) {
+                    MessageBox.Show("Background Path is not valid");
+                    return;
+
+                }
                 settings.SaveSettings(config);
-                settings.SetWindowDefaultSize();
             });
         }
+    }
+    public ICommand Browse {
+        get {
+            return commandWrapper.GetCommand((obj) => {
+                    OpenFileDialog ofd = new() {
+                        Filter = "Images |*.jpg;*.jpeg;*.png;*.bmp;",
+                        Multiselect = false
+                    };
+                    if (ofd.ShowDialog() == true) {
+                        Background = ofd.FileName;
+                    }
+                });
+        } 
     }
 
     public SettingsVM(SettingsManager sm, CommandWrapper cw) {

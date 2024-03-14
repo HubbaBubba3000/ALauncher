@@ -1,64 +1,86 @@
-﻿
-using ALauncher.ViewModel;
+﻿using ALauncher.ViewModel;
 using ALauncher.Model;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+using ALauncher.Data;
 using System.Windows;
 using Hardcodet.Wpf.TaskbarNotification;
 using System;
-using System.Windows.Media;
+using DryIoc;
 
 namespace ALauncher
 {
     public partial class App : Application
     {
         private TaskbarIcon Tray;
-        public IHost host;
+        public Container container;
+        private Uri CurrentLocalUri;
+        private Localisation CurrentLocal;
         public App() {
             ShutdownMode=ShutdownMode.OnExplicitShutdown;
-            host = CreateHostBuilder().Build();
+            container = new(rules => rules.WithoutThrowIfDependencyHasShorterReuseLifespan()
+                                            .WithoutFuncAndLazyWithoutRegistration()
+                            ,scopeContext: new AsyncExecutionFlowScopeContext());
+        }
+        public void RegisterContainer() {
+            container.Register<CommandWrapper>(Reuse.Singleton);
+            container.Register<IconPackManager>(Reuse.Singleton);
+            container.Register<FolderManager>(Reuse.Singleton);
+            container.Register<SettingsManager>(Reuse.Singleton);
+            container.Register<MainWindow>(Reuse.Transient,setup: Setup.With(allowDisposableTransient: true));
+            container.Register<SettingsVM>(Reuse.Singleton);
+            container.Register<SettingsService>(Reuse.Singleton);
+            container.Register<AddItemService>(Reuse.Singleton);
+            container.Register<AddFolderService>(Reuse.Singleton);
+            container.Register<BottomPanelVM>(Reuse.Singleton);
+            container.Register<ControlPanelVM>(Reuse.Singleton);
+            container.Register<WrapPanelVM>(Reuse.Singleton);
+            container.Register<MainVM>(Reuse.Singleton);
+            container.Register<Logger>(Reuse.Singleton);
+            container.Register<TrayVM>(Reuse.Singleton);
         }
 
-        public static IHostBuilder CreateHostBuilder()
-        {
-            return Host.CreateDefaultBuilder()
-                .ConfigureServices( service => {
-                    //Models
-                    service.AddSingleton<IconPackManager>();
-                    service.AddSingleton<FolderManager>();
-                    service.AddSingleton<SettingsManager>();
-                    service.AddSingleton<Func<SettingsVM>>(provider => provider.GetService<SettingsVM>);
-                    service.AddSingleton<SettingsService>();
-                    service.AddSingleton<AddItemService>();
-                    service.AddSingleton<AddFolderService>();
-                    //ViewModels
-                    service.AddSingleton<BottomPanelVM>();
-                    service.AddSingleton<ControlPanelVM>();
-                    service.AddSingleton<WrapPanelVM>();
-                    service.AddSingleton<MainVM>();
-                    service.AddSingleton<CommandWrapper>();
-                    service.AddScoped<SettingsVM>();
-                    service.AddSingleton<Logger>();
-                    service.AddSingleton<TrayVM>();
-                    //View
-                    service.AddTransient<MainWindow>();
-                }) ;
-        }  
+        public static event LanguageHandler LanguageChanged;
+        public delegate void LanguageHandler();
+        
+        public void SetLanguage(Localisation local = Localisation.EN) {
+            if (CurrentLocal == local) return;
+            ResourceDictionary dict = new();
+            switch (local) {
+                case Localisation.RU : 
+                    if (CurrentLocalUri != null) {
+                        dict.Source = CurrentLocalUri;
+                        Resources.MergedDictionaries.Remove(dict);
+                    }
+                    CurrentLocalUri = new Uri ("Styles/RuLocal.xaml", UriKind.Relative);
+                    dict.Source = CurrentLocalUri;
+                    Resources.MergedDictionaries.Add(dict);
+                    break;
+                default : 
+                    if (CurrentLocalUri != null) {
+                        dict.Source = CurrentLocalUri;
+                        Resources.MergedDictionaries.Remove(dict);
+                    }
+                    CurrentLocalUri = new Uri ("Styles/EnLocal.xaml", UriKind.Relative);
+                    dict.Source = CurrentLocalUri;
+                    Resources.MergedDictionaries.Add(dict);
+                    break;
+            }
+            CurrentLocal = local;
+            LanguageChanged?.Invoke();
+        }
+
         private void OnStartup(object? sender, StartupEventArgs e) {
-            
-            host.Start();
+            RegisterContainer();
             Tray = (TaskbarIcon) FindResource("NotifyIcon");
-            Tray.DataContext = host.Services.GetService<TrayVM>();
-            MainWindow = host.Services.GetService<MainWindow>();
+            Tray.DataContext = container.Resolve<TrayVM>();
+            MainWindow = container.Resolve<MainWindow>();
             MainWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             MainWindow.Show();
         }
 
         protected override void OnExit(ExitEventArgs e)
         {
-            host.StopAsync();
-            host.Dispose();
-
+            Tray.Dispose();
+            container.Dispose();
             base.OnExit(e);
         }
 

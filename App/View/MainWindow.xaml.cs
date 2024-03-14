@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Windows.Controls.Primitives;
 using System.Windows;
-using System.Windows.Input;
 using ALauncher.ViewModel;
 using System.Windows.Documents;
 using ALauncher.View;
+using System.ComponentModel;
 
 namespace ALauncher
 {
@@ -13,9 +13,7 @@ namespace ALauncher
         public MainWindow(MainVM m)
         {
             DataContext = m;
-            m.LoadSettings(this);
-            Closing += m.OnClosing;
-            Closing += (obj, e) => {Dispose();};
+            Closing += OnWindowClosing;
             InitializeComponent();
             Loaded += OnLoaded;
         }
@@ -23,7 +21,16 @@ namespace ALauncher
            Style = Application.Current.FindResource("LeftPanelThumbStyle") as Style
         };
         private void OnLoaded(object sender, RoutedEventArgs e) {
-            AdornerLayer.GetAdornerLayer(dockpanel).Add(new ResizeAdorner(leftpanel, LeftPanelThumb));
+            ((MainVM)DataContext).InitSettings(this);
+            leftpanel.Width = ((MainVM)DataContext).ControlPanelWidth;
+            AdornerLayer.GetAdornerLayer(dockpanel).Add(new ResizeAdorner(leftpanel, LeftPanelThumb, 
+            (obj, e) => {
+                ((MainVM)DataContext).ControlPanelWidth = (int)leftpanel.Width;
+            }));
+        }
+        private void OnWindowClosing(object sender, CancelEventArgs e) {
+            ((MainVM)DataContext).OnClosing();
+            Dispose();
         }
 
         public void Dispose()

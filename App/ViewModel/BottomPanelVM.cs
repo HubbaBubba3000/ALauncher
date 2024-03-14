@@ -3,7 +3,7 @@ using ALauncher.Model;
 namespace ALauncher.ViewModel;
 
 public sealed class BottomPanelVM : BaseVM {
-   private Logger logger;
+    private Logger logger;
     public string Version {
         get {
             string ver ="v0.1.2 - ";
@@ -17,9 +17,13 @@ public sealed class BottomPanelVM : BaseVM {
     }
     public string Status {
         get => logger.Status;
+        set {
+            //logger.Status = value;
+            OnPropertyChanged("Status");
+        }
     }
-   
     public BottomPanelVM(Logger logger) {
         this.logger = logger;
+        logger.StatusChanged += (code) => { Status = "";};
     }
 }

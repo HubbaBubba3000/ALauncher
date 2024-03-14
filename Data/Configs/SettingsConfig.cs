@@ -6,21 +6,17 @@ using System.Text.Json.Serialization;
 namespace ALauncher.Data;
  [JsonConverter(typeof(JsonStringEnumConverter))]
 public enum Localisation {
+    None,
     [EnumMember(Value = "EN")]
     EN,
-    [EnumMember(Value = "ES")]
-    ES,
-    [EnumMember(Value = "DE")]
-    DE,
     [EnumMember(Value = "RU")]
     RU
-
 }
-
-public sealed class SettingsConfig : IConfig, IDisposable {
+public struct SettingsConfig : IConfig, IDisposable {
 
     public int WindowWidth {get; set;}
     public int WindowHeight {get; set;}
+    public int ControlPanelWidth {get; set;}
     /// <summary>
     /// Change Language (NOT IMPLEMENTED)
     /// </summary>
@@ -30,9 +26,9 @@ public sealed class SettingsConfig : IConfig, IDisposable {
     /// </summary>
     public bool AutoUpdate {get;set;}
     /// <summary>
-    /// On/Off animations (NOT IMPLEMENTED)
+    /// Background Image Path
     /// </summary>
-    public bool Animations {get; set;}
+    public string BackgroundPath {get; set;}
 
     public void Dispose()
     {

@@ -1,0 +1,20 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:s="clr-namespace:System;assembly=mscorlib">
+
+    <s:String x:Key="Settings">Настройки</s:String>
+    <s:String x:Key="Localisation">Локализация: </s:String>
+    <s:String x:Key="AutoUpdate">Авто обновление: </s:String>
+    <s:String x:Key="Background">Путь к фону: </s:String>
+    <s:String x:Key="WindowWidth">Ширина окна: </s:String>
+    <s:String x:Key="WindowHeigth">Высота окна: </s:String>
+    <s:String x:Key="AddFolder">Добавить Папку</s:String>
+    <s:String x:Key="Name">Название: </s:String>
+    <s:String x:Key="Add">Добавить</s:String>
+    <s:String x:Key="Save">Сохранить</s:String>
+    <s:String x:Key="AddItem">Добавить Ярлык</s:String>
+    <s:String x:Key="Path">Путь: </s:String>
+      <s:String x:Key="Delete">Удалить</s:String>
+    <s:String x:Key="Edit">Редактировать</s:String>
+
+</ResourceDictionary>

@@ -16,7 +16,7 @@ public class IconPackManager : Manager {
     private Dictionary<string, string> Icons; // name, Icon(base64)
     private byte[] buffer;
 
-    string ImageToBase64(BitmapSource bitmap) {
+    public static string ImageToBase64(BitmapSource bitmap) {
         if (bitmap == null) return string.Empty;
         var encoder = new PngBitmapEncoder();
         var frame = BitmapFrame.Create(bitmap);
@@ -26,7 +26,7 @@ public class IconPackManager : Manager {
             return Convert.ToBase64String(stream.ToArray());
         }
     }
-    BitmapSource? Base64ToImage(string? base64) {
+    public static BitmapSource? Base64ToImage(string? base64) {
         if (string.IsNullOrEmpty(base64)) return null;
         byte[] bytes = Convert.FromBase64String(base64);
         using(var stream = new MemoryStream(bytes))
@@ -57,7 +57,7 @@ public class IconPackManager : Manager {
     public void DeserializeIcons() {
         var options = MessagePackSerializerOptions.Standard.WithCompression(MessagePackCompression.None);
 
-        buffer = File.ReadAllBytes(WorkFolder+"/Icons.bin");
+        buffer = File.ReadAllBytes((WorkFolder+"/Icons.bin"));
         Icons = MessagePackSerializer.Deserialize<Dictionary<string, string>>(buffer, options);
     }
     public async Task DeserializeIconsAsync() {
@@ -65,8 +65,10 @@ public class IconPackManager : Manager {
         
         using (var stream = new MessagePackStreamReader(new StreamReader(WorkFolder+"/Icons.bin").BaseStream)) {
             while (await stream.ReadAsync(CancellationToken.None) is ReadOnlySequence<byte> msgpack) {
-                Icons = MessagePackSerializer.Deserialize<Dictionary<string, string>>(msgpack);
+                var kv = MessagePackSerializer.Deserialize<KeyValuePair<string, string>>(msgpack);
+                Icons.Add(kv.Key, kv.Value);
             }
+            logger.SetStatusLog(0, "Icons was loaded");
         }
     }
     public IFormattable? GetIcon(Item item) {
@@ -76,8 +78,10 @@ public class IconPackManager : Manager {
         foreach(Item item in folder.Items)
             yield return Base64ToImage(Icons.GetValueOrDefault(item.AppName)) ?? IconExtractor.GetIcon(item.Path);
     }
-    public IconPackManager() {
+    private Logger logger;
+    public IconPackManager(Logger logger) {
+        this.logger = logger;
         buffer = Array.Empty<byte>();
-        Icons = new();
+        Icons = new Dictionary<string,string>();
     }
 }

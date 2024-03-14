@@ -14,7 +14,7 @@ namespace ALauncher.ViewModel;
     }
 
     public ICommand GetCommand(Action<object?> execute, Func<object?, bool> canExecute = null) {
-        var command = _commands.FirstOrDefault(cachedCommand => cachedCommand.execute == execute);
+        var command = _commands.FirstOrDefault(cachedCommand => cachedCommand.execute.Method.Name == execute.Method.Name);
 
         if (command != null) {
             return command;

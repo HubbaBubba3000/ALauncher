@@ -17,25 +17,31 @@
     <Border CornerRadius="15" Padding="30" Background="{StaticResource b2}" MouseDown="MoveWindow"
                 BorderThickness="1" BorderBrush="{StaticResource b4}">
         <Grid>
-            <Button Width="30" Height="30" Style="{StaticResource BtnStyle}" Click="Close" 
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Button Grid.Row="0" Width="30" Height="30" Style="{StaticResource BtnStyle}" Click="Close" 
                HorizontalAlignment="Right" VerticalAlignment="Top" >
                 <Path  Width="15" Height="15" Stretch="Fill" 
                         Fill="{StaticResource b4}" Data="{StaticResource ExitIcon}"/>
             </Button>
-            <Label Content="Add Item" Foreground="{StaticResource b4}" FontSize="24" 
+            <TextBlock Grid.Row="0" Text="{DynamicResource AddItem}" Foreground="{StaticResource b4}" FontSize="24" 
                     HorizontalAlignment="left" VerticalAlignment="Top" />
-            <Label Content="Name: " Foreground="{StaticResource b4}" FontSize="16" 
-                    HorizontalAlignment="left" HorizontalContentAlignment="Center"
-                    VerticalContentAlignment="Center" Margin="0,60,0,0" />
-            <TextBox x:Name="NameBox" Width="200" Height="30" Text="{Binding AppName, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left"
-                    Margin="70,55,0,0" Style="{StaticResource TextBoxStyle}"/>
-            <Label Content="Path: " Foreground="{StaticResource b4}" FontSize="16" 
-                HorizontalAlignment="left" HorizontalContentAlignment="Center"
-                VerticalContentAlignment="Center" Margin="0,145,0,0" />
-            <TextBox x:Name="PathBox" Width="290" Height="30" Text="{Binding ItemPath, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left"
-                    Margin="70,140,0,0" Style="{StaticResource TextBoxStyle}"/>
-            <Button Width="30" Height="30"  Command="{Binding Browse}"
-                    Margin="380,140,0,0" Style="{StaticResource BtnStyle}">
+
+            <TextBlock Grid.Row="1" Text="{DynamicResource Name}" Foreground="{StaticResource b4}" FontSize="16" 
+                    HorizontalAlignment="left" VerticalAlignment="Center" Margin="0,5,30,0" />
+            <TextBox Grid.Row="1" x:Name="NameBox" Width="200" Height="30" Text="{Binding AppName, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left"
+                    Margin="70,0,0,0" Style="{StaticResource TextBoxStyle}"/>
+
+            <TextBlock Grid.Row="2" Text="{DynamicResource Path}" Foreground="{StaticResource b4}" FontSize="16" 
+                VerticalAlignment="Center" HorizontalAlignment="left" Margin="0,5,30,0" />
+            <TextBox Grid.Row="2" x:Name="PathBox" Width="290" Height="30" Text="{Binding ItemPath, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left"
+                    Margin="70,0,0,0" Style="{StaticResource TextBoxStyle}"/>
+            <Button Grid.Row="2" Width="30" Height="30"  Command="{Binding Browse}"
+                    Margin="380,0,0,0" Style="{StaticResource BtnStyle}">
                 <Viewbox Width="25" Height="25">
                     <Grid>
                         <Path HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform" Fill="{StaticResource b4}" Data="{StaticResource BrowseIcon2}" />
@@ -43,7 +49,8 @@
                     </Grid>
                 </Viewbox>
             </Button>
-            <Button Content="Add" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="60" Height="30" 
+
+            <Button Grid.Row="3" Content="Add" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="60" Height="30" 
                    Click="AddItem" Style="{StaticResource BtnStyle}" />
         </Grid> 
     </Border>
