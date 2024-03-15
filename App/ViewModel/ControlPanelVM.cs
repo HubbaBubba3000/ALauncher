@@ -1,6 +1,7 @@
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using ALauncher.Data;
+using ALauncher.Core;
 using ALauncher.Model;
 using System.Linq;
 
@@ -16,11 +17,9 @@ public sealed class ControlPanelVM : BaseVM{
     private SettingsService settingsService;
     public ObservableCollection<Folder> Folders {
         get {
-            return folderManager.folders;
+            return folderManager.Folders;
         }
         set {
-            if (value != null) 
-                folderManager.folders = value;
             OnPropertyChanged("Folders");
         }
     }
@@ -30,7 +29,6 @@ public sealed class ControlPanelVM : BaseVM{
         }
         set {
             logger.TimerStart(value.Name);
-            //folderManager.CheckAndSetIcons(value);
             GetIcons(value);
             wrapPanel.CurrentFolder = value;
             logger.TimerStop();
@@ -39,7 +37,7 @@ public sealed class ControlPanelVM : BaseVM{
     }
     public void GetIcons(Folder folder) {
         foreach(Item item in folder.Items)
-            item.Icon = packManager.GetIcon(item);
+            item.Icon ??= packManager.GetIcon(item);
     }
 
     public ICommand AddFolder {
@@ -57,7 +55,7 @@ public sealed class ControlPanelVM : BaseVM{
     public ICommand OpenSettings {
         get {
             return commandWrapper.GetCommand((obj) => {
-                packManager.SerializeIcons(Folders.ToArray());
+                packManager.SerializeIcons((FolderConfig)folderManager.GetConfig);
                 settingsService.Show();
             });
         }
@@ -83,14 +81,13 @@ public sealed class ControlPanelVM : BaseVM{
                 var buf = CurrentFolder;
                 CurrentFolder = Folders.First();
                 Folders.Remove(buf);
-                folderManager.UpdateFolders();
+                folderManager.Save();
             });
         }
     }
     private void UpdateByStatus(LoggerCode code) {
         if (code == LoggerCode.FolderAsyncParseComplete) {
             Folders = null; // updating list
-            packManager.DeserializeIconsAsync().ConfigureAwait(false);
             CurrentFolder = Folders[0]; 
         }
     }

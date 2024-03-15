@@ -1,6 +1,4 @@
 
-using System.Windows;
-using System.Windows.Input;
 using ALauncher.Data;
 
 namespace ALauncher.ViewModel;
@@ -15,6 +13,6 @@ namespace ALauncher.ViewModel;
             }
         }
         public AddFolderVM(Folder? folder) {
-            this.GetFolder = folder ?? new Folder() {Name = "New Folder", Items = new()};
+            this.GetFolder = folder ?? new Folder();
         }
 }

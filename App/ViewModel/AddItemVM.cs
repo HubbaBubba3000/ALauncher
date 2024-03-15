@@ -3,7 +3,7 @@ using System.IO;
 using System.Windows;
 using System.Windows.Input;
 using ALauncher.Data;
-using ALauncher.Model;
+using ALauncher.Core;
 using Microsoft.Win32;
 
 namespace ALauncher.ViewModel;
@@ -14,9 +14,9 @@ public sealed class AddItemVM : BaseVM {
         GetItem = item;
     }
     public string AppName {
-        get => GetItem.AppName ?? "";
+        get => GetItem.Name ?? "";
         set {
-            GetItem.AppName = value;
+            GetItem.Name = value;
             OnPropertyChanged("AppName");
         }
     }

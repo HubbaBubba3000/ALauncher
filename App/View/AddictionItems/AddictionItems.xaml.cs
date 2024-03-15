@@ -8,7 +8,7 @@ namespace ALauncher.View;
 
 public partial class AddictionItems : Window, IDisposable {
     public AddictionItems(Item? item = null) {
-        GetItem = item ?? new Item() { AppName = "Name", Path = "Item Path" };
+        GetItem = item ?? new Item();
         DataContext = new AddItemVM(GetItem);
         InitializeComponent();
     }

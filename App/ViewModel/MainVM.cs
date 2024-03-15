@@ -1,5 +1,5 @@
 using ALauncher.Model;
-using System.ComponentModel;
+using ALauncher.Core;
 using System.Windows;
 
 namespace ALauncher.ViewModel;
@@ -26,6 +26,6 @@ public sealed class MainVM : BaseVM {
         settings.SetPanelWidth(ControlPanelWidth);
         settings.SaveWindowSize();
         
-        settings.SaveSettings();
+        settings.Save();
     }
 }

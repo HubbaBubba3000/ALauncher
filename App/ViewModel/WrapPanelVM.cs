@@ -1,19 +1,22 @@
 
 using System.Windows.Input;
-using System.Windows;
 using ALauncher.Data;
 using ALauncher.Model;
+using ALauncher.Core;
 using System.Linq;
 using System;
 using System.Collections.ObjectModel;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.IO;
 
 namespace ALauncher.ViewModel;
 
 public sealed class WrapPanelVM : BaseVM {
     private ProcessWorker process;
+    private AddItemService addItemService;
+    private CommandWrapper commandWrapper;
+    private SettingsManager settings;
+    private Logger logger;
     private bool IsAddWindowOpen;
     private Item _item;
     public Item CurrentItem {
@@ -60,7 +63,7 @@ public sealed class WrapPanelVM : BaseVM {
     public ObservableCollection<Item> Items {
         get {
             try {
-                Folder folder = folderManager.folders.Single(f => f == CurrentFolder);
+                Folder folder = folderManager.Folders.Single(f => f == CurrentFolder);
                 return folder.Items;
             }
             catch (Exception e) {
@@ -68,7 +71,7 @@ public sealed class WrapPanelVM : BaseVM {
             }
         }
         set {
-            folderManager.folders.Single(f => f == CurrentFolder).Items = value;
+            folderManager.Folders.Single(f => f == CurrentFolder).Items = value;
             OnPropertyChanged("Items");
         }
     }
@@ -79,7 +82,7 @@ public sealed class WrapPanelVM : BaseVM {
                 IsAddWindowOpen = true;
                 if (addItemService.Show() == true) {
                     Items.Add(addItemService.Result);
-                    folderManager.UpdateFolders();
+                    folderManager.Save();
                 }
                 IsAddWindowOpen = false;
             });
@@ -95,7 +98,7 @@ public sealed class WrapPanelVM : BaseVM {
                     Items.RemoveAt(i);
                     Items.Insert(i,addItemService.Result);
                     CurrentItem = Items.ElementAt(i);
-                    folderManager.UpdateFolders();
+                    folderManager.Save();
                 }
                 IsAddWindowOpen = false;
             });
@@ -106,7 +109,7 @@ public sealed class WrapPanelVM : BaseVM {
             return commandWrapper.GetCommand((obj) => {
                     var buf = CurrentItem;
                     Items.Remove(buf);
-                    folderManager.UpdateFolders();
+                    folderManager.Save();
             });
         }
     } 
@@ -116,10 +119,10 @@ public sealed class WrapPanelVM : BaseVM {
                 var item = Items.Single(item => item.Path == (string)obj);
                 process = new(item);
                 logger.SetStatusLog(LoggerCode.ProcessStarted, $"process {process.ProcessName} Started");
-                process.RunProcess();
                 process.SetExitEvent((_obj, e) => {
                     logger.SetStatusLog(LoggerCode.ProcessClosed, $"process {process.ProcessName} Closed ");
                 });
+                process.RunProcess();
             });
         }
     }
@@ -128,13 +131,9 @@ public sealed class WrapPanelVM : BaseVM {
             logger.SetStatusLog(LoggerCode.ProcessStarted, "Window Closed");
         });
     }
-    private void OnSettingsChanged(object sender, EventArgs e) {
+    private void OnSettingsChanged() {
         Background = null;
     }
-    private AddItemService addItemService;
-    private CommandWrapper commandWrapper;
-    private SettingsManager settings;
-    private Logger logger;
     public WrapPanelVM(FolderManager b,SettingsManager sm, AddItemService ais, CommandWrapper cw, Logger bp) {
         folderManager = b;
         settings = sm;

@@ -6,7 +6,7 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-namespace ALauncher.Model;
+namespace ALauncher.Core;
     /// <summary>
     ///  class for extract icons from exe/dll and open icon selector 
     /// </summary>

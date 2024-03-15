@@ -1,6 +1,7 @@
 ﻿using ALauncher.ViewModel;
 using ALauncher.Model;
 using ALauncher.Data;
+using ALauncher.Core;
 using System.Windows;
 using Hardcodet.Wpf.TaskbarNotification;
 using System;
@@ -17,7 +18,6 @@ namespace ALauncher
         public App() {
             ShutdownMode=ShutdownMode.OnExplicitShutdown;
             container = new(rules => rules.WithoutThrowIfDependencyHasShorterReuseLifespan()
-                                            .WithoutFuncAndLazyWithoutRegistration()
                             ,scopeContext: new AsyncExecutionFlowScopeContext());
         }
         public void RegisterContainer() {
@@ -37,9 +37,6 @@ namespace ALauncher
             container.Register<Logger>(Reuse.Singleton);
             container.Register<TrayVM>(Reuse.Singleton);
         }
-
-        public static event LanguageHandler LanguageChanged;
-        public delegate void LanguageHandler();
         
         public void SetLanguage(Localisation local = Localisation.EN) {
             if (CurrentLocal == local) return;
@@ -65,16 +62,18 @@ namespace ALauncher
                     break;
             }
             CurrentLocal = local;
-            LanguageChanged?.Invoke();
         }
 
         private void OnStartup(object? sender, StartupEventArgs e) {
             RegisterContainer();
             Tray = (TaskbarIcon) FindResource("NotifyIcon");
             Tray.DataContext = container.Resolve<TrayVM>();
+            var settings = container.Resolve<SettingsManager>();
+            settings.SettingsChanged += () => SetLanguage(((SettingsConfig)settings.GetConfig).Lang);
             MainWindow = container.Resolve<MainWindow>();
             MainWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             MainWindow.Show();
+            settings.FirstInit();
         }
 
         protected override void OnExit(ExitEventArgs e)

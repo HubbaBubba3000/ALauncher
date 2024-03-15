@@ -1,7 +1,7 @@
 
 using System.Windows;
 using System.Windows.Input;
-using ALauncher.Model;
+using ALauncher.Core;
 
 namespace ALauncher.ViewModel;
 

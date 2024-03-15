@@ -12,25 +12,25 @@ public enum Localisation {
     [EnumMember(Value = "RU")]
     RU
 }
-public struct SettingsConfig : IConfig, IDisposable {
+public sealed class SettingsConfig : IConfig, IDisposable {
 
-    public int WindowWidth {get; set;}
-    public int WindowHeight {get; set;}
-    public int ControlPanelWidth {get; set;}
+    public int WindowWidth {get; set;} = 800;
+    public int WindowHeight {get; set;} = 600;
+    public int ControlPanelWidth {get; set;} = 200;
     /// <summary>
     /// Change Language (NOT IMPLEMENTED)
     /// </summary>
-    public Localisation Lang {get; set;}
+    public Localisation Lang {get; set;} = Localisation.EN;
     /// <summary>
     /// auto Updating app
     /// </summary>
-    public bool AutoUpdate {get;set;}
+    public bool AutoUpdate {get;set;} = false;
     /// <summary>
     /// Background Image Path
     /// </summary>
-    public string BackgroundPath {get; set;}
+    public string BackgroundPath {get; set;} = string.Empty;
 
-    public void Dispose()
-    {
-    }
+    public void Dispose() {}
+
+    public SettingsConfig() {}
 }

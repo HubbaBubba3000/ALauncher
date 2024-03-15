@@ -1,6 +1,5 @@
 using ALauncher.ViewModel;
 using ALauncher.View;
-using System;
 using ALauncher.Data;
 
 namespace ALauncher.Model;

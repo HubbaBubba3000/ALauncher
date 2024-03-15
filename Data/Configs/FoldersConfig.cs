@@ -1,8 +1,11 @@
 using System;
+using System.Collections.ObjectModel;
 namespace ALauncher.Data;
 
-public struct FolderConfig : IConfig, IDisposable {
-    public Folder[] Folders {get;set;}
+public sealed class FolderConfig : IConfig, IDisposable {
+    public FolderConfig() { }
+
+    public ObservableCollection<Folder> Folders {get;set;} = new();
     public void Dispose() { }
 }
 

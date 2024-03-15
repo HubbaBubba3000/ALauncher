@@ -3,7 +3,7 @@ using System.IO;
 using System.Windows;
 using System.Windows.Input;
 using ALauncher.Data;
-using ALauncher.Model;
+using ALauncher.Core;
 using Microsoft.Win32;
 
 namespace ALauncher.ViewModel;
@@ -65,7 +65,7 @@ public sealed class SettingsVM : BaseVM {
                     return;
 
                 }
-                settings.SaveSettings(config);
+                settings.Save(config);
             });
         }
     }

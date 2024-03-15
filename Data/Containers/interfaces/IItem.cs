@@ -1,8 +1,10 @@
 
+using System.Windows.Media;
+
 namespace ALauncher.Data;
 
 public interface IItem {
-    public string AppName {get; set;} 
+    public string Name {get; set;} 
 
     public string Path {get; set;}
 
@@ -10,5 +12,5 @@ public interface IItem {
     /// Icon of exe file.
     /// ImageSource implement IFormattable
     /// </summary>
-    public IFormattable Icon {get; set;}
+    public ImageSource Icon {get; set;}
 }

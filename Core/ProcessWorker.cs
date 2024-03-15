@@ -3,7 +3,8 @@ using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using ALauncher.Data;
-namespace ALauncher.Model;
+
+namespace ALauncher.Core;
 
 public sealed class ProcessWorker {
     ProcessStartInfo processInfo;

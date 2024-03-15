@@ -19,7 +19,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                    <local:ItemControl Icon="{Binding Icon}" AppName="{Binding AppName}" Path="{Binding Path}" 
+                    <local:ItemControl Icon="{Binding Icon}" AppName="{Binding Name}" Path="{Binding Path}" 
                         Command="{Binding ElementName=This, Path=DataContext.Run}" CommandParameter="{Binding Path}" />
                 </ControlTemplate>
                 </Setter.Value>

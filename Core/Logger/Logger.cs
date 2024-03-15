@@ -1,22 +1,16 @@
 using System;
 using System.Diagnostics;
 using System.Text;
-using ALauncher.ViewModel;
 
-namespace ALauncher.Model;
-public enum LoggerCode {
-    FolderAsyncParseComplete = 201,
-    FolderAsyncParseFailed = 401,
-    ProcessStarted = 102,
-    ProcessClosed = 202,
-    TimerStart = 110,
-    TimerStop = 210
-}
+namespace ALauncher.Core;
 public class Logger {
     private LoggerCode _code;
     private Stopwatch timer;
+    public delegate void StatusChangedHandler(LoggerCode code);
+    public event StatusChangedHandler StatusChanged;
     public Logger() {
         timer = new Stopwatch();
+        StatusChanged += p => {};
         _status = new();
     }
     public void TimerStart(string method) {
@@ -37,20 +31,18 @@ public class Logger {
         }
     }
     private StringBuilder _status;
-     public string Status {
-        get {return _status.ToString();} 
+     public StringBuilder Status {
+        get {return _status;} 
         set {
-            _status = new StringBuilder(value);
+            _status = value;
         }
     }
-    public delegate void StatusChangedHandler(LoggerCode code);
-    public event StatusChangedHandler StatusChanged;
     public void SetStatusLog(LoggerCode code, string status) {
-        Status = status;
+        Status = new(status);
         Code = code;
     }
     public void SetStatusLog(int code, string status) {
-        Status = status;
+        Status = new(status);
         Code = (LoggerCode)code;
     }
 }
