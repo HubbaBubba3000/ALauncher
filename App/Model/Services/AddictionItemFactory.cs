@@ -3,25 +3,29 @@ using ALauncher.Data;
 
 namespace ALauncher.Model;
 
-public sealed class AddItemService : IService
+public sealed class AddictionItemFactory : IWindowFactory
 {
-    public Item? Result {get; private set;}
+    public Item? Result { get; private set; }
     public bool Show()
     {
         var window = new AddictionItems();
-        if (window.ShowDialog() == true) {
+        if (window.ShowDialog() == true)
+        {
             Result = window.GetItem;
             return true;
-        } else return false;
-            
+        }
+        else return false;
+
     }
     public bool Show(Item item)
     {
         var window = new AddictionItems(item);
-        if (window.ShowDialog() == true) {
+        if (window.ShowDialog() == true)
+        {
             Result = window.GetItem;
             return true;
-        } else return false;
+        }
+        else return false;
     }
 
 }

@@ -17,18 +17,22 @@ namespace ALauncher
             InitializeComponent();
             Loaded += OnLoaded;
         }
-        private Thumb LeftPanelThumb = new Thumb() {
-           Style = Application.Current.FindResource("LeftPanelThumbStyle") as Style
+        private Thumb LeftPanelThumb = new Thumb()
+        {
+            Style = Application.Current.FindResource("LeftPanelThumbStyle") as Style
         };
-        private void OnLoaded(object sender, RoutedEventArgs e) {
+        private void OnLoaded(object sender, RoutedEventArgs e)
+        {
             ((MainVM)DataContext).InitSettings(this);
             leftpanel.Width = ((MainVM)DataContext).ControlPanelWidth;
-            AdornerLayer.GetAdornerLayer(dockpanel).Add(new ResizeAdorner(leftpanel, LeftPanelThumb, 
-            (obj, e) => {
+            AdornerLayer.GetAdornerLayer(dockpanel).Add(new ResizeAdorner(leftpanel, LeftPanelThumb,
+            (obj, e) =>
+            {
                 ((MainVM)DataContext).ControlPanelWidth = (int)leftpanel.Width;
             }));
         }
-        private void OnWindowClosing(object sender, CancelEventArgs e) {
+        private void OnWindowClosing(object sender, CancelEventArgs e)
+        {
             ((MainVM)DataContext).OnClosing();
             Dispose();
         }

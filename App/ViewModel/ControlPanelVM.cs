@@ -7,77 +7,92 @@ using System.Linq;
 
 namespace ALauncher.ViewModel;
 
-public sealed class ControlPanelVM : BaseVM{
+public sealed class ControlPanelVM : BaseVM
+{
     private FolderManager folderManager;
-    private Logger logger; 
+    private Logger logger;
+    private IconPackManager packManager;
     private WrapPanelVM wrapPanel;
     public CommandWrapper commandWrapper;
-    private AddFolderService addFolderService;
+    private AddictionFolderFactory AddictionFolder;
     private bool IsAddWindowOpen;
-    private SettingsService settingsService;
-    public ObservableCollection<Folder> Folders {
-        get {
-            return folderManager.Folders;
-        }
-        set {
+    private SettingsFactory Settings;
+    public ObservableCollection<Folder> Folders
+    {
+        get => folderManager.Folders;
+        set
+        {
             OnPropertyChanged("Folders");
         }
     }
-    public Folder CurrentFolder {
-        get {
-            return wrapPanel.CurrentFolder;
-        }
-        set {
-            logger.TimerStart(value.Name);
+    public Folder CurrentFolder
+    {
+        get => wrapPanel.CurrentFolder;
+        set
+        {
             GetIcons(value);
             wrapPanel.CurrentFolder = value;
-            logger.TimerStop();
             OnPropertyChanged("CurrentFolder");
         }
     }
-    public void GetIcons(Folder folder) {
-        foreach(Item item in folder.Items)
+    public void GetIcons(Folder folder)
+    {
+        foreach (Item item in folder.Items)
             item.Icon ??= packManager.GetIcon(item);
     }
 
-    public ICommand AddFolder {
-        get {
-            return commandWrapper.GetCommand((obj) => {
+    public ICommand AddFolder
+    {
+        get
+        {
+            return commandWrapper.GetCommand((obj) =>
+            {
                 if (IsAddWindowOpen) return;
                 IsAddWindowOpen = true;
-                if (addFolderService.Show() == true) {
-                    Folders.Add(addFolderService.Result);
+                if (AddictionFolder.Show() == true)
+                {
+                    Folders.Add(AddictionFolder.Result);
                 }
                 IsAddWindowOpen = false;
             });
         }
     }
-    public ICommand OpenSettings {
-        get {
-            return commandWrapper.GetCommand((obj) => {
-                packManager.SerializeIcons((FolderConfig)folderManager.GetConfig);
-                settingsService.Show();
+    public ICommand OpenSettings
+    {
+        get
+        {
+            return commandWrapper.GetCommand((obj) =>
+            {
+                packManager.SerializeIcons((FolderConfig)folderManager.GetConfig).ConfigureAwait(false);
+                Settings.Show();
             });
         }
     }
-    public ICommand EditFolder {
-        get {
-            return commandWrapper.GetCommand((obj) => {
+    public ICommand EditFolder
+    {
+        get
+        {
+            return commandWrapper.GetCommand((obj) =>
+            {
                 if (IsAddWindowOpen) return;
                 IsAddWindowOpen = true;
-                if (addFolderService.Show(CurrentFolder) == true) {
+                if (AddictionFolder.Show(CurrentFolder) == true)
+                {
                     int i = Folders.IndexOf(CurrentFolder);
                     Folders.RemoveAt(i);
-                    Folders.Insert(i,addFolderService.Result);
+                    Folders.Insert(i, AddictionFolder.Result);
                     CurrentFolder = Folders.ElementAt(i);
                 }
                 IsAddWindowOpen = false;
             });
         }
-    } 
-    public ICommand DeleteFolder {
-        get {
-            return commandWrapper.GetCommand((obj) => {
+    }
+    public ICommand DeleteFolder
+    {
+        get
+        {
+            return commandWrapper.GetCommand((obj) =>
+            {
                 var buf = CurrentFolder;
                 CurrentFolder = Folders.First();
                 Folders.Remove(buf);
@@ -85,24 +100,25 @@ public sealed class ControlPanelVM : BaseVM{
             });
         }
     }
-    private void UpdateByStatus(LoggerCode code) {
-        if (code == LoggerCode.FolderAsyncParseComplete) {
+    private void UpdateByStatus(LoggerCode code)
+    {
+        if (code == LoggerCode.FolderAsyncParseComplete)
+        {
             Folders = null; // updating list
-            CurrentFolder = Folders[0]; 
+            CurrentFolder = Folders[0];
         }
     }
-    private IconPackManager packManager;
-    public ControlPanelVM(Logger bp,WrapPanelVM wp,IconPackManager ipm, FolderManager b, SettingsService ss, AddFolderService afs, CommandWrapper cw) {
+    public ControlPanelVM(Logger bp, WrapPanelVM wp, IconPackManager ipm, FolderManager b, SettingsFactory ss, AddictionFolderFactory afs, CommandWrapper cw)
+    {
         logger = bp;
-        IsAddWindowOpen = false;
         packManager = ipm;
-
         wrapPanel = wp;
         commandWrapper = cw;
+        folderManager = b;
+        Settings = ss;
+        AddictionFolder = afs;
+
+        IsAddWindowOpen = false;
         logger.StatusChanged += UpdateByStatus;
-        folderManager = b; 
-        settingsService = ss;
-        addFolderService = afs;
-        //CurrentFolder = Folders.Count() == 0 ? new Folder() : Folders[0];
     }
 }

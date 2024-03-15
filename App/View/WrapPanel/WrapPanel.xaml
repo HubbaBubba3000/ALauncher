@@ -43,12 +43,12 @@
     <Border CornerRadius="0,15,0,0" Background="{Binding Background, UpdateSourceTrigger=PropertyChanged}" >
         <Grid>
         <Border MouseDown="MoveWindow" Background="Transparent" Height="50" VerticalAlignment="Top" HorizontalAlignment="Stretch" />
-            <Button Width="30" Height="30" Style="{StaticResource BtnStyle}" Command='{Binding CloseWindow}' ToolTip="Add Item"
+            <Button Width="30" Height="30" Style="{StaticResource BtnStyle}" Command='{Binding CloseWindow}' ToolTip="MinimizeWindow"
                HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10,10,50,10" >
                 <Path  Width="15" Height="3" Stretch="Fill" VerticalAlignment="Bottom"
                         Fill="{StaticResource b4}" Data="{StaticResource MinimizeIcon}"/>
             </Button>
-            <Button Width="30" Height="30" Style="{StaticResource BtnStyle}" Click="ButtonExit" 
+            <Button Width="30" Height="30" Style="{StaticResource BtnStyle}" Click="ButtonExit" ToolTip="Close Window"
                HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10">
                 <Path  Width="15" Height="15" Stretch="Fill" 
                         Fill="{StaticResource b4}" Data="{StaticResource ExitIcon}"/>

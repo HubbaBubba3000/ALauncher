@@ -1,7 +1,8 @@
 
 namespace ALauncher.Data;
 
-public interface IService {
+public interface IWindowFactory
+{
     /// <summary>
     /// show dialog window, return true if it close successful
     /// </summary>

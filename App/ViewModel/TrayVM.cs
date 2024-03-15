@@ -5,14 +5,17 @@ using ALauncher.Core;
 
 namespace ALauncher.ViewModel;
 
- public class TrayVM : BaseVM {
+public class TrayVM : BaseVM
+{
     private CommandWrapper commands;
     private MainWindow main;
     private Logger logger;
-    public TrayVM(CommandWrapper cw, MainWindow mw , Logger bp) {
+    public TrayVM(CommandWrapper cw, MainWindow mw, Logger bp)
+    {
         commands = cw;
         logger = bp;
-        logger.StatusChanged += (code) => {
+        logger.StatusChanged += (code) =>
+        {
             if (code == LoggerCode.ProcessStarted)
                 CloseWindowCommand.Execute(null);
             else if (code == LoggerCode.ProcessClosed)
@@ -23,19 +26,21 @@ namespace ALauncher.ViewModel;
     public ICommand ShowWindowCommand
     {
         get => commands.GetCommand(
-            (obj) => {
+            (obj) =>
+            {
                 Application.Current.MainWindow = main;
                 Application.Current.MainWindow.Show();
-            }, 
+            },
             (obj) => { return Application.Current.MainWindow == null; }
         );
     }
     public ICommand CloseWindowCommand
     {
         get => commands.GetCommand(
-            (obj) => {
+            (obj) =>
+            {
                 Application.Current.MainWindow.Close();
-            }, 
+            },
             (obj) => { return Application.Current.MainWindow == null; }
         );
     }

@@ -10,7 +10,7 @@ public sealed class Item : IItem, ISearchable
     [IgnoreDataMember]
     public string type {get;} = "Item";
     [IgnoreDataMember]
-    public ImageSource Icon {get;set;}
+    public ImageSource? Icon {get;set;}
 
     public Item() {  }
 }
