@@ -9,7 +9,7 @@
     </ContextMenu>
 
     <tb:TaskbarIcon x:Key="NotifyIcon"
-                    ToolTipText="ALauncher v0.1.1"
+                    ToolTipText="ALauncher v0.1.4 - beta"
                     IconSource="../Icon.ico"
                     LeftClickCommand="{Binding ShowWindowCommand}"
                     ContextMenu="{StaticResource SysTrayMenu}">

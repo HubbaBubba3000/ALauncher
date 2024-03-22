@@ -1,17 +1,18 @@
+using System;
+using System.Reflection;
 using System.Text;
 using ALauncher.Core;
-using DryIoc.ImTools;
 
 namespace ALauncher.ViewModel;
 
-public sealed class BottomPanelVM : BaseVM
+public sealed class BottomPanelVM : BaseVM, IDisposable
 {
     private Logger logger;
     public string Version
     {
         get
         {
-            StringBuilder ver = new("v0.1.4 - ");
+            StringBuilder ver = new($"v.{Assembly.GetExecutingAssembly().GetName().Version} - " );
 #if DEBUG
             ver.Append("DEBUG");
 #else
@@ -29,9 +30,18 @@ public sealed class BottomPanelVM : BaseVM
             OnPropertyChanged("Status");
         }
     }
+    private void UpdateStatus(LoggerCode code) {
+        Status = "";
+    }
+
+    public void Dispose()
+    {
+        logger.StatusChanged -= UpdateStatus;
+    }
+
     public BottomPanelVM(Logger logger)
     {
         this.logger = logger;
-        logger.StatusChanged += (code) => { Status = ""; };
+        logger.StatusChanged += UpdateStatus;
     }
 }

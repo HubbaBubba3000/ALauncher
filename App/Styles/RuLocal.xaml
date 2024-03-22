@@ -4,7 +4,7 @@
 
     <s:String x:Key="Settings">Настройки</s:String>
     <s:String x:Key="Localisation">Локализация: </s:String>
-    <s:String x:Key="AutoUpdate">Авто обновление: </s:String>
+    <s:String x:Key="StartMinimize">Запускать свернутым: </s:String>
     <s:String x:Key="Background">Путь к фону: </s:String>
     <s:String x:Key="WindowWidth">Ширина окна: </s:String>
     <s:String x:Key="WindowHeigth">Высота окна: </s:String>

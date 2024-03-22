@@ -4,7 +4,7 @@
 
     <s:String x:Key="Settings">Settings</s:String>
     <s:String x:Key="Localisation">Localisation: </s:String>
-    <s:String x:Key="AutoUpdate">Auto Update: </s:String>
+    <s:String x:Key="StartMinimize">Start in Tray: </s:String>
     <s:String x:Key="Background">Background Path: </s:String>
     <s:String x:Key="WindowWidth">Window Width: </s:String>
     <s:String x:Key="WindowHeigth">Window Height: </s:String>

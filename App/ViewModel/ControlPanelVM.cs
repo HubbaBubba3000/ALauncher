@@ -2,21 +2,22 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 using ALauncher.Data;
 using ALauncher.Core;
-using ALauncher.Model;
 using System.Linq;
+using ALauncher.View;
+using System.Windows;
+using System;
 
 namespace ALauncher.ViewModel;
 
-public sealed class ControlPanelVM : BaseVM
+public sealed class ControlPanelVM : BaseVM, IDisposable
 {
     private FolderManager folderManager;
     private Logger logger;
     private IconPackManager packManager;
     private WrapPanelVM wrapPanel;
-    public CommandWrapper commandWrapper;
-    private AddictionFolderFactory AddictionFolder;
+    private CommandWrapper commandWrapper;
     private bool IsAddWindowOpen;
-    private SettingsFactory Settings;
+    private SettingsVM settingsVM;
     public ObservableCollection<Folder> Folders
     {
         get => folderManager.Folders;
@@ -49,9 +50,10 @@ public sealed class ControlPanelVM : BaseVM
             {
                 if (IsAddWindowOpen) return;
                 IsAddWindowOpen = true;
-                if (AddictionFolder.Show() == true)
+                AddictionFolder window = new();
+                if (window.ShowDialog() == true)
                 {
-                    Folders.Add(AddictionFolder.Result);
+                    Folders.Add(window.GetFolder);
                 }
                 IsAddWindowOpen = false;
             });
@@ -64,7 +66,11 @@ public sealed class ControlPanelVM : BaseVM
             return commandWrapper.GetCommand((obj) =>
             {
                 packManager.SerializeIcons((FolderConfig)folderManager.GetConfig).ConfigureAwait(false);
-                Settings.Show();
+                var settingsWindow = new SettingsWindow()
+                {
+                    DataContext = settingsVM
+                };
+                settingsWindow.ShowDialog();
             });
         }
     }
@@ -76,11 +82,12 @@ public sealed class ControlPanelVM : BaseVM
             {
                 if (IsAddWindowOpen) return;
                 IsAddWindowOpen = true;
-                if (AddictionFolder.Show(CurrentFolder) == true)
+                AddictionFolder window = new(CurrentFolder);
+                if (window.ShowDialog() == true)
                 {
                     int i = Folders.IndexOf(CurrentFolder);
                     Folders.RemoveAt(i);
-                    Folders.Insert(i, AddictionFolder.Result);
+                    Folders.Insert(i, window.GetFolder);
                     CurrentFolder = Folders.ElementAt(i);
                 }
                 IsAddWindowOpen = false;
@@ -108,15 +115,20 @@ public sealed class ControlPanelVM : BaseVM
             CurrentFolder = Folders[0];
         }
     }
-    public ControlPanelVM(Logger bp, WrapPanelVM wp, IconPackManager ipm, FolderManager b, SettingsFactory ss, AddictionFolderFactory afs, CommandWrapper cw)
+
+    public void Dispose()
+    {
+        logger.StatusChanged -= UpdateByStatus;
+    }
+
+    public ControlPanelVM(Logger bp, WrapPanelVM wp, IconPackManager ipm, FolderManager b, SettingsVM ss, CommandWrapper cw)
     {
         logger = bp;
         packManager = ipm;
         wrapPanel = wp;
         commandWrapper = cw;
         folderManager = b;
-        Settings = ss;
-        AddictionFolder = afs;
+        settingsVM = ss;
 
         IsAddWindowOpen = false;
         logger.StatusChanged += UpdateByStatus;

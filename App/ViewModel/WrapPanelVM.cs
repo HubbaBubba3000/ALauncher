@@ -1,22 +1,22 @@
 
 using System.Windows.Input;
 using ALauncher.Data;
-using ALauncher.Model;
 using ALauncher.Core;
 using System.Linq;
 using System;
 using System.Collections.ObjectModel;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using ALauncher.View;
 
 namespace ALauncher.ViewModel;
 
-public sealed class WrapPanelVM : BaseVM
+public sealed class WrapPanelVM : BaseVM, IDisposable
 {
-    private AddictionItemFactory AddictionItem;
     private CommandWrapper commandWrapper;
     private SettingsManager settings;
     private Logger logger;
+    private FolderManager folderManager;
     private bool IsAddWindowOpen;
     private Item _item;
     public Item CurrentItem
@@ -68,8 +68,6 @@ public sealed class WrapPanelVM : BaseVM
         }
     }
 
-    private FolderManager folderManager;
-    //ObservableCollection<Item> items;
     public ObservableCollection<Item> Items
     {
         get
@@ -98,9 +96,10 @@ public sealed class WrapPanelVM : BaseVM
             {
                 if (IsAddWindowOpen) return;
                 IsAddWindowOpen = true;
-                if (AddictionItem.Show() == true)
+                var window = new AddictionItems();
+                if (window.ShowDialog() == true)
                 {
-                    Items.Add(AddictionItem.Result);
+                    Items.Add(window.GetItem);
                     folderManager.Save();
                 }
                 IsAddWindowOpen = false;
@@ -115,11 +114,13 @@ public sealed class WrapPanelVM : BaseVM
             {
                 if (IsAddWindowOpen) return;
                 IsAddWindowOpen = true;
-                if (AddictionItem.Show(CurrentItem) == true)
+                var window = new AddictionItems(CurrentItem);
+
+                if (window.ShowDialog() == true)
                 {
                     int i = Items.IndexOf(CurrentItem);
                     Items.RemoveAt(i);
-                    Items.Insert(i, AddictionItem.Result);
+                    Items.Insert(i, window.GetItem);
                     CurrentItem = Items.ElementAt(i);
                     folderManager.Save();
                 }
@@ -168,13 +169,19 @@ public sealed class WrapPanelVM : BaseVM
     {
         Background = null;
     }
-    public WrapPanelVM(FolderManager b, SettingsManager sm, AddictionItemFactory ais, CommandWrapper cw, Logger bp)
+
+    public void Dispose()
+    {
+        folderManager.Save();
+        settings.SettingsChanged -= OnSettingsChanged;
+    }
+
+    public WrapPanelVM(FolderManager b, SettingsManager sm, CommandWrapper cw, Logger bp)
     {
         folderManager = b;
         settings = sm;
         settings.SettingsChanged += OnSettingsChanged;
         logger = bp;
         commandWrapper = cw;
-        AddictionItem = ais;
     }
 }

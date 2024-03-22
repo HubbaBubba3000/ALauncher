@@ -13,16 +13,16 @@ namespace ALauncher.Core;
 
 public class IconPackManager : IManager
 {
-    private Dictionary<string, string> Icons; // name, Icon(base64)
+    private Dictionary<string, string> Icons; // item path, Icon(base64)
     private byte[] buffer;
 
     public void SerializeIcons(Folder folder)
     {
         foreach (var item in folder.Items)
         {
-            if (Icons.ContainsKey(item.Name))
-                Icons.Remove(item.Name);
-            Icons.Add(item.Name, Base64ToImageConverter.ConvertBack((BitmapSource)item.Icon));
+            if (Icons.ContainsKey(item.Path))
+                Icons.Remove(item.Path);
+            Icons.Add(item.Path, Base64ToImageConverter.ConvertBack((BitmapSource)item.Icon));
         }
         using (var stream = new StreamWriter(ManagerHelper.WorkFolder + "/Icons.bin").BaseStream)
             MessagePackSerializer.Serialize(stream, Icons);
@@ -32,9 +32,9 @@ public class IconPackManager : IManager
         foreach (var folder in config.Folders)
             foreach (var item in folder.Items)
             {
-                if (Icons.ContainsKey(item.Name))
-                    Icons.Remove(item.Name);
-                Icons.Add(item.Name, Base64ToImageConverter.ConvertBack((BitmapSource)item.Icon));
+                if (Icons.ContainsKey(item.Path) && item.Name != null)
+                    Icons.Remove(item.Path);
+                Icons.Add(item.Path, Base64ToImageConverter.ConvertBack((BitmapSource)item.Icon));
             }
         using (var stream = new StreamWriter(ManagerHelper.WorkFolder + "/Icons.bin").BaseStream)
             await MessagePackSerializer.SerializeAsync(stream, Icons);
@@ -49,12 +49,12 @@ public class IconPackManager : IManager
     }
     public ImageSource? GetIcon(Item item)
     {
-        return Base64ToImageConverter.Convert(Icons.GetValueOrDefault(item.Name)) ?? IconExtractor.GetIcon(item.Path);
+        return Base64ToImageConverter.Convert(Icons.GetValueOrDefault(item.Path)) ?? IconExtractor.GetIcon(item.Path);
     }
     public IEnumerable<ImageSource?> GetIcons(Folder folder)
     {
         foreach (Item item in folder.Items)
-            yield return Base64ToImageConverter.Convert(Icons.GetValueOrDefault(item.Name)) ?? IconExtractor.GetIcon(item.Path);
+            yield return Base64ToImageConverter.Convert(Icons.GetValueOrDefault(item.Path)) ?? IconExtractor.GetIcon(item.Path);
     }
 
     public void Save()

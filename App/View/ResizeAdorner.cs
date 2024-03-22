@@ -22,23 +22,6 @@ public class ResizeAdorner : Adorner
         AdornerVisual.Add(thumb);
 
     }
-    public double Width;
-    public ResizeAdorner(UIElement adornedElement, Thumb t, DragCompletedEventHandler action) : base(adornedElement)
-    {
-        AdornerVisual = new VisualCollection(this);
-        Width = ((FrameworkElement)adornedElement).Width;
-        thumb = t;
-        thumb.DragCompleted += action;
-        thumb.DragDelta += OnDragDelta;
-
-        AdornerVisual.Add(thumb);
-
-    }
-    private void OnDragDeltaWidth(object sender, DragDeltaEventArgs e)
-    {
-        if (Width + e.HorizontalChange < Application.Current.MainWindow.Width)
-            Width = Width + e.HorizontalChange < 0 ? 0 : Width + e.HorizontalChange;
-    }
     private void OnDragDelta(object sender, DragDeltaEventArgs e)
     {
         var Element = (FrameworkElement)AdornedElement;

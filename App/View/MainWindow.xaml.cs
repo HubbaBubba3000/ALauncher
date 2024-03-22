@@ -2,18 +2,27 @@
 using System.Windows.Controls.Primitives;
 using System.Windows;
 using ALauncher.ViewModel;
-using System.Windows.Documents;
 using ALauncher.View;
 using System.ComponentModel;
+using ALauncher.Core;
+using ALauncher.Data;
+using System.Windows.Documents;
 
 namespace ALauncher
 {
     public partial class MainWindow : Window, IDisposable
     {
-        public MainWindow(MainVM m)
+        private SettingsManager Settings;
+        private SettingsConfig config
+        {
+            get => (SettingsConfig)Settings.GetConfig;
+        }
+        public MainWindow(MainVM m, SettingsManager sm)
         {
             DataContext = m;
+            Settings = sm;
             Closing += OnWindowClosing;
+            Settings.SettingsChanged += ChangeSettings;
             InitializeComponent();
             Loaded += OnLoaded;
         }
@@ -23,18 +32,21 @@ namespace ALauncher
         };
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            ((MainVM)DataContext).InitSettings(this);
-            leftpanel.Width = ((MainVM)DataContext).ControlPanelWidth;
-            AdornerLayer.GetAdornerLayer(dockpanel).Add(new ResizeAdorner(leftpanel, LeftPanelThumb,
-            (obj, e) =>
-            {
-                ((MainVM)DataContext).ControlPanelWidth = (int)leftpanel.Width;
-            }));
+            AdornerLayer.GetAdornerLayer(dockpanel).Add(new ResizeAdorner(leftpanel, LeftPanelThumb));
         }
         private void OnWindowClosing(object sender, CancelEventArgs e)
         {
-            ((MainVM)DataContext).OnClosing();
+            Loaded -= OnLoaded;
+            Settings.SettingsChanged -= ChangeSettings;
+            Closing -= OnWindowClosing;
             Dispose();
+        }
+
+        private void ChangeSettings()
+        {
+            config.WindowWidth = (int)Width;
+            config.WindowHeight = (int)Height;
+            config.ControlPanelWidth = (int)leftpanel.Width;
         }
 
         public void Dispose()

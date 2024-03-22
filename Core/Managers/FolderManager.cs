@@ -7,7 +7,7 @@ using System.Collections.ObjectModel;
 
 namespace ALauncher.Core;
 
-public sealed class FolderManager : IManager
+public sealed class FolderManager : IManager, IDisposable
 {
     private Logger logger;
     private FolderConfig config;
@@ -23,7 +23,7 @@ public sealed class FolderManager : IManager
     {
         Save();
     }
-    private async Task initFolder(string path)
+    private async Task InitFolder(string path)
     {
         config = await JsonParser<FolderConfig>.ParseAsync(path);
         logger.SetStatusLog(201, "Async parsing complete");
@@ -43,10 +43,16 @@ public sealed class FolderManager : IManager
         else
         {
             logger.SetStatusLog(0, "Start Async parse");
-            initFolder(path).ConfigureAwait(false);
+            InitFolder(path).ConfigureAwait(false);
         }
         Folders.CollectionChanged += UpdateFolders;
     }
+
+    public void Dispose()
+    {
+        Folders.CollectionChanged -= UpdateFolders;
+    }
+
     public FolderManager(Logger bp)
     {
         logger = bp;

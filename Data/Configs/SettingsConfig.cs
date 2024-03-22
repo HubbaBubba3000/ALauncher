@@ -6,7 +6,6 @@ using System.Text.Json.Serialization;
 namespace ALauncher.Data;
  [JsonConverter(typeof(JsonStringEnumConverter))]
 public enum Localisation {
-    None,
     [EnumMember(Value = "EN")]
     EN,
     [EnumMember(Value = "RU")]
@@ -18,17 +17,17 @@ public sealed class SettingsConfig : IConfig, IDisposable {
     public int WindowHeight {get; set;} = 600;
     public int ControlPanelWidth {get; set;} = 200;
     /// <summary>
-    /// Change Language (NOT IMPLEMENTED)
+    /// Change Language
     /// </summary>
     public Localisation Lang {get; set;} = Localisation.EN;
-    /// <summary>
-    /// auto Updating app
-    /// </summary>
-    public bool AutoUpdate {get;set;} = false;
     /// <summary>
     /// Background Image Path
     /// </summary>
     public string BackgroundPath {get; set;} = string.Empty;
+    /// <summary>
+    /// Start only tray Icon (without init mainwindow)
+    /// </summary>
+    public bool StartMinimize {get; set;} = false;
 
     public void Dispose() {}
 

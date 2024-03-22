@@ -1,5 +1,4 @@
 ﻿using ALauncher.ViewModel;
-using ALauncher.Model;
 using ALauncher.Data;
 using ALauncher.Core;
 using System.Windows;
@@ -13,13 +12,14 @@ namespace ALauncher
     {
         private TaskbarIcon Tray;
         public Container container;
+        private IResolverContext scope;
         private Uri CurrentLocalUri;
         private Localisation CurrentLocal;
         public App()
         {
             ShutdownMode = ShutdownMode.OnExplicitShutdown;
-            container = new(rules => rules.WithoutThrowIfDependencyHasShorterReuseLifespan()
-                            , scopeContext: new AsyncExecutionFlowScopeContext());
+            container = new(rules => rules.WithoutThrowIfDependencyHasShorterReuseLifespan(),
+                            scopeContext: new AsyncExecutionFlowScopeContext());
         }
         public void RegisterContainer()
         {
@@ -27,22 +27,22 @@ namespace ALauncher
             container.Register<IconPackManager>(Reuse.Singleton);
             container.Register<FolderManager>(Reuse.Singleton);
             container.Register<SettingsManager>(Reuse.Singleton);
-            container.Register<MainWindow>(Reuse.Transient, setup: Setup.With(allowDisposableTransient: true));
+
             container.Register<SettingsVM>(Reuse.Singleton);
-            container.Register<SettingsFactory>(Reuse.Singleton);
-            container.Register<AddictionItemFactory>(Reuse.Singleton);
-            container.Register<AddictionFolderFactory>(Reuse.Singleton);
-            container.Register<BottomPanelVM>(Reuse.Singleton);
-            container.Register<ControlPanelVM>(Reuse.Singleton);
-            container.Register<WrapPanelVM>(Reuse.Singleton);
-            container.Register<MainVM>(Reuse.Singleton);
+
+            container.Register<MainWindow>(Reuse.Scoped);
+            container.Register<BottomPanelVM>(Reuse.Scoped);
+            container.Register<ControlPanelVM>(Reuse.Scoped);
+            container.Register<WrapPanelVM>(Reuse.Scoped);
+            container.Register<MainVM>(Reuse.Scoped);
+
             container.Register<Logger>(Reuse.Singleton);
             container.Register<TrayVM>(Reuse.Singleton);
         }
 
         public void SetLanguage(Localisation local = Localisation.EN)
         {
-            if (CurrentLocal == local) return;
+            if (CurrentLocalUri != null && CurrentLocal == local) return;
             ResourceDictionary dict = new();
             if (CurrentLocalUri != null)
             {
@@ -63,21 +63,32 @@ namespace ALauncher
             CurrentLocal = local;
         }
 
+        public void InitMainWindow() {
+            scope = container.OpenScope();
+            MainWindow = scope.Resolve<MainWindow>();
+            MainWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            MainWindow.Show();
+        }
+        public void DisposeMainWindow() {
+            MainWindow.Close();
+            scope.Dispose();
+            GC.Collect();
+        }
         private void OnStartup(object? sender, StartupEventArgs e)
         {
             RegisterContainer();
-            Tray = (TaskbarIcon)FindResource("NotifyIcon");
-            Tray.DataContext = container.Resolve<TrayVM>();
             var settings = container.Resolve<SettingsManager>();
             settings.SettingsChanged += () => SetLanguage(((SettingsConfig)settings.GetConfig).Lang);
-            MainWindow = container.Resolve<MainWindow>();
-            MainWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            MainWindow.Show();
-            settings.FirstInit();
+            SetLanguage(((SettingsConfig)settings.GetConfig).Lang);
+            Tray = (TaskbarIcon)FindResource("NotifyIcon");
+            Tray.DataContext = container.Resolve<TrayVM>();
+            if (!((SettingsConfig)settings.GetConfig).StartMinimize)
+                InitMainWindow();
         }
 
         protected override void OnExit(ExitEventArgs e)
         {
+            scope.Dispose();
             Tray.Dispose();
             container.Dispose();
             base.OnExit(e);

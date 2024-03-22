@@ -35,15 +35,19 @@ public sealed class ProcessWorker : IDisposable
         ExitEvent = handler;
     }
 
-    public void Dispose() {}
+    public void Dispose() {
+        GC.SuppressFinalize(processInfo);
+    }
 
     public ProcessWorker(Item item)
     {
         processInfo = new()
         {
             WorkingDirectory = Path.GetDirectoryName(item.Path),
-            FileName = item.Path
+            FileName = item.Path,
+            Arguments = item.Params
         };
+        ExitEvent += (obj, e) => {};
     }
 
 }

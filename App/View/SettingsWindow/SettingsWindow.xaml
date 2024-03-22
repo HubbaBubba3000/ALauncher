@@ -59,9 +59,9 @@
                             
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{DynamicResource AutoUpdate}"  Foreground="{StaticResource b4}" FontSize="16" 
+                        <TextBlock Text="{DynamicResource StartMinimize}"  Foreground="{StaticResource b4}" FontSize="16" 
                             HorizontalAlignment="left" VerticalAlignment="Center" Margin="0,15,30,0"  />
-                        <CheckBox Width="30" Height="30" IsChecked="{Binding AutoUpdate}" HorizontalAlignment="left" 
+                        <CheckBox Width="30" Height="30" IsChecked="{Binding StartMinimize}" HorizontalAlignment="left" 
                             Margin="0,20,0,0" Style="{StaticResource CheckBoxStyle}"/>
                              
                     </StackPanel>

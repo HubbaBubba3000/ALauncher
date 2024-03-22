@@ -1,9 +1,6 @@
-
 using System.Windows;
-using ALauncher.Data;
 using System.Windows.Input;
 using System;
-using System.ComponentModel;
 
 namespace ALauncher.View;
 

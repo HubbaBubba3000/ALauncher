@@ -40,13 +40,13 @@ public sealed class SettingsVM : BaseVM
             OnPropertyChanged("Lang");
         }
     }
-    public bool AutoUpdate
+    public bool StartMinimize
     {
-        get => config.AutoUpdate;
+        get => config.StartMinimize;
         set
         {
-            config.AutoUpdate = value;
-            OnPropertyChanged("AutoUpdate");
+            config.StartMinimize = value;
+            OnPropertyChanged("StartMinimize");
         }
     }
     public string Background

@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ALauncher.View"
+        xmlns:view="clr-namespace:ALauncher.View"
         mc:Ignorable="d" Name="This">
     <UserControl.Resources>
         <ContextMenu x:Key="FolderContext">
@@ -19,7 +19,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                    <local:ItemControl Icon="{Binding Icon}" AppName="{Binding Name}" Path="{Binding Path}" 
+                    <view:ItemControl Icon="{Binding Icon}" AppName="{Binding Name}" Path="{Binding Path}" IsFavorite="{Binding IsFavorite}"
                         Command="{Binding ElementName=This, Path=DataContext.Run}" CommandParameter="{Binding Path}" />
                 </ControlTemplate>
                 </Setter.Value>
@@ -32,7 +32,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                    <local:ItemControl Icon="{Binding ElementName=This, Path=DataContext.AddImage}" AppName="Add Item" Path="" 
+                    <view:ItemControl Icon="{Binding ElementName=This, Path=DataContext.AddImage}" AppName="Add Item" Path="" 
                         Command="{Binding ElementName=This, Path=DataContext.AddItem}" />
                 </ControlTemplate>
                 </Setter.Value>
