@@ -5,7 +5,7 @@
                     xmlns:view="clr-namespace:ALauncher.View">
 
     <tb:TaskbarIcon x:Key="NotifyIcon"
-                    ToolTipText="ALauncher v0.1.4 - beta"
+                    ToolTipText="{Binding Version}"
                     IconSource="../Icon.ico"
                     PopupActivation="RightClick"
                     LeftClickCommand="{Binding ShowWindowCommand}">

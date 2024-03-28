@@ -6,32 +6,33 @@
         xmlns:view="clr-namespace:ALauncher.View"
         mc:Ignorable="d" Name="This" Width="100" >
     <UserControl.Resources>
-            <!-- <CollectionViewSource x:Key="FavoriteSource" Source="{Binding Favorites, UpdateSourceTrigger=PropertyChanged}" /> -->
-            <Style x:Key="FavoriteItemStyle" TargetType="ListBoxItem">
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="ListBoxItem">
-                            <Button Content="{Binding Name}" Command="{Binding Source={x:Reference This}, Path=DataContext.Run}"
-                                    CommandParameter="{Binding Path}">
-
-                            </Button>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
-            <Style x:Key="ButtonStyle" TargetType="Button">
+            <Style x:Key="TrayButtonStyle" TargetType="Button">
+                <Setter Property="Foreground" Value="{StaticResource b4}" />
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="Button">
                             <Border Background="{StaticResource b3}" Name="_Border" BorderBrush="{StaticResource b4}"
-                                Width="{TemplateBinding Width}" Height="{TemplateBinding Height}">
+                                Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" >
                                 <ContentPresenter />
                             </Border>
                             <ControlTemplate.Triggers>
                                 <Trigger Property="IsMouseOver" Value="True">
                                     <Setter TargetName="_Border" Property="BorderThickness" Value="1" />
                                 </Trigger>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter Property="Foreground" Value="{StaticResource b2}" />
+                                </Trigger>
                             </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="FavoriteItemStyle" TargetType="ListBoxItem">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ListBoxItem">
+                            <Button Content="{Binding Name}" Command="{Binding Source={x:Reference This}, Path=DataContext.Run}"
+                                    CommandParameter="{Binding Path}" Style="{StaticResource TrayButtonStyle}"/>
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
@@ -42,12 +43,12 @@
             <RowDefinition />
             <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
-        <ListBox Grid.Row="0" SelectedItem="{Binding CurrentItem}" Margin="0,50,0,0" Background="Transparent"
+        <ListBox Grid.Row="0" SelectedItem="{Binding CurrentItem}" Background="Transparent" 
                 ItemContainerStyle="{StaticResource FavoriteItemStyle}" ItemsSource="{Binding Favorites, UpdateSourceTrigger=PropertyChanged}">
         </ListBox>
         <StackPanel Grid.Row="1" Orientation="Horizontal">
-            <Button Content="Show" HorizontalAlignment="Stretch" Command="{Binding ShowWindowCommand}"/>
-            <Button Content="Hide" HorizontalAlignment="Stretch" Command="{Binding ExitApplicationCommand}"/>
+            <Button Content="Show" Style="{StaticResource TrayButtonStyle}" Width="50" Command="{Binding ShowWindowCommand}"/>
+            <Button Content="Hide" Style="{StaticResource TrayButtonStyle}" Width="50" Command="{Binding ExitApplicationCommand}"/>
         </StackPanel>
     </Grid>
 </UserControl>

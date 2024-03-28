@@ -2,6 +2,7 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Input;
 using ALauncher.Core;
@@ -23,6 +24,10 @@ public class TrayVM : BaseVM
         // update List
         folderManager.Folders.CollectionChanged += (obj, e) => {Favorites = null; };
     }
+    public string Version 
+    {
+        get => $"ALauncher v.{Assembly.GetExecutingAssembly().GetName().Version}";
+    }
     public void StatusChanged(LoggerCode code) 
     {
         switch (code) 
@@ -43,7 +48,6 @@ public class TrayVM : BaseVM
         get => folderManager.Favorites;
         set
         {
-
             OnPropertyChanged("Favorite");
         }
     }
