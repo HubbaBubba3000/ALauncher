@@ -1,5 +1,3 @@
-using ALauncher.Core;
-using System.Windows;
 
 namespace ALauncher.ViewModel;
 

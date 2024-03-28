@@ -11,15 +11,30 @@
         WindowStyle="None"
         Title="ALauncher" 
         ResizeMode="CanResizeWithGrip">
-    <Grid >
-        <DockPanel LastChildFill="True" x:Name="dockpanel">
-            <view:BottomPanel DockPanel.Dock="Bottom" Height="25" DataContext="{Binding bottomPanelVM}"/>
-            <view:ControlPanel x:Name="leftpanel" DataContext="{Binding controlPanelVM}" DockPanel.Dock="Left"/>
-            <view:WrapPanel DataContext="{Binding wrapPanelVM}" />
-        </DockPanel>
-        
-    </Grid>
-    
+    <Window.Resources>
+        <Style x:Key="LeftPanelThumbStyle" TargetType="{x:Type Thumb}">
+            <Setter Property="Width" Value="5" />
+            <Setter Property="Height" Value="{Binding Source={x:Reference Name=leftpanel}, Path=ActualHeight}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Thumb}">
+                        <Border Name="_Border" Background="Transparent" BorderBrush="{StaticResource b4}" Height="{TemplateBinding Height}"
+                                VerticalAlignment="Stretch" BorderThickness="0" Width="{TemplateBinding Width}"/>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="_Border" Property="BorderThickness" Value="1,0,0,0"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <DockPanel LastChildFill="True" x:Name="dockpanel">
+        <view:BottomPanel DockPanel.Dock="Bottom" Height="25" DataContext="{Binding bottomPanelVM}"/>
+        <view:ControlPanel x:Name="leftpanel" DataContext="{Binding controlPanelVM}" Width="200" DockPanel.Dock="Left"/>
+        <view:WrapPanel DataContext="{Binding wrapPanelVM}" />
+    </DockPanel>
 </Window>
 
 

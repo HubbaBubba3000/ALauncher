@@ -31,7 +31,8 @@ public sealed class ControlPanelVM : BaseVM, IDisposable
         get => wrapPanel.CurrentFolder;
         set
         {
-            GetIcons(value);
+            if (value != null)
+                GetIcons(value);
             wrapPanel.CurrentFolder = value;
             OnPropertyChanged("CurrentFolder");
         }
@@ -100,9 +101,21 @@ public sealed class ControlPanelVM : BaseVM, IDisposable
         {
             return commandWrapper.GetCommand((obj) =>
             {
-                var buf = CurrentFolder;
-                CurrentFolder = Folders.First();
-                Folders.Remove(buf);
+                if (Folders.Count == 0) 
+                    return;
+
+                if (Folders.Count == 1) 
+                {
+                    Folders.Remove(CurrentFolder);
+                    Folders.Add(new Folder());
+                    CurrentFolder = Folders.First();
+                }
+                else 
+                {
+                    var buf = CurrentFolder;
+                    CurrentFolder = Folders.First();
+                    Folders.Remove(buf);
+                }
                 folderManager.Save();
             });
         }

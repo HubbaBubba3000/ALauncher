@@ -16,7 +16,6 @@ public class ResizeAdorner : Adorner
         AdornerVisual = new VisualCollection(this);
 
         thumb = t;
-
         thumb.DragDelta += OnDragDelta;
 
         AdornerVisual.Add(thumb);

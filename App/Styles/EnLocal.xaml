@@ -16,7 +16,9 @@
 
     <s:String x:Key="AddItem">Add Item</s:String>
     <s:String x:Key="Path">Path: </s:String>
-
+    <s:String x:Key="Params">Params: </s:String>
+    
+    <s:String x:Key="Star">Star</s:String>
     <s:String x:Key="Delete">Delete</s:String>
     <s:String x:Key="Edit">Edit</s:String>
 

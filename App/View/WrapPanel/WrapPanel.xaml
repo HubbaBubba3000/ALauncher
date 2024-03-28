@@ -3,11 +3,15 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:options="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
         xmlns:view="clr-namespace:ALauncher.View"
         mc:Ignorable="d" Name="This">
     <UserControl.Resources>
-        <ContextMenu x:Key="FolderContext">
+        <StreamGeometry options:Freeze="True" x:Key="MinimizeIcon">M7 19h10c.55 0 1 .45 1 1s-.45 1-1 1H7c-.55 0-1-.45-1-1s.45-1 1-1z</StreamGeometry>
+
+        <ContextMenu x:Key="ItemContext">
             <MenuItem Header="{DynamicResource Delete}" Command="{Binding Source={x:Reference Name=This}, Path=DataContext.DeleteItem}" />
+            <MenuItem Header="{DynamicResource Star}" Command="{Binding Source={x:Reference Name=This}, Path=DataContext.Starring}" />
             <MenuItem Header="{DynamicResource Edit}" Command="{Binding Source={x:Reference Name=This}, Path=DataContext.EditItem}"/>
         </ContextMenu>
         <CollectionViewSource x:Key="WrapPanelCollection" Source="{Binding Items, UpdateSourceTrigger=PropertyChanged}"/>
@@ -15,7 +19,7 @@
             <Setter Property="BorderThickness" Value="0" />
             <Setter Property="Padding" Value="0" />
             <Setter Property="Background" Value="Transparent" />
-            <Setter Property="ContextMenu" Value="{StaticResource FolderContext}" />
+            <Setter Property="ContextMenu" Value="{StaticResource ItemContext}" />
             <Setter Property="Template">
                 <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ListBoxItem}">
@@ -38,36 +42,44 @@
                 </Setter.Value>
             </Setter>
         </Style>
-         
+
+        <Style TargetType="{x:Type view:ItemControl}">
+            <Setter Property="Width" Value="85" />
+            <Setter Property="Height" Value="85" />
+            <Setter Property="Margin" Value="10" />
+            <Setter Property="BorderThickness" Value="0" />
+        </Style>
+
     </UserControl.Resources>
-    <Border CornerRadius="0,15,0,0" Background="{Binding Background, UpdateSourceTrigger=PropertyChanged}" >
-        <Grid>
+
+    <Grid Background="{Binding Background, UpdateSourceTrigger=PropertyChanged}" >
         <Border MouseDown="MoveWindow" Background="Transparent" Height="50" VerticalAlignment="Top" HorizontalAlignment="Stretch" />
-            <Button Width="30" Height="30" Style="{StaticResource BtnStyle}" Command='{Binding CloseWindow}' ToolTip="MinimizeWindow"
-               HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10,10,50,10" >
-                <Path  Width="15" Height="3" Stretch="Fill" VerticalAlignment="Bottom"
-                        Fill="{StaticResource b4}" Data="{StaticResource MinimizeIcon}"/>
-            </Button>
-            <Button Width="30" Height="30" Style="{StaticResource BtnStyle}" Click="ButtonExit" ToolTip="Close Window"
-               HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10">
-                <Path  Width="15" Height="15" Stretch="Fill" 
-                        Fill="{StaticResource b4}" Data="{StaticResource ExitIcon}"/>
-            </Button>
-            <ListBox SelectedItem="{Binding CurrentItem}" 
-                    Style="{StaticResource ListBoxStyle}" VirtualizingStackPanel.IsVirtualizing="True"
-                    ItemContainerStyle="{StaticResource ItemListStyle}" Margin="0,50,0,0" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-                <ListBox.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel  IsItemsHost="True"/>
-                    </ItemsPanelTemplate>
-                </ListBox.ItemsPanel>
-                <ListBox.ItemsSource>
-                    <CompositeCollection>
-                        <CollectionContainer Collection="{Binding Source={StaticResource WrapPanelCollection}}" />
-                        <ListBoxItem Style="{StaticResource AddItemStyle}" />
-                    </CompositeCollection>
-                </ListBox.ItemsSource>
-            </ListBox>
-        </Grid>
-    </Border>
+        <Button Width="30" Height="30" Style="{StaticResource BtnStyle}" Command='{Binding CloseWindow}' ToolTip="MinimizeWindow"
+            HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10,10,50,10" >
+            <Path  Width="15" Height="3" Stretch="Fill" VerticalAlignment="Bottom"
+                    Fill="{StaticResource b4}" Data="{StaticResource MinimizeIcon}"/>
+        </Button>
+        <Button Width="30" Height="30" Style="{StaticResource BtnStyle}" Click="ButtonExit" ToolTip="Close Window"
+            HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10">
+            <Path  Width="15" Height="15" Stretch="Fill" 
+                    Fill="{StaticResource b4}" Data="{StaticResource ExitIcon}"/>
+        </Button>
+        <ListBox SelectedItem="{Binding CurrentItem}" Margin="0,50,0,0" 
+                Style="{StaticResource ListBoxStyle}" 
+                VirtualizingStackPanel.IsVirtualizing="True"
+                ItemContainerStyle="{StaticResource ItemListStyle}"
+                ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel  IsItemsHost="True"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBox.ItemsSource>
+                <CompositeCollection>
+                    <CollectionContainer Collection="{Binding Source={StaticResource WrapPanelCollection}}" />
+                    <ListBoxItem Style="{StaticResource AddItemStyle}" />
+                </CompositeCollection>
+            </ListBox.ItemsSource>
+        </ListBox>
+    </Grid>
 </UserControl>

@@ -19,6 +19,19 @@ public sealed class FolderManager : IManager, IDisposable
     {
         get => config.Folders;
     }
+    private ObservableCollection<Item> fav; 
+    public ObservableCollection<Item> Favorites 
+    {
+        get => fav;
+    }
+    public void SetFavorites() 
+    {
+        foreach (Folder folder in Folders)
+            foreach (Item item in folder.Items)
+                if (item.IsFavorite)
+                    Favorites.Add(item);
+    
+    }
     public void UpdateFolders(object? sender, NotifyCollectionChangedEventArgs e)
     {
         Save();
@@ -44,6 +57,7 @@ public sealed class FolderManager : IManager, IDisposable
         {
             logger.SetStatusLog(0, "Start Async parse");
             InitFolder(path).ConfigureAwait(false);
+
         }
         Folders.CollectionChanged += UpdateFolders;
     }
@@ -56,6 +70,7 @@ public sealed class FolderManager : IManager, IDisposable
     public FolderManager(Logger bp)
     {
         logger = bp;
+        fav = new();
         if (!Directory.Exists(ManagerHelper.WorkFolder))
             Directory.CreateDirectory(ManagerHelper.WorkFolder);
         Load($"{ManagerHelper.WorkFolder}/Folders.json");

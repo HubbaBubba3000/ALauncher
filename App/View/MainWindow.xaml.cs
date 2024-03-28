@@ -24,29 +24,39 @@ namespace ALauncher
             Closing += OnWindowClosing;
             Settings.SettingsChanged += ChangeSettings;
             InitializeComponent();
+            leftpanel.Width = config.ControlPanelWidth;
+            ChangeSettings();
             Loaded += OnLoaded;
         }
-        private Thumb LeftPanelThumb = new Thumb()
-        {
-            Style = Application.Current.FindResource("LeftPanelThumbStyle") as Style
-        };
+        Thumb LeftPanelThumb;
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
+            LeftPanelThumb = new Thumb()
+            {
+                Style = this.FindResource("LeftPanelThumbStyle") as Style,
+            };
             AdornerLayer.GetAdornerLayer(dockpanel).Add(new ResizeAdorner(leftpanel, LeftPanelThumb));
         }
         private void OnWindowClosing(object sender, CancelEventArgs e)
         {
+            SaveSettings();
             Loaded -= OnLoaded;
             Settings.SettingsChanged -= ChangeSettings;
             Closing -= OnWindowClosing;
             Dispose();
         }
-
+ 
         private void ChangeSettings()
         {
-            config.WindowWidth = (int)Width;
+            Width = config.WindowWidth;
+            Height = config.WindowHeight;
+        }
+        private void SaveSettings() 
+        {
             config.WindowHeight = (int)Height;
+            config.WindowWidth = (int)Width;
             config.ControlPanelWidth = (int)leftpanel.Width;
+            Settings.Save();
         }
 
         public void Dispose()

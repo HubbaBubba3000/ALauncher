@@ -5,6 +5,8 @@ using System.Windows;
 using Hardcodet.Wpf.TaskbarNotification;
 using System;
 using DryIoc;
+using System.Windows.Controls;
+using ALauncher.View;
 
 namespace ALauncher
 {
@@ -62,14 +64,21 @@ namespace ALauncher
             Resources.MergedDictionaries.Add(dict);
             CurrentLocal = local;
         }
-
-        public void InitMainWindow() {
+        public void InitTray()
+        {
+            Tray = (TaskbarIcon)FindResource("NotifyIcon");
+            Tray.DataContext = container.Resolve<TrayVM>();
+            Tray.TrayPopup = new PopupTray() {DataContext = Tray.DataContext};
+        }
+        public void InitMainWindow()
+        {
             scope = container.OpenScope();
             MainWindow = scope.Resolve<MainWindow>();
             MainWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             MainWindow.Show();
         }
-        public void DisposeMainWindow() {
+        public void DisposeMainWindow()
+        {
             MainWindow.Close();
             scope.Dispose();
             GC.Collect();
@@ -80,8 +89,7 @@ namespace ALauncher
             var settings = container.Resolve<SettingsManager>();
             settings.SettingsChanged += () => SetLanguage(((SettingsConfig)settings.GetConfig).Lang);
             SetLanguage(((SettingsConfig)settings.GetConfig).Lang);
-            Tray = (TaskbarIcon)FindResource("NotifyIcon");
-            Tray.DataContext = container.Resolve<TrayVM>();
+            InitTray();
             if (!((SettingsConfig)settings.GetConfig).StartMinimize)
                 InitMainWindow();
         }

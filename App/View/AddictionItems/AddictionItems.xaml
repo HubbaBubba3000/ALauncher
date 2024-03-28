@@ -22,6 +22,7 @@
                 <RowDefinition />
                 <RowDefinition />
                 <RowDefinition />
+                <RowDefinition />
             </Grid.RowDefinitions>
             <Button Grid.Row="0" Width="30" Height="30" Style="{StaticResource BtnStyle}" Click="Close" 
                HorizontalAlignment="Right" VerticalAlignment="Top" >
@@ -36,11 +37,16 @@
             <TextBox Grid.Row="1" x:Name="NameBox" Width="200" Height="30" Text="{Binding AppName, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left"
                     Margin="70,0,0,0" Style="{StaticResource TextBoxStyle}"/>
 
-            <TextBlock Grid.Row="2" Text="{DynamicResource Path}" Foreground="{StaticResource b4}" FontSize="16" 
+            <TextBlock Grid.Row="2" Text="{DynamicResource Params}" Foreground="{StaticResource b4}" FontSize="16" 
                 VerticalAlignment="Center" HorizontalAlignment="left" Margin="0,5,30,0" />
-            <TextBox Grid.Row="2" x:Name="PathBox" Width="290" Height="30" Text="{Binding ItemPath, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left"
+            <TextBox Grid.Row="2" x:Name="ParamsBox" Width="290" Height="30" Text="{Binding ItemParams, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left"
                     Margin="70,0,0,0" Style="{StaticResource TextBoxStyle}"/>
-            <Button Grid.Row="2" Width="30" Height="30"  Command="{Binding Browse}"
+
+            <TextBlock Grid.Row="3" Text="{DynamicResource Path}" Foreground="{StaticResource b4}" FontSize="16" 
+                VerticalAlignment="Center" HorizontalAlignment="left" Margin="0,5,30,0" />
+            <TextBox Grid.Row="3" x:Name="PathBox" Width="290" Height="30" Text="{Binding ItemPath, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left"
+                    Margin="70,0,0,0" Style="{StaticResource TextBoxStyle}"/>
+            <Button Grid.Row="3" Width="30" Height="30"  Command="{Binding Browse}"
                     Margin="380,0,0,0" Style="{StaticResource BtnStyle}">
                 <Viewbox Width="25" Height="25">
                     <Grid>
@@ -50,7 +56,7 @@
                 </Viewbox>
             </Button>
 
-            <Button Grid.Row="3" Content="Add" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="60" Height="30" 
+            <Button Grid.Row="4" Content="Add" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="60" Height="30" 
                    Click="AddItem" Style="{StaticResource BtnStyle}" />
         </Grid> 
     </Border>

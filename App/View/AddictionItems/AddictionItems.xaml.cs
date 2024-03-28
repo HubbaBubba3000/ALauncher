@@ -22,6 +22,11 @@ public partial class AddictionItems : Window, IDisposable
             MessageBox.Show("Path is not valid");
             return;
         }
+        if (GetItem.Name.Length > 14)
+        {
+            MessageBox.Show("Name is too length, Name must contain less 14 characters");
+            return;
+        }
         GetItem = ((AddItemVM)DataContext).GetItem;
         CloseDialog(true);
     }

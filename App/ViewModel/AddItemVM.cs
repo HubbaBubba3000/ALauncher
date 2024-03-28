@@ -35,6 +35,15 @@ public sealed class AddItemVM : BaseVM
             OnPropertyChanged("ItemPath");
         }
     }
+    public string ItemParams
+    {
+        get => GetItem.Params ?? "";
+        set
+        {
+            GetItem.Params = value;
+            OnPropertyChanged("ItemParams");
+        }
+    }
     private ICommand _browse;
     public ICommand Browse
     {

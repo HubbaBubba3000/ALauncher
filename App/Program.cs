@@ -6,7 +6,6 @@ namespace ALauncher;
 
 public static class Program 
 {
-    public static Stopwatch startapp;
     [STAThread]
     public static void Main()
     {

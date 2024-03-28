@@ -106,6 +106,16 @@ public sealed class WrapPanelVM : BaseVM, IDisposable
             });
         }
     }
+    public ICommand Starring 
+    {
+        get => 
+            commandWrapper.GetCommand((obj) => 
+            {
+                CurrentItem.IsFavorite = !CurrentItem.IsFavorite;
+                folderManager.Save();
+
+            });
+    }
     public ICommand EditItem
     {
         get

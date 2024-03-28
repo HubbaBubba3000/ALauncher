@@ -19,28 +19,31 @@ public class TrayVM : BaseVM
         folderManager = fm;
         commands = cw;
         logger = bp;
-        logger.StatusChanged += (code) =>
+        logger.StatusChanged += StatusChanged;
+        // update List
+        folderManager.Folders.CollectionChanged += (obj, e) => {Favorites = null; };
+    }
+    public void StatusChanged(LoggerCode code) 
+    {
+        switch (code) 
         {
-            if (code == LoggerCode.ProcessStarted)
+            case LoggerCode.ProcessStarted :
                 CloseWindowCommand.Execute(null);
-            else if (code == LoggerCode.ProcessClosed)
+                break;
+            case LoggerCode.ProcessClosed :
                 ShowWindowCommand.Execute(null);
-        };
-        folderManager.Folders.CollectionChanged += (obj, e) => {Favorites = null;};
+                break;
+            case LoggerCode.FolderAsyncParseComplete :
+                folderManager.SetFavorites(); 
+                break;
+        }
     }
     public ObservableCollection<Item> Favorites
     {
-        get
-        {
-            ObservableCollection<Item> fav = new();
-            foreach (Folder folder in folderManager.Folders)
-                foreach (Item item in folder.Items)
-                    if (item.IsFavorite)
-                        fav.Add(item);
-            return fav;
-        }
+        get => folderManager.Favorites;
         set
         {
+
             OnPropertyChanged("Favorite");
         }
     }
@@ -60,14 +63,9 @@ public class TrayVM : BaseVM
         {
             return commands.GetCommand((obj) =>
             {
+                if (obj == null) return;
                 var item = Favorites.Single(item => item.Path == (string)obj);//obj is path
                 ProcessWorker process = new(item);
-                logger.SetStatusLog(LoggerCode.ProcessStarted, $"process {process.ProcessName} Started");
-                process.SetExitEvent((_obj, e) =>
-                {
-                    logger.SetStatusLog(LoggerCode.ProcessClosed, $"process {process.ProcessName} Closed ");
-                    process.Dispose();
-                });
                 process.RunProcess();
             });
         }

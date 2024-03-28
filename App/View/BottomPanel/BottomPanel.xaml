@@ -5,12 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ALauncher.View"
         mc:Ignorable="d">
-    <Border Background="{StaticResource b3}" CornerRadius="0,0,15,15">
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch ">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Background="{StaticResource b3}">
             <TextBlock Text="{Binding Version}"  Margin="10,0,0,0" VerticalAlignment="Center" Foreground="{StaticResource b4}" />
-            <TextBlock Text="{Binding Status, UpdateSourceTrigger=PropertyChanged}"  VerticalAlignment="Center"  HorizontalAlignment="Right" Margin="10,0,0,0" Foreground="{StaticResource b4}" />
-            
+            <TextBlock Text="{Binding Status, UpdateSourceTrigger=PropertyChanged}"  VerticalAlignment="Center" HorizontalAlignment="Right" Margin="10,0,0,0" Foreground="{StaticResource b4}" />    
         </StackPanel>
-    </Border>
 
 </UserControl>

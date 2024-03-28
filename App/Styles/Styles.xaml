@@ -21,12 +21,8 @@
 		c2.283,0,4.134-1.867,4.133-4.15C45.399,20.425,43.548,18.557,41.267,18.557z</StreamGeometry>
     <StreamGeometry options:Freeze="True" x:Key="DeleteIcon">M 32.5 9 C 28.364 9 25 12.364 25 16.5 L 25 18 L 17 18 C 14.791 18 13 19.791 13 22 C 13 24.209 14.791 26 17 26 L 17.232422 26 L 18.671875 51.916016 C 18.923875 56.449016 22.67875 60 27.21875 60 L 44.78125 60 C 49.32125 60 53.076125 56.449016 53.328125 51.916016 L 54.767578 26 L 55 26 C 57.209 26 59 24.209 59 22 C 59 19.791 57.209 18 55 18 L 47 18 L 47 16.5 C 47 12.364 43.636 9 39.5 9 L 32.5 9 z M 32.5 16 L 39.5 16 C 39.775 16 40 16.224 40 16.5 L 40 18 L 32 18 L 32 16.5 C 32 16.224 32.225 16 32.5 16 z M 36 28 C 37.104 28 38 28.896 38 30 L 38 47.923828 C 38 49.028828 37.104 49.923828 36 49.923828 C 34.896 49.923828 34 49.027828 34 47.923828 L 34 30 C 34 28.896 34.896 28 36 28 z M 27.392578 28.001953 C 28.459578 27.979953 29.421937 28.827641 29.460938 29.931641 L 30.085938 47.931641 
         C 30.123938 49.035641 29.258297 49.959047 28.154297 49.998047 C 28.131297 49.999047 28.108937 50 28.085938 50 C 27.012938 50 26.125891 49.148359 26.087891 48.068359 L 25.462891 30.068359 C 25.424891 28.964359 26.288578 28.040953 27.392578 28.001953 z M 44.607422 28.001953 C 45.711422 28.039953 46.575109 28.964359 46.537109 30.068359 L 45.912109 48.068359 C 45.874109 49.148359 44.986063 50 43.914062 50 C 43.891062 50 43.868703 49.999047 43.845703 49.998047 C 42.741703 49.960047 41.876063 49.035641 41.914062 47.931641 L 42.539062 29.931641 C 42.577062 28.827641 43.518422 27.979953 44.607422 28.001953 z</StreamGeometry>
-    <StreamGeometry options:Freeze="True" x:Key="SettingIcon1">m80.16 29.054-5.958-.709 5.958.71Zm31.68 0-5.958.71 5.958-.71Zm34.217 19.756-2.365-5.515 2.365 5.514Zm10.081 3.352 5.196-3-5.196 3Zm7.896 13.676 5.196-3-5.196 3Zm-2.137 10.407-3.594-4.805 3.594 4.805Zm0 39.51 3.593-4.805-3.593 4.805Zm2.137 10.407 5.196 3-5.196-3Zm-7.896 13.676-5.196-3 5.196 3Zm-10.081 3.353 2.364-5.515-2.364 5.515Zm-34.217 19.755 5.958.709-5.958-.709Zm-31.68 0-5.958.709 5.958-.709Zm-34.217-19.755-2.364-5.515 2.364 5.515Zm-10.08-3.353-5.197 3 5.196-3Zm-7.897-13.676 5.196-3-5.196 3Zm2.137-10.407 3.594 4.805-3.594-4.805Zm0-39.51L26.51 81.05l3.593-4.805Zm-2.137-10.407 5.196 3-5.196-3Zm7.896-13.676-5.196-3 5.196 3Zm10.081-3.352-2.364 5.514 2.364-5.514Zm7.85 3.365-2.365 5.515 2.364-5.515Zm0 87.65 2.364 5.514-2.365-5.514ZM36.235 111.17l-3.594-4.805 3.594 
-        4.805Zm76.823 41.535 5.958.71-5.958-.71Zm39.854-69.742-3.593-4.805 3.593 4.805Zm-16.369-30.074 2.364 5.514-2.364-5.514Zm-23.485-13.594-5.958.709 5.958-.71ZM88.104 16a14 14 0 0 0-13.902 12.345l11.916 1.419A2 2 0 0 1 88.104 28V16Zm15.792 0H88.104v12h15.792V16Zm13.902 12.345A14 14 0 0 0 103.896 16v12a2 2 0 0 1 1.986 1.764l11.916-1.419Zm1.219 10.24-1.219-10.24-11.916 1.419 1.219 10.24 11.916-1.419Zm24.675 4.71-9.513 4.08 4.729 11.028 9.513-4.08-4.729-11.028Zm17.642 5.867a14 14 0 0 0-17.642-5.867l4.729 11.029a2 2 0 0 1 2.521.838l10.392-6Zm7.896 13.676-7.896-13.676-10.392 6 7.896 13.676 10.392-6Zm-3.74 18.212a14 14 0 0 0 3.74-18.212l-10.392 6a2 2 0 0 1-.535 2.602l7.187 9.61Zm-8.984 6.718 8.984-6.718-7.187-9.61-8.983 6.718 7.186 9.61Zm8.984 23.182-8.984-6.718-7.186 9.61 8.983 6.718 7.187-9.61Zm3.74 18.212a14 14 0 0 0-3.74-18.212l-7.187 9.61a2 2 0 0 1 .535 2.602l10.392 6Zm-7.896 13.676 7.896-13.676-10.392-6-7.896 13.676 10.392 6Zm-17.642 5.867a14 14 0 0 0 17.642-5.867l-10.392-6a2.001 2.001 0 0 1-2.521.838l-4.729 11.029Zm-9.513-4.08 9.513 4.08 4.729-11.029-9.512-4.079-4.73 11.028Zm-16.381 19.03 1.219-10.24-11.916-1.419-1.219 10.24 11.916 1.419ZM103.896 176a14 14 0 0 0 13.902-12.345l-11.916-1.419a2 2 0 0 1-1.986 1.764v12Zm-15.792 0h15.792v-12H88.104v12Zm-13.902-12.345A14 14 0 0 0 88.104 176v-12a2 2 0 0 1-1.986-1.764l-11.916 1.419Zm-1.012-8.504 1.012 8.504 11.916-1.419-1.012-8.504-11.916 1.419ZM51.428 134.31l-7.85 3.366 4.73 11.029 7.849-3.366-4.73-11.029Zm-7.85 3.366a2 2 0 0 1-2.52-.838l-10.392 6a14 14 0 0 0 17.642 5.867l-4.73-11.029Zm-2.52-.838-7.896-13.676-10.392 6 7.896 13.676 10.392-6Zm-7.896-13.676a2 2 0 0 1 .535-2.602l-7.187-9.61a14 14 0 0 0-3.74 18.212l10.392-6Zm.535-2.602 6.132-4.585-7.187-9.61-6.132 4.585 7.187 9.61ZM26.51 81.05l6.132 4.586 7.187-9.61-6.132-4.586-7.187 9.61Zm-3.74-18.212a14 14 0 0 0 3.74 18.212l7.187-9.61a2 2 0 0 1-.535-2.602l-10.392-6Zm7.896-13.676L22.77 62.838l10.392 6 7.896-13.676-10.392-6Zm17.642-5.867a14 14 0 0 0-17.642 5.867l10.392 6a2 2 0 0 1 2.52-.838l4.73-11.029Zm7.849 3.366-7.85-3.366-4.729 11.029 7.85 3.366 4.729-11.029Zm18.045-18.316-1.012 8.504 11.916 1.419 1.012-8.504-11.916-1.419Zm-1.754 27.552c6.078-3.426 11.69-9.502 12.658-17.63L73.19 36.85c-.382 3.209-2.769 6.415-6.635 8.595l5.893 10.453Zm-21.02 1.793c7.284 3.124 15.055 1.57 21.02-1.793l-5.893-10.453c-3.704 2.088-7.481 2.468-10.398 1.217l-4.73 11.029ZM49 96c0-7.1-2.548-15.022-9.171-19.975l-7.187 9.61C35.36 87.668 37 91.438 37 96h12Zm23.448 40.103c-5.965-3.363-13.736-4.917-21.02-1.793l4.729 11.029c2.917-1.251 6.694-.871 10.398 1.218l5.893-10.454Zm-32.62-20.128C46.452 111.022 49 103.1 49 96H37c0 4.563-1.64 8.333-4.358 10.365l7.187 9.61Zm78.679 19.575c-5.536 3.298-10.517 8.982-11.406 16.446l11.916 1.419c.329-2.765 2.318-5.582 5.632-7.557l-6.142-10.308Zm20.402-1.953c-7.094-3.042-14.669-1.463-20.402 1.953l6.142 10.308c3.382-2.015 6.872-2.372 9.53-1.233l4.73-11.028Zm-53.803 20.135c-.968-8.127-6.58-14.202-12.658-17.629l-5.893 10.454c3.866 2.179 6.253 5.385 6.635 8.594l11.916-1.419ZM141 96c0 6.389 2.398 13.414 8.32 17.842l7.186-9.61C154.374 102.638 153 99.668 153 96h-12Zm8.32-17.842C143.398 82.586 141 89.61 141 96h12c0-3.668 1.374-6.638 3.506-8.232l-7.186-9.61ZM118.507 56.45c5.733 3.416 13.308 4.995 20.401 1.953l-4.729-11.029c-2.658 1.14-6.148.782-9.53-1.233l-6.142 10.31Zm-11.406-16.446c.889 7.464 5.87 13.148 11.406 16.446l6.142-10.309c-3.314-1.974-5.303-4.79-5.632-7.556l-11.916 1.419Z</StreamGeometry>
-    <StreamGeometry options:Freeze="True" x:Key="SettingIcon2">M96 120c13.255 0 24-10.745 24-24s-10.745-24-24-24-24 10.745-24 24 10.745 24 24 24Z</StreamGeometry>
     <StreamGeometry options:Freeze="True" x:Key="BrowseIcon1">M923.421 501.927c-31.19-83.254-86.289-154.373-159.107-205.71-74.638-52.55-162.384-80.464-254.013-80.464s-179.374 27.792-254.013 80.464c-72.94 51.458-127.917 122.576-159.107 205.71l-3.884 10.194 3.884 10.194c31.19 83.254 86.289 154.373 159.107 205.71 74.638 52.55 162.384 80.464 254.013 80.464s179.374-27.792 254.013-80.464c72.94-51.458 127.917-122.576 159.107-205.71l3.884-10.194-3.884-10.194z m-413.12 248.429c-155.102 0-296.126-95.269-354.623-238.114 58.375-142.965 199.521-238.114 354.623-238.114s296.126 95.269 354.623 238.114c-58.497 142.845-199.643 238.114-354.623 238.114z</StreamGeometry>
     <StreamGeometry options:Freeze="True" x:Key="BrowseIcon2">M510.301 357.99c-84.955 0-154.131 69.177-154.131 154.131s69.177 154.131 154.131 154.131 154.131-69.177 154.131-154.131S595.255 357.99 510.301 357.99z m0 250.008c-52.914 0-95.877-42.962-95.877-95.877s42.962-95.877 95.877-95.877 95.877 42.962 95.877 95.877-43.084 95.877-95.877 95.877z</StreamGeometry>
-    <StreamGeometry options:Freeze="True" x:Key="MinimizeIcon">M7 19h10c.55 0 1 .45 1 1s-.45 1-1 1H7c-.55 0-1-.45-1-1s.45-1 1-1z</StreamGeometry>
     <StreamGeometry options:Freeze="True" x:Key="StarIcon">M10.9788315,0.622701964 L13.2088343,5.0937337 C13.3696541,5.41898806 13.6833886,5.64532516 14.0473153,5.698638 L19.0425214,6.42627649 C19.3361902,6.46746623 19.6010526,6.62197034 19.7785029,6.8556019 C19.9559533,7.08923346 20.0313617,7.38273074 19.9880426,7.671152 C19.9534763,7.91020966 19.8407724,8.13174403 19.6669222,8.30235648 L16.0453978,11.809048 C15.7801525,12.0569606 15.6594885,12.4193205 15.7242774,12.7733882 L16.6162785,17.7090566 C16.7147938,18.2995122 16.3208523,18.8609116 15.7242774,18.9802323 C15.4801297,19.0185775 15.229908,18.9786152 15.0106765,18.8662648 L10.550671,16.5430816 C10.2203789,16.3761286 9.82840179,16.3761286 9.4981097,16.5430816 L5.03810421,18.8662648 C4.48873261,19.1584416 3.80239017,18.9584302 3.50386232,18.4191616 C3.39074686,18.2033073 3.35014981,17.9577724 3.38790218,17.7178233 L4.27990327,12.7821549 C4.34469215,12.4280873 4.22402814,12.0657274 3.95878288,11.8178148 L0.337258419,8.31112321 C0.124797095,8.10519293 0.00518811324,7.82415733 0.00518811324,7.53088433 C0.00518811324,7.23761134 0.124797095,6.95657574 0.337258419,6.75064546 C0.508415451,6.57648914 0.7350439,6.46512211 0.97949921,6.43504322 L5.97470536,5.70740472 C6.33863203,5.65409189 6.65236657,5.42775479 6.81318639,5.10250043 L8.96290904,0.622701964 C9.15090319,0.24057682 9.54799821,0.000936542622 9.97979029,0.00903094105 L10.1135905,0.00903094105 C10.489336,0.0558783885 10.8151899,0.286989836 10.9788315,0.622701964 Z</StreamGeometry>
 <!-- Controls -->
 
@@ -35,7 +31,7 @@
     <Setter Property="Template">
         <Setter.Value>
             <ControlTemplate TargetType="{x:Type ResizeGrip}">
-               <Border CornerRadius="0,0,15,0" HorizontalAlignment="Left" Width="25" Height="25">
+               <Border HorizontalAlignment="Left" Width="25" Height="25">
                 <Border.Background>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                         <GradientStop Color="{StaticResource c3}" Offset="0.3" />
@@ -47,77 +43,6 @@
         </Setter.Value>
     </Setter>
     <Setter Property="Visibility" Value="Hidden"/>
-</Style>
-
-
-<Style x:Key="LeftPanelThumbStyle" TargetType="{x:Type Thumb}">
-    <Setter Property="Template">
-        <Setter.Value>
-            <ControlTemplate TargetType="{x:Type Thumb}">
-                <Border Background="{StaticResource b2}" Width="7" Padding="0" VerticalAlignment="Center">
-                    <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-                        <Ellipse Fill="{StaticResource b3}" Margin="0,1,0,1" Width="5" Height="5" StrokeThickness="0"/>
-                        <Ellipse Fill="{StaticResource b3}" Margin="0,1,0,1" Width="5" Height="5" StrokeThickness="0"/>
-                        <Ellipse Fill="{StaticResource b3}" Margin="0,1,0,1" Width="5" Height="5" StrokeThickness="0"/>
-                    </StackPanel>
-                </Border>
-            </ControlTemplate>
-        </Setter.Value>
-    </Setter>
-</Style>
-
-<Style TargetType="{x:Type CheckBox}" x:Key="StarButton">
-    <Setter Property="Template">
-        <Setter.Value>
-            <ControlTemplate TargetType="{x:Type CheckBox}">
-                <Border Background="Transparent">
-                    <ContentPresenter>
-                        <ContentPresenter.Content>
-                            <Path   x:Name="Star" Width="15" Height="15" Stretch="Fill" StrokeThickness="0"
-                                    Stroke="{StaticResource b4}" Fill="{StaticResource b3}" Data="{StaticResource StarIcon}"/>
-                        </ContentPresenter.Content>
-                    </ContentPresenter>
-                </Border>
-                <ControlTemplate.Triggers>
-                    <Trigger Property="IsMouseOver" Value="True">
-                        <Setter TargetName="Star" Property="StrokeThickness" Value="1" />
-                    </Trigger>
-                    <Trigger Property="IsChecked" Value="True">
-                        <Setter TargetName="Star" Property="Fill" Value="{StaticResource b4}" />
-                    </Trigger>
-                </ControlTemplate.Triggers>
-            </ControlTemplate>
-        </Setter.Value>
-    </Setter>
-</Style>
-
-<Style TargetType="{x:Type view:ItemControl}">
-    <Setter Property="Width" Value="85" />
-    <Setter Property="Height" Value="85" />
-    <Setter Property="Margin" Value="15" />
-    <Setter Property="BorderThickness" Value="0" />
-    <Setter Property="Template">
-        <Setter.Value>
-            <ControlTemplate TargetType="{x:Type view:ItemControl}"> 
-            <Border Name="_Border" Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" Background="Transparent" 
-                    BorderBrush="{StaticResource b4}" BorderThickness="{TemplateBinding BorderThickness}">
-                <Grid>
-                    <CheckBox x:Name="Star" Visibility="Hidden" VerticalAlignment="Top" HorizontalAlignment="Right" 
-                                Style="{StaticResource StarButton}" IsChecked="{TemplateBinding IsFavorite}"/>
-                    <Image Source="{TemplateBinding Icon}" Width="48" Height="48" VerticalAlignment="Top" Margin="0,4,0,0" />
-                    <TextBlock Text="{TemplateBinding AppName}" Margin="0,57,0,0" Foreground="{StaticResource b4}" TextWrapping="WrapWithOverflow"
-                        FontFamily=".\Fonts\Gruppo-Regular.ttf#Gruppo" FontSize="12" TextAlignment="Center" />
-                </Grid>
-            </Border>
-            <ControlTemplate.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="BorderThickness" Value="1" />
-                    <Setter TargetName="Star" Property="Visibility" Value="Visible" />
-                </Trigger>
-            </ControlTemplate.Triggers>
-            </ControlTemplate>
-        </Setter.Value>
-    </Setter>
 </Style>
 
 <Style x:Key="CheckBoxStyle" TargetType="{x:Type CheckBox}">
@@ -316,94 +241,94 @@
 </Style>
 
 
-    <Style x:Key="ComboBoxItemStyle" TargetType="{x:Type ComboBoxItem}">
-        <Setter Property="SnapsToDevicePixels" Value="true"/>
-        <Setter Property="Foreground" Value="{StaticResource b4}"/>
-        <Setter Property="OverridesDefaultStyle" Value="true"/>
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type ComboBoxItem}">
-                    <Border Name="Border" SnapsToDevicePixels="true">
-                        <ContentPresenter Margin="4,0,0,0"/>
-                    </Border>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsHighlighted" Value="true">
-                            <Setter TargetName="Border" Property="Background" Value="{StaticResource b2}"/>
-                        </Trigger>
-                        <Trigger Property="IsEnabled" Value="false">
-                            <Setter Property="Foreground" Value="{StaticResource b1}"/>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
+<Style x:Key="ComboBoxItemStyle" TargetType="{x:Type ComboBoxItem}">
+    <Setter Property="SnapsToDevicePixels" Value="true"/>
+    <Setter Property="Foreground" Value="{StaticResource b4}"/>
+    <Setter Property="OverridesDefaultStyle" Value="true"/>
+    <Setter Property="Template">
+        <Setter.Value>
+            <ControlTemplate TargetType="{x:Type ComboBoxItem}">
+                <Border Name="Border" SnapsToDevicePixels="true">
+                    <ContentPresenter Margin="4,0,0,0"/>
+                </Border>
+                <ControlTemplate.Triggers>
+                    <Trigger Property="IsHighlighted" Value="true">
+                        <Setter TargetName="Border" Property="Background" Value="{StaticResource b2}"/>
+                    </Trigger>
+                    <Trigger Property="IsEnabled" Value="false">
+                        <Setter Property="Foreground" Value="{StaticResource b1}"/>
+                    </Trigger>
+                </ControlTemplate.Triggers>
+            </ControlTemplate>
+        </Setter.Value>
+    </Setter>
+</Style>
 
 
-    <Style x:Key="ScrollThumbs" TargetType="{x:Type Thumb}">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate>
-                    <Border x:Name="Rectangle1" CornerRadius="5" HorizontalAlignment="Stretch" 
-                            VerticalAlignment="Stretch" Width="Auto" Height="Auto" 
-                            Background="{TemplateBinding Background}"/>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-    <Style x:Key="RepeatStyle" TargetType="RepeatButton">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate>
-                    <Border x:Name="Rectangle1" HorizontalAlignment="Stretch" 
-                            VerticalAlignment="Stretch" Width="2" Height="Auto" 
-                            Background="{StaticResource b1}"/>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-    
-    <!--SCROLLBARS-->
-    <Style TargetType="{x:Type ScrollBar}">
-        <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
-        <Setter Property="Orientation" Value="Vertical" />
-        <Setter Property="Foreground" Value="{StaticResource b4}"/>
-        <Setter Property="Background" Value="{StaticResource b3}"/>
-        <Setter Property="Width" Value="10"/>
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type ScrollBar}">
-                    <Grid x:Name="GridRoot" Width="5" Background="{x:Null}">
-                        <Track x:Name="PART_Track" Grid.Row="0" IsDirectionReversed="true" Focusable="False">
-                            <Track.Thumb>
-                                <Thumb x:Name="Thumb" Background="{TemplateBinding Foreground}" 
-                                        Style="{StaticResource ScrollThumbs}"/>
-                            </Track.Thumb>
-                            <Track.IncreaseRepeatButton>
-                                <RepeatButton Style="{StaticResource RepeatStyle}" Command="ScrollBar.PageDownCommand" Focusable="False"/>
-                            </Track.IncreaseRepeatButton>
-                            <Track.DecreaseRepeatButton>
-                                <RepeatButton Style="{StaticResource RepeatStyle}" Command="ScrollBar.PageUpCommand" Focusable="False"/>
-                            </Track.DecreaseRepeatButton>
-                        </Track>
-                    </Grid>
+<Style x:Key="ScrollThumbs" TargetType="{x:Type Thumb}">
+    <Setter Property="Template">
+        <Setter.Value>
+            <ControlTemplate>
+                <Border x:Name="Rectangle1" CornerRadius="5" HorizontalAlignment="Stretch" 
+                        VerticalAlignment="Stretch" Width="Auto" Height="Auto" 
+                        Background="{TemplateBinding Background}"/>
+            </ControlTemplate>
+        </Setter.Value>
+    </Setter>
+</Style>
+<Style x:Key="RepeatStyle" TargetType="RepeatButton">
+    <Setter Property="Template">
+        <Setter.Value>
+            <ControlTemplate>
+                <Border x:Name="Rectangle1" HorizontalAlignment="Stretch" 
+                        VerticalAlignment="Stretch" Width="2" Height="Auto" 
+                        Background="{StaticResource b1}"/>
+            </ControlTemplate>
+        </Setter.Value>
+    </Setter>
+</Style>
 
-                    <ControlTemplate.Triggers>
-                        <Trigger SourceName="Thumb" Property="IsMouseOver" Value="true">
-                            <Setter Value="{StaticResource b3}" 
-                                    TargetName="Thumb" Property="Background"/>
-                        </Trigger>
-                        <Trigger SourceName="Thumb" Property="IsDragging" Value="true">
-                            <Setter Value="{StaticResource b2}" TargetName="Thumb" Property="Background"/>
-                        </Trigger>
+<!--SCROLLBARS-->
+<Style TargetType="{x:Type ScrollBar}">
+    <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+    <Setter Property="Orientation" Value="Vertical" />
+    <Setter Property="Foreground" Value="{StaticResource b4}"/>
+    <Setter Property="Background" Value="{StaticResource b3}"/>
+    <Setter Property="Width" Value="10"/>
+    <Setter Property="Template">
+        <Setter.Value>
+            <ControlTemplate TargetType="{x:Type ScrollBar}">
+                <Grid x:Name="GridRoot" Width="5" Background="{x:Null}">
+                    <Track x:Name="PART_Track" Grid.Row="0" IsDirectionReversed="true" Focusable="False">
+                        <Track.Thumb>
+                            <Thumb x:Name="Thumb" Background="{TemplateBinding Foreground}" 
+                                    Style="{StaticResource ScrollThumbs}"/>
+                        </Track.Thumb>
+                        <Track.IncreaseRepeatButton>
+                            <RepeatButton Style="{StaticResource RepeatStyle}" Command="ScrollBar.PageDownCommand" Focusable="False"/>
+                        </Track.IncreaseRepeatButton>
+                        <Track.DecreaseRepeatButton>
+                            <RepeatButton Style="{StaticResource RepeatStyle}" Command="ScrollBar.PageUpCommand" Focusable="False"/>
+                        </Track.DecreaseRepeatButton>
+                    </Track>
+                </Grid>
 
-                        <Trigger Property="IsEnabled" Value="false">
-                            <Setter TargetName="Thumb" Property="Visibility" Value="Collapsed"/>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
+                <ControlTemplate.Triggers>
+                    <Trigger SourceName="Thumb" Property="IsMouseOver" Value="true">
+                        <Setter Value="{StaticResource b3}" 
+                                TargetName="Thumb" Property="Background"/>
+                    </Trigger>
+                    <Trigger SourceName="Thumb" Property="IsDragging" Value="true">
+                        <Setter Value="{StaticResource b2}" TargetName="Thumb" Property="Background"/>
+                    </Trigger>
+
+                    <Trigger Property="IsEnabled" Value="false">
+                        <Setter TargetName="Thumb" Property="Visibility" Value="Collapsed"/>
+                    </Trigger>
+                </ControlTemplate.Triggers>
+            </ControlTemplate>
+        </Setter.Value>
+    </Setter>
+</Style>
 
 </ResourceDictionary>
