@@ -66,7 +66,6 @@ public sealed class ControlPanelVM : BaseVM, IDisposable
         {
             return commandWrapper.GetCommand((obj) =>
             {
-                packManager.SerializeIcons((FolderConfig)folderManager.GetConfig).ConfigureAwait(false);
                 var settingsWindow = new SettingsWindow()
                 {
                     DataContext = settingsVM
@@ -131,6 +130,7 @@ public sealed class ControlPanelVM : BaseVM, IDisposable
 
     public void Dispose()
     {
+        packManager.SerializeIcons((FolderConfig)folderManager.GetConfig).ConfigureAwait(false);
         logger.StatusChanged -= UpdateByStatus;
     }
 
