@@ -1,0 +1,43 @@
+﻿<Window x:Class="ALauncher.WPF.Controls.MainWindow.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:bp="clr-namespace:ALauncher.WPF.Controls.BottomPanel"
+        xmlns:sp="clr-namespace:ALauncher.WPF.Controls.SidePanel"
+        xmlns:h="clr-namespace:ALauncher.WPF.Controls.Header"
+        mc:Ignorable="d"
+        AllowsTransparency="True"
+        Background="Transparent"
+        WindowStyle="None"
+        Title="ALauncher" 
+        ResizeMode="CanResizeWithGrip">
+    <Window.Resources>
+        <Style x:Key="LeftPanelThumbStyle" TargetType="{x:Type Thumb}">
+            <Setter Property="Width" Value="5" />
+            <Setter Property="Height" Value="{Binding Source={x:Reference Name=leftpanel}, Path=ActualHeight}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Thumb}">
+                        <Border Name="_Border" Background="Transparent" BorderBrush="{StaticResource b4}" Height="{TemplateBinding Height}"
+                                VerticalAlignment="Stretch" BorderThickness="0" Width="{TemplateBinding Width}"/>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="_Border" Property="BorderThickness" Value="1,0,0,0"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <DockPanel LastChildFill="True" x:Name="dockpanel">
+        <bp:BottomPanel DockPanel.Dock="Bottom" Height="25" DataContext="{Binding BPVM}"/>
+        <sp:SidePanel x:Name="leftpanel" DataContext="{Binding CPVM}" Width="200" DockPanel.Dock="Left"/>
+        <h:Header DockPanel.Dock="Top" DataContext="{Binding HeaderVM}" />
+        <Frame Source="{Binding PageUri}" NavigationUIVisibility="Hidden"/>
+    </DockPanel>
+</Window>
+
+
